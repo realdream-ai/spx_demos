@@ -1,0 +1,35 @@
+var (
+	Logo     Logo
+	GameOver GameOver
+	Reset    Reset
+	Ground   Ground
+	Calf     Calf
+	Pipe     Pipe
+	Start    Start
+	TapInfo  TapInfo
+
+	mdie   Sound
+	mwing  Sound
+	mhit   Sound
+	mpoint Sound
+
+	userScore int
+)
+
+const (
+	gameScrollX    = -3.5
+	gameScrollTime = 0.05
+)
+
+var (
+	calfPlay    = false
+	calfDie     = false
+	calfGravity = 0.0
+)
+
+func reset() {
+	userScore = 0
+	calfPlay = false
+	calfDie = false
+	calfGravity = 0.0
+}

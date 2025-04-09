@@ -1,0 +1,31 @@
+onStart => {
+	setXYpos -204, 145
+	for {
+		if touching("Maze") {
+			play mhit
+			setXYpos -204, 145
+		}
+		if touching("Red") {
+			say "You win"
+			wait 3
+			exit -1
+		}
+		wait 0.03
+	}
+}
+
+onKey KeyUp, => {
+	changeYpos 3
+}
+
+onKey KeyDown, => {
+	changeYpos -3
+}
+
+onKey KeyLeft, => {
+	changeXpos -3
+}
+
+onKey KeyRight, => {
+	changeXpos 3
+}

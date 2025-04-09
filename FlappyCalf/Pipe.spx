@@ -1,0 +1,37 @@
+onMsg "tap", => {
+	wait 1.5
+	for !calfDie {
+		clone
+		wait 2.8
+	}
+}
+
+onCloned => {
+	setCostume rand(0, 4)
+	setXYpos 250, 17
+	show
+	for xpos >= -250 {
+		changeXpos gameScrollX
+		wait gameScrollTime
+	}
+	die
+}
+
+onCloned => {
+	for {
+		if xpos < -80.0 && calfPlay == true {
+			userScore++
+			play mpoint, true
+			break
+		}
+		wait 0.03
+	}
+}
+
+onMsg "game over", => {
+	stop OtherScriptsInSprite
+}
+
+onMsg "menu", => {
+	deleteThisClone
+}

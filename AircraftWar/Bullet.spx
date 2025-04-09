@@ -1,0 +1,24 @@
+onTouchStart dstSp => {
+	if(dstSp.name != "MyAircraft" && dstSp.name != "Backdrop" && dstSp.name != "Bullet"){
+		destroy
+	}
+}
+
+onCloned => {
+	setXYpos MyAircraft.xpos, MyAircraft.ypos+5
+	show
+	for {
+		step 10
+		wait 0.04
+		if touching(Edge) {
+			destroy
+		}
+	}
+}
+
+onMsg msgGameOver, => {
+	stop OtherScriptsInSprite
+}
+onMsg msgYouWin, => {
+	stop OtherScriptsInSprite
+}
