@@ -1,0 +1,11 @@
+onClick => {
+	// Handle click on transparent areas of cubes
+	// TODO: is there any better way?
+
+	println("on board click")
+	row, col := getRowCol(mouseX, mouseY)
+	cube := cubes[row][col]
+	if cube != nil {
+		onCubeClick cube
+	}
+}

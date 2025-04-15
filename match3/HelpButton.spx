@@ -1,0 +1,5 @@
+onClick => {
+	hide
+	wait 0.3
+	showSolution
+}

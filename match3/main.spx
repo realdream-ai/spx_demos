@@ -1,0 +1,413 @@
+import "strconv"
+import "math"
+
+type CubeInits struct {
+	row     int
+	col     int
+	costume string
+}
+
+type Solution struct {
+	fromRow int
+	fromCol int
+	toRow   int
+	toCol   int
+}
+
+const GRID_SIZE = 36       // scale: 48%
+const BOARD_ROW_NUM = 8    // max: 8
+const BOARD_COL_NUM = 8    // max: 8
+const CUBE_COSTUME_NUM = 8 // max: 21
+const ROUND_TIME = 20      // s
+const REMIND_TIME = 18     // s
+
+var (
+	score     int
+	roundTime int
+
+	protoCube      *Cube
+	selectedCube   *Cube
+	selectedBorder *SelectedBorder
+	cubes          [BOARD_ROW_NUM][BOARD_COL_NUM]*Cube
+	interactive    bool
+	inRound        bool
+	solutions      []*Solution
+)
+
+func getPos(row, col int) (x, y float64) {
+	x = GRID_SIZE * (float64(col) - BOARD_COL_NUM/2 + 0.5)
+	y = GRID_SIZE * (BOARD_ROW_NUM/2 - float64(row) - 0.5)
+	return
+}
+
+func getRowCol(x, y float64) (row, col int) {
+	col = int(math.floor(x/GRID_SIZE + BOARD_COL_NUM/2))
+	row = int(math.floor(BOARD_COL_NUM/2 - (y / GRID_SIZE)))
+	return
+}
+
+func isCubesSame(from, to *Cube) bool {
+	if from == nil || to == nil {
+		return false
+	}
+	return from.costumeName == to.costumeName
+}
+
+func isSame(fromRow, fromCol, toRow, toCol int) bool {
+	if fromRow < 0 || fromRow > (BOARD_ROW_NUM-1) ||
+		fromCol < 0 || fromCol > (BOARD_COL_NUM-1) ||
+		toRow < 0 || toRow > (BOARD_ROW_NUM-1) ||
+		toCol < 0 || toCol > (BOARD_COL_NUM-1) {
+		return false
+	}
+	return isCubesSame(cubes[fromRow][fromCol], cubes[toRow][toCol])
+}
+
+func makeCube(row, col int) {
+	costume := strconv.itoa(int(rand(1, CUBE_COSTUME_NUM)))
+	protoCube.clone(CubeInits{row, col, costume})
+}
+
+func initBoard() {
+	for row <- 0:BOARD_ROW_NUM {
+		for col <- 0:BOARD_COL_NUM {
+			makeCube row, col
+		}
+	}
+	wait 0.3
+}
+
+func adjoin(from, to *Cube) bool {
+	if from.row == to.row {
+		if from.col == (to.col-1) || from.col == (to.col+1) {
+			return true
+		}
+	}
+	if from.col == to.col {
+		if from.row == (to.row-1) || from.row == (to.row+1) {
+			return true
+		}
+	}
+	return false
+}
+
+func setSelected(cube *Cube) {
+	selectedCube = cube
+	selectedBorder.setRowCol selectedCube.row, selectedCube.col
+	selectedBorder.show
+}
+
+func clearSelected() {
+	selectedCube = nil
+	selectedBorder.hide
+}
+
+func doExchange(sourceCube, targetCube *Cube) {
+	sourceRow, sourceCol := sourceCube.row, sourceCube.col
+	targetRow, targetCol := targetCube.row, targetCube.col
+	sourceCube.setRowCol targetRow, targetCol, false
+	targetCube.setRowCol sourceRow, sourceCol, false
+	hasMatched := checkBoard(false)
+	if !hasMatched {
+		sourceCube.setRowCol sourceRow, sourceCol, false
+		targetCube.setRowCol targetRow, targetCol, false
+	}
+}
+
+func onCubeClick(cube *Cube) {
+	if !interactive {
+		return
+	}
+	interactive = false
+	defer func() {
+		interactive = true
+	}()
+	if selectedCube == nil {
+		setSelected cube
+		return
+	}
+	if selectedCube == cube {
+		clearSelected
+		return
+	}
+	if !adjoin(selectedCube, cube) {
+		setSelected cube
+		return
+	}
+	if isCubesSame(cube, selectedCube) {
+		setSelected cube
+		return
+	}
+	sourceCube := selectedCube
+	clearSelected
+	doExchange sourceCube, cube
+}
+
+func findMatch(start *Cube, matched map[*Cube]bool) {
+	xLen, yLen := 1, 1
+	for col <- start.col + 1:BOARD_COL_NUM {
+		c := cubes[start.row][col]
+		if !isCubesSame(c, start) {
+			break
+		}
+		xLen++
+	}
+	for row <- start.row + 1:BOARD_ROW_NUM {
+		c := cubes[row][start.col]
+		if !isCubesSame(c, start) {
+			break
+		}
+		yLen++
+	}
+	if xLen >= 3 {
+		for i <- :xLen {
+			c := cubes[start.row][start.col+i]
+			matched[c] = true
+		}
+	}
+	if yLen >= 3 {
+		for i <- :yLen {
+			c := cubes[start.row+i][start.col]
+			matched[c] = true
+		}
+	}
+}
+
+func increaseScore(matchedNum int) {
+	toIncrease := 2 + (matchedNum-2)*(matchedNum-2)
+	score += toIncrease
+}
+
+func removeCube(row, col int) {
+	cube := cubes[row][col]
+	cubes[row][col] = nil
+	if cube != nil {
+		broadcast "remove", cube, false
+	}
+}
+
+func clearMatched(matched map[*Cube]bool, quiet bool) {
+	if !quiet {
+		play "explosion"
+
+		for size := 0.48; size >= 0; size -= 0.1 {
+			for cube, _ := range matched {
+				cube.setSize size
+			}
+			wait 0.05
+		}
+	}
+
+	for cube, _ := range matched {
+		removeCube cube.row, cube.col
+	}
+
+	if !quiet {
+		wait 0.2
+	}
+
+	for row := BOARD_ROW_NUM - 1; row >= 0; row-- {
+		for col := BOARD_COL_NUM - 1; col >= 0; col-- {
+			cube := cubes[row][col]
+			if cube != nil {
+				continue
+			}
+			var backup *Cube = nil
+			for r := row - 1; r >= 0; r-- {
+				if cubes[r][col] != nil {
+					backup = cubes[r][col]
+					break
+				}
+			}
+			if backup != nil {
+				cubes[backup.row][backup.col] = nil
+				backup.setRowCol row, col, quiet
+			} else {
+				makeCube row, col
+			}
+		}
+	}
+	wait 0.3
+}
+
+func checkBoard(quiet bool) bool {
+	interactive = false
+	matched := make(map[*Cube]bool)
+	for row <- 0:BOARD_ROW_NUM {
+		for col <- 0:BOARD_COL_NUM {
+			cube := cubes[row][col]
+			findMatch cube, matched
+		}
+	}
+	if len(matched) > 0 {
+		endRound
+		clearMatched matched, quiet
+		increaseScore len(matched)
+		checkBoard quiet
+		ensureSolutions
+		startRound
+		return true
+	} else {
+		interactive = true
+		return false
+	}
+}
+
+func startRound() {
+	roundTime = ROUND_TIME
+	inRound = true
+}
+
+func endRound() {
+	roundTime = ROUND_TIME
+	inRound = false
+	play "tick", &PlayOptions{
+		Action: PlayStop,
+	}
+}
+
+func clearBoard() {
+	for row <- 0:BOARD_ROW_NUM {
+		for col <- 0:BOARD_COL_NUM {
+			removeCube row, col
+		}
+	}
+}
+
+// if there's solution in row with given center
+func hasRowSolution(row, col int) *Solution {
+	if col == 0 || col == (BOARD_COL_NUM-1) {
+		return nil
+	}
+	if isSame(row, col-1, row, col+1) {
+		if isSame(row, col-1, row-1, col) {
+			return &Solution{row, col, row - 1, col}
+		}
+		if isSame(row, col-1, row+1, col) {
+			return &Solution{row, col, row + 1, col}
+		}
+	}
+	if isSame(row, col-1, row, col) {
+		if isSame(row, col-1, row+1, col+1) {
+			return &Solution{row, col + 1, row + 1, col + 1}
+		}
+		if isSame(row, col-1, row, col+2) {
+			return &Solution{row, col + 1, row, col + 2}
+		}
+		if isSame(row, col-1, row-1, col+1) {
+			return &Solution{row, col + 1, row - 1, col + 1}
+		}
+	}
+	if isSame(row, col+1, row, col) {
+		if isSame(row, col+1, row+1, col-1) {
+			return &Solution{row, col - 1, row + 1, col - 1}
+		}
+		if isSame(row, col+1, row, col-2) {
+			return &Solution{row, col - 1, row, col - 2}
+		}
+		if isSame(row, col+1, row-1, col-1) {
+			return &Solution{row, col - 1, row - 1, col - 1}
+		}
+	}
+	return nil
+}
+
+// if there's solution in column with given center
+func hasColSolution(row, col int) *Solution {
+	if row == 0 || row == (BOARD_ROW_NUM-1) {
+		return nil
+	}
+	if isSame(row-1, col, row+1, col) {
+		if isSame(row-1, col, row, col-1) {
+			return &Solution{row, col, row, col - 1}
+		}
+		if isSame(row-1, col, row, col+1) {
+			return &Solution{row, col, row, col + 1}
+		}
+	}
+	if isSame(row-1, col, row, col) {
+		if isSame(row-1, col, row+1, col+1) {
+			return &Solution{row + 1, col, row + 1, col + 1}
+		}
+		if isSame(row-1, col, row+2, col) {
+			return &Solution{row + 1, col, row + 2, col}
+		}
+		if isSame(row-1, col, row+1, col-1) {
+			return &Solution{row + 1, col, row + 1, col - 1}
+		}
+	}
+	if isSame(row+1, col, row, col) {
+		if isSame(row+1, col, row-1, col+1) {
+			return &Solution{row - 1, col, row - 1, col + 1}
+		}
+		if isSame(row+1, col, row-2, col) {
+			return &Solution{row - 1, col, row - 2, col}
+		}
+		if isSame(row+1, col, row-1, col-1) {
+			return &Solution{row - 1, col, row - 1, col - 1}
+		}
+	}
+	return nil
+}
+
+func ensureSolutions() {
+	solutions = []*Solution{}
+	for row <- 0:BOARD_ROW_NUM {
+		for col <- 0:BOARD_COL_NUM {
+			if s := hasRowSolution(row, col); s != nil {
+				solutions = append(solutions, s)
+			}
+			if s := hasColSolution(row, col); s != nil {
+				solutions = append(solutions, s)
+			}
+		}
+	}
+	if len(solutions) == 0 {
+		clearBoard
+		initBoard
+		checkBoard true
+		ensureSolutions
+	}
+}
+
+func showSolution() {
+	solution := solutions[0]
+	fromCube := cubes[solution.fromRow][solution.fromCol]
+	toCube := cubes[solution.toRow][solution.toCol]
+	broadcast "flash", fromCube, false
+	broadcast "flash", toCube, false
+}
+
+onClick => {
+	clearBoard
+	initBoard
+	checkBoard true
+	ensureSolutions
+}
+
+onStart => {
+	for {
+		if !inRound {
+			wait 0.1
+			continue
+		}
+		wait 1
+		roundTime--
+		if roundTime <= 0 {
+			broadcast "lost"
+		}
+		if roundTime == REMIND_TIME {
+			play "tick", &PlayOptions{
+				Loop: true,
+			}
+		}
+	}
+}
+
+onStart => {
+	initBoard
+	checkBoard true
+	ensureSolutions
+	score = 0
+	startRound
+}

@@ -1,0 +1,7 @@
+onMsg "lost", => {
+	setCostume "lost"
+	gotoFront
+	show
+	wait 1
+	exit
+}

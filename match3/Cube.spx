@@ -1,0 +1,52 @@
+var (
+	row int
+	col int
+)
+
+func setRowCol(r, c int, quiet bool) {
+	cubes[r][c] = this
+	row = r
+	col = c
+	x, y := getPos(r, c)
+	if quiet {
+		setXYpos x, y
+	} else {
+		// setXYpos x, y
+		// TODO: fix glide & use glide instead of setXYPos
+		// TODO: glide(animate) without waiting
+		glide x, y, 0.1
+	}
+}
+
+onCloned data => {
+	inits := data.(CubeInits)
+	setCostume inits.costume
+	x, y := getPos(inits.row-1, inits.col)
+	setXYpos x, y
+	show
+	setRowCol(inits.row, inits.col, false)
+}
+
+onClick => {
+	onCubeClick this
+}
+
+onMsg (message, data) => {
+	if message == "remove" && data == this {
+		hide
+		// problem here if we do `die` instantly
+		wait 2
+		die
+	}
+	if message == "flash" && data == this {
+		gotoFront
+		// TODO: size change animation
+		setSize 0.54
+		wait 0.3
+		setSize 0.48
+	}
+}
+
+onStart => {
+	protoCube = this
+}

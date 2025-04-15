@@ -1,0 +1,71 @@
+{
+    "backdrops": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "bg",
+            "path": "bg.png",
+            "builder_id": "rVCf8EUxT2vAfetRoBE2E"
+        }
+    ],
+    "backdropIndex": 0,
+    "map": {
+        "width": 480,
+        "height": 360,
+        "mode": "fillRatio"
+    },
+    "run": {
+        "width": 480,
+        "height": 360
+    },
+    "zorder": [
+        "Board",
+        "SelectedBorder",
+        "Cube",
+        "WinLost",
+        "HelpButton",
+        "Buttons",
+        {
+            "type": "monitor",
+            "name": "monitor",
+            "x": 142,
+            "y": 170,
+            "size": 1,
+            "visible": true,
+            "builder_id": "6hJqX-UY_4yLl8AuzK4tA",
+            "label": "Score",
+            "val": "getVar:score",
+            "mode": 1,
+            "target": ""
+        },
+        {
+            "type": "monitor",
+            "name": "monitor2",
+            "x": -230,
+            "y": 170,
+            "size": 1,
+            "visible": true,
+            "builder_id": "FapQNbh0Xgg12bqcTcH8x",
+            "label": "Time",
+            "val": "getVar:roundTime",
+            "mode": 1,
+            "target": ""
+        }
+    ],
+    "windowScale":2,
+    "builder_spriteOrder": [
+        "fy-GodBRr3VzWKFtmcnPJ",
+        "--6C27P-DcpBzqg6FoW6n",
+        "mhN2R-dH1NwzYV3A1o6HU",
+        "-v3ZQjRFMC56EXgCKnFeC",
+        "cAB-ttsDWen41C0xhcuWk",
+        "fgTQkUgB9IeLTlXoyzM9q"
+    ],
+    "builder_soundOrder": [
+        "1hOUklGDI2j1_4M_B36jp",
+        "vkdhRWJl9hqnWlvUIl7Ke",
+        "GoqJ-a4x6VldD9gcNxOJH"
+    ]
+}

@@ -1,0 +1,8 @@
+func setRowCol(r, c int) {
+	x, y := getPos(r, c)
+	setXYpos x, y
+}
+
+onStart => {
+	selectedBorder = this
+}
