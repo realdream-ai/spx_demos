@@ -3,5 +3,4 @@ onMsg "lost", => {
 	gotoFront
 	show
 	wait 1
-	exit
 }

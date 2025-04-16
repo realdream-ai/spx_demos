@@ -412,3 +412,10 @@ onStart => {
 	score = 0
 	startRound
 }
+
+
+onMsg (message, data) => {
+	if message == "onCubeWasClick"  {
+		onCubeClick data.(*Cube)
+	}
+}

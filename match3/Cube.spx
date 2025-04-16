@@ -28,7 +28,8 @@ onCloned data => {
 }
 
 onClick => {
-	onCubeClick this
+	//onCubeClick this
+	broadcast "onCubeWasClick", this, false
 }
 
 onMsg (message, data) => {
