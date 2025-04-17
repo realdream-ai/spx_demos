@@ -1,1 +1,38 @@
-{"heading":90,"x":219,"y":-157,"size":0.5,"rotationStyle":"normal","costumeIndex":1,"visible":true,"isDraggable":false,"pivot":{"x":31.25,"y":-31.25},"costumes":[{"x":0,"y":0,"faceRight":0,"bitmapResolution":2,"name":"mute","path":"mute.png","builder_id":"qDpkXdpZBipBHoMTYcZ0r"},{"x":0,"y":0,"faceRight":0,"bitmapResolution":2,"name":"music","path":"music.png","builder_id":"obCpYDMsDVuSmDu8Vl_a0"}],"fAnimations":{},"animBindings":{},"builder_id":"--6C27P-DcpBzqg6FoW6n"}
+{
+    "heading": 90,
+    "x": 219,
+    "y": -157,
+    "size": 0.5,
+    "rotationStyle": "normal",
+    "costumeIndex": 1,
+    "visible": true,
+    "isDraggable": false,
+    "pivot": {
+        "x": 31.25,
+        "y": -31.25
+    },
+    "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "mute",
+            "path": "mute.png",
+            "builder_id": "qDpkXdpZBipBHoMTYcZ0r"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "music",
+            "path": "music.png",
+            "builder_id": "obCpYDMsDVuSmDu8Vl_a0"
+        }
+    ],
+    "triggerType": "none",
+    "fAnimations": {},
+    "animBindings": {},
+    "builder_id": "--6C27P-DcpBzqg6FoW6n"
+}
