@@ -27,7 +27,10 @@ onCloned data => {
 	setRowCol(inits.row, inits.col, false)
 }
 
-onClick => {
+onClick => {	
+	if !isPlaying {
+		return 
+	}
 	//onCubeClick this
 	broadcast "onCubeWasClick", this, false
 }

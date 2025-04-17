@@ -18,6 +18,10 @@ func stopMusic() {
 	}
 }
 
+onStart => {
+	playMusic
+}
+
 onClick => {
 	if music {
 		stopMusic

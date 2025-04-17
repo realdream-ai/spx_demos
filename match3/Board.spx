@@ -1,5 +1,0 @@
-onClick => {
-	// Handle click on transparent areas of cubes
-	// TODO: is there any better way?
-
-}

@@ -1,0 +1,24 @@
+onMsg "lost", => {
+	setCostume "lost"
+	gotoFront
+	show
+}
+
+onStart => {
+	for {
+		if touching(Mouse) {
+			setYpos -80
+		} else {
+			setYpos -85
+		}
+		wait 0.1
+	}
+}
+
+onClick => {	
+	if isPlaying {
+		return 
+	}
+	hide
+	broadcast "restartGame", this, false
+}

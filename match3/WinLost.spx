@@ -2,5 +2,7 @@ onMsg "lost", => {
 	setCostume "lost"
 	gotoFront
 	show
-	wait 1
+}
+onMsg "restartGame", => {
+	hide
 }

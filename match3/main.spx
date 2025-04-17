@@ -32,6 +32,7 @@ var (
 	interactive    bool
 	inRound        bool
 	solutions      []*Solution
+	isPlaying      bool
 )
 
 func getPos(row, col int) (x, y float64) {
@@ -378,24 +379,50 @@ func showSolution() {
 	broadcast "flash", toCube, false
 }
 
-onClick => {
-	return 
+func resetGame(){
+	isPlaying = true
 	clearBoard
 	initBoard
 	checkBoard true
 	ensureSolutions
+	score = 0
+	startRound
 }
+func gameLost(){
+	isPlaying = false
+	play "tick", &PlayOptions{
+		Action: PlayStop,
+	}
+	broadcast "lost"
+}
+
+onClick => {	
+	if !isPlaying {
+		return 
+	}
+	row, col := getRowCol(mouseX, mouseY)
+	if row < 0 || row > (BOARD_ROW_NUM-1) ||
+		col < 0 || col > (BOARD_COL_NUM-1) {
+		return
+	}
+	cube := cubes[row][col]
+	if cube != nil {
+		onCubeClick cube
+	}
+}
+
+
 
 onStart => {
 	for {
-		if !inRound {
+		if !inRound || !isPlaying {
 			wait 0.1
 			continue
 		}
 		wait 1
 		roundTime--
 		if roundTime <= 0 {
-			broadcast "lost"
+			gameLost()
 		}
 		if roundTime == REMIND_TIME {
 			play "tick", &PlayOptions{
@@ -406,16 +433,17 @@ onStart => {
 }
 
 onStart => {
-	initBoard
-	checkBoard true
-	ensureSolutions
-	score = 0
-	startRound
+	resetGame 
 }
+
 
 
 onMsg (message, data) => {
 	if message == "onCubeWasClick"  {
 		onCubeClick data.(*Cube)
+	}
+
+	if message == "restartGame" {
+		resetGame
 	}
 }
