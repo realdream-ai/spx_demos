@@ -46,9 +46,12 @@
   "costumeIndex": 0,
   "fAnimations": {
     "die": {
-      "duration": 0.25,
-      "from": "die-0",
-      "to": "die-4"
+      "onStart":{
+        "play": "explode"
+      },
+      "frameFps": 20,
+      "frameFrom": "die-0",
+      "frameTo": "die-4"
     }
   },
   "heading": 90,

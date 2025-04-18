@@ -1,5 +1,4 @@
 onClick => {
 	hide
-	println "aaaa"
 	broadcast msgBattle
 }
