@@ -8,6 +8,8 @@
       "y": 360
     }
   ],
+  "collisionByShape": true,
+  "debug": false,
   "zorder": [
     "Backdrop",
     "TextIntro",
