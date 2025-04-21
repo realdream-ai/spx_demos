@@ -1,0 +1,35 @@
+onStart => {
+	setCostume "造型1"
+	setRotationStyle LeftRight
+	for {
+		if keyPressed(KeySpace) {
+			setCostume "造型3"
+			play "recording1"
+			wait 0.3
+			setCostume "造型1"
+		}
+		if keyPressed(KeyA) {
+			setCostume "造型2"
+			play "recording2"
+			wait 0.3
+			setCostume "造型1"
+		}
+		if keyPressed(KeyUp) {
+			setHeading 0
+			step 10
+		}
+		if keyPressed(KeyDown) {
+			setHeading 180
+			step 10
+		}
+		if keyPressed(KeyRight) {
+			setHeading 90
+			step 10
+		}
+		if keyPressed(KeyLeft) {
+			setHeading -90
+			step 10
+		}
+		wait 0.1
+	}
+}

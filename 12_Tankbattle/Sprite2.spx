@@ -1,0 +1,35 @@
+func forward(stepLong float64, key Key) {
+	for keyPressed(key) {
+		if key == KeyLeft {
+			setXpos(xpos - stepLong)
+		} else if key == KeyRight {
+			setXpos(xpos + stepLong)
+		}
+		wait 0.01
+	}
+}
+
+onStart => {
+	setXYpos rand(-190.0, 200.0), -135.0
+	show
+}
+
+onKey KeyLeft, => {
+	forward(2, KeyLeft)
+}
+
+onKey KeyRight, => {
+	forward(2, KeyRight)
+}
+
+onKey KeyUp, => {
+	broadcast fireMsg, false
+}
+
+onMsg failMsg, => {
+	die
+}
+
+onMsg timeoutMsg, => {
+	die
+}

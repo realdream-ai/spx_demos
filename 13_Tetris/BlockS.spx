@@ -1,0 +1,117 @@
+onMsg "start", => {
+	hide
+	reset()
+	for {
+		if !scroll {
+			fillBlock = true
+			for i := 0; i < 20; i++ {
+				for j := 0; j < 10; j++ {
+					if grid[i][j] && !grided[i][j] {
+						a := struct {
+							x int
+							y int
+						}{
+							x: j,
+							y: i,
+						}
+						print i, j
+						clone a
+					}
+				}
+			}
+
+			for i := 0; i < 20; i++ {
+				if activeClean(i) {
+					cleaning = true
+					clean[i] = true
+				}
+			}
+
+			if cleaning {
+				minline := 0
+				maxline := 0
+				cleannum := 0
+				for i := 0; i < 20; i++ {
+					if clean[i] {
+						cleannum++
+						score++
+						if i <= minline {
+							minline = i
+						}
+						if i >= maxline {
+							maxline = i
+						}
+					}
+				}
+
+				for i := minline; i < 20; i++ {
+					yoff, ok := lineyoffchange(i)
+					for j := 0; j < 10; j++ {
+						if ok {
+							fillv(j, i, gridv(j, yoff))
+						} else {
+							fillv(j, i, false)
+						}
+					}
+				}
+
+				for i := minline; i < 20; i++ {
+					for j := 0; j < 10; j++ {
+						if grid[i][j] && !grided[i][j] {
+							a := struct {
+								x int
+								y int
+							}{
+								x: j,
+								y: i,
+							}
+							clone a
+						}
+					}
+				}
+
+				speed = initSpeed + float64(score/10)
+				if speed > maxSpeed {
+					speed = maxSpeed
+				}
+
+				clean = make([]bool, 20)
+				cleaning = false
+			}
+			fillBlock = false
+		}
+
+		wait 0.033
+	}
+}
+
+onCloned data => {
+	pos := data.(struct {
+		x int // line
+		y int // lie
+	})
+
+	posx := pos.x
+	posy := pos.y
+
+	grided[posy][posx] = true
+
+	x := -76 + int(float64(posx)*blockSize)
+	y := -160 + int(float64(posy)*blockSize)
+
+	setXYpos float64(x), float64(y)
+	show
+	for {
+		if scroll {
+			wait 0.1
+			continue
+		}
+
+		if grid[posy][posx] {
+			show
+		} else {
+			hide
+		}
+		wait 0.1
+	}
+}

@@ -1,0 +1,110 @@
+const (
+	divNum  float64 = 10
+	forRate float64 = 0.01
+)
+
+var (
+	customeNames []string
+	costumeIndex int
+	xRate, yRate float64
+	angle        float64
+	delta        float64
+	edgeTop      float64
+	edgeBottom   float64
+	costumeSize  float64
+)
+
+func moveToY(y float64) {
+	var x float64 = randX()
+	setXYpos x, y
+}
+
+func genXRate() float64 {
+	return -1 * xpos / 50 / divNum
+}
+
+func genYRate() float64 {
+	return rand(60, 80) / divNum
+}
+
+func genAngle() float64 {
+	return rand(-5, 5) / divNum
+}
+
+func genDelta() float64 {
+	return rand(0.5, 0.8) / divNum
+}
+
+func genCostumeNme() string {
+	costumeIndex = intRand(0, len(customeNames)-1)
+	return customeNames[costumeIndex]
+}
+
+func isStone() bool {
+	return customeNames[costumeIndex] == "rocks2"
+}
+
+func reset() {
+	costumeSize = size
+	edgeTop = 360/2 + 20
+	edgeBottom = -edgeTop
+	show()
+	setXpos(randX())
+	setYpos(edgeBottom)
+	delta = genDelta()
+	angle = genAngle()
+	xRate = genXRate()
+	yRate = genYRate()
+	setCostume genCostumeNme()
+}
+
+onClick => {
+	if isStone() {
+		//todo 移动到最前面, 盖住其他精灵，使其点击不到其他水果
+		play "cut"
+		setSize costumeSize
+		for i in 0:5 {
+			changeSize rand(0, 0.6)
+		}
+		wait 1
+	} else {
+		play "pop"
+		score += 3
+		name := customeNames[costumeIndex]
+		setCostume name+"2"
+		wait 0.1
+		die()
+	}
+}
+
+onCloned => {
+	reset()
+	for ypos >= edgeBottom {
+		yRate -= delta
+		changeYpos yRate
+		turn angle
+		wait forRate
+	}
+	die()
+}
+
+onMsg "start", => {
+	customeNames = {
+		"strawberry-a",
+		"orange",
+		"strawberry-a",
+		"orange",
+		"strawberry-a",
+		"rocks2",
+		"orange",
+		"strawberry-a",
+		"orange",
+	}
+	for {
+		wait 1
+		cloneNum := intRand(1, 2)
+		for i in 0:cloneNum {
+			clone()
+		}
+	}
+}

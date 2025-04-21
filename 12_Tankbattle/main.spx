@@ -1,0 +1,75 @@
+const (
+	hitMsg     string = "击中"
+	failMsg    string = "游戏失败"
+	timeoutMsg string = "超时"
+	timerMsg   string = "计秒"
+	fireMsg    string = "开火"
+)
+
+var (
+	forRate    float64
+	remainTime int
+	score      int
+)
+
+func addScore() {
+	score++
+}
+
+func setScore(s int) {
+	if s < 0 {
+		s = 0
+	}
+	score = s
+}
+
+func setRemainTime(t int) {
+	if t < 0 {
+		t = 0
+	}
+	remainTime = t
+}
+
+func minusRemainTime() {
+	if readRemainTime() > 0 {
+		remainTime--
+	}
+}
+
+func readRemainTime() int {
+	return remainTime
+}
+
+func readScore() int {
+	return score
+}
+
+func isGameOver() bool {
+	return readRemainTime() <= 0
+}
+
+func timeout() {
+	for i in 0:60 {
+		wait 1
+		broadcast timerMsg
+	}
+	broadcast timeoutMsg
+}
+
+onStart => {
+	forRate = 0.01
+	setRemainTime(60)
+	setScore(0)
+}
+
+onMsg (msg, data) => {
+	if msg == timerMsg {
+		minusRemainTime()
+	} else if msg == failMsg {
+		setRemainTime(0)
+	}
+}
+
+onStart => {
+	timeout()
+}

@@ -1,0 +1,792 @@
+var (
+	ready      bool
+	scroll     bool
+	next       bool
+	fillBlock  bool
+	gameOver   bool
+	grid       [][]bool
+	grided     [][]bool
+	gridop     [][]int
+	cleaning   bool
+	blockClean bool
+	clean      []bool
+	score      int
+	speed      float64
+	initSpeed  float64
+	maxSpeed   float64
+	directions []int
+	blockSize  float64
+)
+
+func reset() {
+	grid = make([][]bool, 20)
+	for i := range grid {
+		grid[i] = make([]bool, 10)
+	}
+
+	grided = make([][]bool, 20)
+	for i := range grided {
+		grided[i] = make([]bool, 10)
+	}
+
+	gridop = make([][]int, 20)
+	for i := range gridop {
+		gridop[i] = make([]int, 10)
+	}
+
+	clean = make([]bool, 20)
+	initSpeed = 3.0
+	speed = initSpeed
+	maxSpeed = 20.0
+	directions = [0, 90, 180, 270]
+	blockSize = 16.9
+}
+
+func fillGrid(costume string, heading int, xoff int, yoff int) {
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			for i := yoff; i < yoff+4; i++ {
+				fill(5+xoff, i)
+			}
+		} else {
+			start := 3 + xoff
+			end := 3 + xoff + 4
+			for i := start; i < end; i++ {
+				fill(i, yoff)
+			}
+		}
+	case "piece_L":
+		if heading == 0 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(5+xoff, i)
+			}
+			fill(4+xoff, yoff+2)
+		} else if heading == 90 {
+			for i := xoff; i < xoff+3; i++ {
+				fill(i+4, yoff)
+			}
+			fill(xoff+6, yoff+1)
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(4+xoff, i)
+			}
+			fill(5+xoff, yoff)
+		} else if heading == 270 {
+			for i := xoff; i < xoff+3; i++ {
+				fill(i+4, yoff+1)
+			}
+			fill(xoff+4, yoff)
+		}
+	case "piece_J":
+		if heading == 0 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(5+xoff, i)
+			}
+			fill(4+xoff, yoff)
+		} else if heading == 90 {
+			for i := xoff; i < xoff+3; i++ {
+				fill(i+4, yoff)
+			}
+			fill(xoff+4, yoff+1)
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(4+xoff, i)
+			}
+			fill(5+xoff, yoff+2)
+		} else if heading == 270 {
+			for i := xoff; i < xoff+3; i++ {
+				fill(i+4, yoff+1)
+			}
+			fill(xoff+6, yoff)
+		}
+	case "piece_T":
+		if heading == 0 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(5+xoff, i)
+			}
+			fill(4+xoff, yoff+1)
+		} else if heading == 90 {
+			for i := 4 + xoff; i < 4+xoff+3; i++ {
+				fill(i, yoff)
+			}
+			fill(xoff+5, yoff+1)
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				fill(4+xoff, i)
+			}
+			fill(5+xoff, yoff+1)
+		} else if heading == 270 {
+			for i := xoff; i < xoff+3; i++ {
+				fill(i+4, yoff+1)
+			}
+			fill(xoff+5, yoff)
+		}
+	case "piece_O":
+		for i := yoff; i < yoff+2; i++ {
+			fill(4+xoff, i)
+			fill(5+xoff, i)
+		}
+	case "piece_S":
+		if heading == 0 || heading == 180 {
+			fill(5+xoff, yoff)
+			fill(4+xoff, yoff+1)
+			fill(5+xoff, yoff+1)
+			fill(4+xoff, yoff+2)
+		} else {
+			fill(4+xoff, yoff)
+			fill(5+xoff, yoff)
+			fill(5+xoff, yoff+1)
+			fill(6+xoff, yoff+1)
+		}
+	case "piece_Z":
+		if heading == 0 || heading == 180 {
+			fill(4+xoff, yoff)
+			fill(4+xoff, yoff+1)
+			fill(5+xoff, yoff+1)
+			fill(5+xoff, yoff+2)
+		} else {
+			fill(5+xoff, yoff)
+			fill(6+xoff, yoff)
+			fill(4+xoff, yoff+1)
+			fill(5+xoff, yoff+1)
+		}
+	}
+}
+
+func fill(x int, y int) {
+	if x < 0 || x >= 10 {
+		return
+	}
+	if y < 0 || y >= 20 {
+		return
+	}
+	grid[y][x] = true
+}
+
+func fillv(x int, y int, v bool) {
+	if x < 0 || x >= 10 {
+		return
+	}
+	if y < 0 || y >= 20 {
+		return
+	}
+	grid[y][x] = v
+}
+
+func gridv(x int, y int) bool {
+	if x < 0 || x >= 10 {
+		return false
+	}
+	if y < 0 || y >= 20 {
+		return false
+	}
+	return grid[y][x]
+}
+
+func lineyoffchange(line int) (int, bool) {
+	if line > 20 {
+		return 0, false
+	}
+	below := 0
+	for i := 0; i <= line; i++ {
+		if clean[i] {
+			below += 1
+		}
+	}
+
+	if line+below+1 > 20 {
+		return 0, false
+	}
+
+	for i := line + below; i < 20; i++ {
+		if !clean[i] {
+			return i, true
+		}
+	}
+	return 0, false
+}
+
+func lineyoffdown(line int) int {
+	if line > 20 {
+		line = 20
+	}
+	below := 0
+	for i := 0; i < line; i++ {
+		if clean[i] {
+			below += 1
+		}
+	}
+
+	return below
+}
+
+func activeClean(line int) bool {
+	for i := 0; i < 10; i++ {
+		if !grid[line][i] {
+			return false
+		}
+	}
+	return true
+}
+
+func canMoveLeft(costume string, heading int, xoff, yoff int) bool {
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			for i := yoff; i < yoff+4; i++ {
+				if i >= 0 && i < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[i][4+xoff] {
+					return false
+				}
+			}
+		} else {
+			if yoff >= 0 && yoff < 20 && 2+xoff >= 0 && 2+xoff < 10 && grid[yoff][2+xoff] {
+				return false
+			}
+		}
+	case "piece_L":
+		if heading == 0 {
+			if (yoff+2 >= 0 && yoff+2 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+2][3+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+1][4+xoff]) ||
+				(yoff >= 0 && yoff < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff][4+xoff]) {
+				return false
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff][3+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff+1][5+xoff]) {
+				return false
+			}
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[i][3+xoff] {
+					return false
+				}
+			}
+		} else if heading == 270 {
+			if (yoff >= 0 && yoff < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff][xoff+3]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff+1][xoff+3]) {
+				return false
+			}
+		}
+	case "piece_J":
+		if heading == 0 {
+			if (yoff >= 0 && yoff < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff][3+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+1][4+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+2][4+xoff]) {
+				return false
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff][xoff+3]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff+1][xoff+3]) {
+				return false
+			}
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[i][3+xoff] {
+					return false
+				}
+			}
+		} else if heading == 270 {
+			if (yoff+1 >= 0 && yoff+1 < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff+1][xoff+3]) ||
+				(yoff >= 0 && yoff < 20 && xoff+5 >= 0 && xoff+5 < 10 && grid[yoff][xoff+5]) {
+				return false
+			}
+		}
+	case "piece_T":
+		if heading == 0 {
+			if (yoff+1 >= 0 && yoff+1 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+1][3+xoff]) ||
+				(yoff >= 0 && yoff < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff][4+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+2][4+xoff]) {
+				return false
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && xoff+3 >= 0 && xoff+3 < 10 && grid[yoff][xoff+3]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+4 >= 0 && xoff+4 < 10 && grid[yoff+1][xoff+4]) {
+				return false
+			}
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[i][3+xoff] {
+					return false
+				}
+			}
+		} else if heading == 270 {
+			if (yoff >= 0 && yoff < 20 && xoff+4 >= 0 && xoff+4 < 10 && grid[yoff][xoff+4]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+1 >= 0 && xoff+1 < 10 && grid[yoff+1][xoff+1]) {
+				return false
+			}
+		}
+	case "piece_O":
+		for i := yoff; i < yoff+2; i++ {
+			if i >= 0 && i < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[i][3+xoff] {
+				return false
+			}
+		}
+	case "piece_S":
+		if heading == 0 || heading == 180 {
+			if (yoff >= 0 && yoff < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff][4+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+1][3+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+2][3+xoff]) {
+				return false
+			}
+		} else {
+			if (yoff >= 0 && yoff < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff][3+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+1][4+xoff]) {
+				return false
+			}
+		}
+	case "piece_Z":
+		if heading == 0 || heading == 180 {
+			if (yoff >= 0 && yoff < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff][3+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+1][3+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff+2][4+xoff]) {
+				return false
+			}
+		} else {
+			if (yoff >= 0 && yoff < 20 && 4+xoff >= 0 && 4+xoff < 10 && grid[yoff][4+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 3+xoff >= 0 && 3+xoff < 10 && grid[yoff+1][3+xoff]) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+func canMoveRight(costume string, heading int, xoff, yoff int) bool {
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			for i := yoff; i < yoff+4; i++ {
+				if i >= 0 && i < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[i][6+xoff] {
+					return false
+				}
+			}
+		} else {
+			if yoff >= 0 && yoff < 20 && 7+xoff >= 0 && 7+xoff < 10 && grid[yoff][7+xoff] {
+				return false
+			}
+		}
+	case "piece_L":
+		if heading == 0 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[i][6+xoff] {
+					return false
+				}
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && 7+xoff >= 0 && 7+xoff < 10 && grid[yoff][7+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 7+xoff >= 0 && 7+xoff < 10 && grid[yoff+1][7+xoff]) {
+				return false
+			}
+		} else if heading == 180 {
+			if (yoff+2 >= 0 && yoff+2 < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff+2][5+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff+1][5+xoff]) ||
+				(yoff >= 0 && yoff < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff][6+xoff]) {
+				return false
+			}
+		} else if heading == 270 {
+			if (yoff >= 0 && yoff < 20 && xoff+5 >= 0 && xoff+5 < 10 && grid[yoff][xoff+5]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff+1][xoff+7]) {
+				return false
+			}
+		}
+	case "piece_J":
+		if heading == 0 {
+			if (yoff >= 0 && yoff < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff][6+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+1][6+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+2][6+xoff]) {
+				return false
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff][xoff+7]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+5 >= 0 && xoff+5 < 10 && grid[yoff+1][xoff+5]) {
+				return false
+			}
+		} else if heading == 180 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[i][5+xoff] {
+					return false
+				}
+			}
+		} else if heading == 270 {
+			if (yoff+1 >= 0 && yoff+1 < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff+1][xoff+7]) ||
+				(yoff >= 0 && yoff < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff][xoff+7]) {
+				return false
+			}
+		}
+	case "piece_T":
+		if heading == 0 {
+			for i := yoff; i < yoff+3; i++ {
+				if i >= 0 && i < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[i][6+xoff] {
+					return false
+				}
+			}
+		} else if heading == 90 {
+			if (yoff >= 0 && yoff < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff][xoff+7]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+6 >= 0 && xoff+6 < 10 && grid[yoff+1][xoff+6]) {
+				return false
+			}
+		} else if heading == 180 {
+			if (yoff+1 >= 0 && yoff+1 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+1][6+xoff]) ||
+				(yoff >= 0 && yoff < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff][5+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff+2][5+xoff]) {
+				return false
+			}
+		} else if heading == 270 {
+			if (yoff >= 0 && yoff < 20 && xoff+6 >= 0 && xoff+6 < 10 && grid[yoff][xoff+6]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && xoff+7 >= 0 && xoff+7 < 10 && grid[yoff+1][xoff+7]) {
+				return false
+			}
+		}
+	case "piece_O":
+		for i := yoff; i < yoff+2; i++ {
+			if i >= 0 && i < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[i][6+xoff] {
+				return false
+			}
+		}
+	case "piece_S":
+		if heading == 0 || heading == 180 {
+			if (yoff >= 0 && yoff < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff][6+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+1][6+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff+2][5+xoff]) {
+				return false
+			}
+		} else {
+			if (yoff >= 0 && yoff < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff][6+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 7+xoff >= 0 && 7+xoff < 10 && grid[yoff+1][7+xoff]) {
+				return false
+			}
+		}
+	case "piece_Z":
+		if heading == 0 || heading == 180 {
+			if (yoff >= 0 && yoff < 20 && 5+xoff >= 0 && 5+xoff < 10 && grid[yoff][5+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+1][6+xoff]) ||
+				(yoff+2 >= 0 && yoff+2 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+2][6+xoff]) {
+				return false
+			}
+		} else {
+			if (yoff >= 0 && yoff < 20 && 7+xoff >= 0 && 7+xoff < 10 && grid[yoff][7+xoff]) ||
+				(yoff+1 >= 0 && yoff+1 < 20 && 6+xoff >= 0 && 6+xoff < 10 && grid[yoff+1][6+xoff]) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func canDropDown(costume string, heading int, xoff, yoff int) (bool, bool) {
+	if yoff <= 0 {
+		return false, false
+	}
+
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			if grid[yoff-1][xoff+5] {
+				return false, yoff >= 20
+			}
+		} else {
+			for i := xoff + 3; i < xoff+3+4; i++ {
+				if grid[yoff-1][i] {
+					return false, yoff >= 20
+				}
+			}
+		}
+	case "piece_L":
+		if heading == 0 {
+			if grid[yoff-1][xoff+5] {
+				return false, yoff >= 20
+			}
+			if yoff+1 >= 20 {
+				return true, false
+			}
+			if grid[yoff+1][xoff+4] {
+				return false, yoff >= 20
+			}
+		} else if heading == 90 {
+			for i := xoff + 4; i < xoff+3+4; i++ {
+				if grid[yoff-1][i] {
+					return false, yoff >= 20
+				}
+			}
+		} else if heading == 180 {
+			if grid[yoff-1][4+xoff] || grid[yoff-1][5+xoff] {
+				return false, yoff >= 20
+			}
+		} else if heading == 270 {
+			if yoff-1 < 20 && grid[yoff-1][4+xoff] {
+				return false, yoff >= 20
+			}
+			if yoff < 20 && grid[yoff][5+xoff] {
+				return false, yoff >= 20
+			}
+			if yoff < 20 && grid[yoff][6+xoff] {
+				return false, yoff >= 20
+			}
+		}
+	case "piece_J":
+		if heading == 0 {
+			if (yoff-1 < 20 && grid[yoff-1][4+xoff]) || (yoff-1 < 20 && grid[yoff-1][5+xoff]) {
+				return false, yoff >= 20
+			}
+		} else if heading == 90 {
+			if (yoff-1 < 20 && grid[yoff-1][4+xoff]) || (yoff < 20 && grid[yoff][5+xoff]) || (yoff < 20 && grid[yoff][6+xoff]) {
+				return false, yoff >= 20
+			}
+		} else if heading == 180 {
+			if (yoff-1 < 20 && grid[yoff-1][4+xoff]) || (yoff+1 < 20 && grid[yoff+1][5+xoff]) {
+				return false, yoff >= 20
+			}
+		} else if heading == 270 {
+			if (yoff-1 < 20 && grid[yoff-1][6+xoff]) || (yoff < 20 && grid[yoff][4+xoff]) || (yoff < 20 && grid[yoff][5+xoff]) {
+				return false, yoff >= 20
+			}
+		}
+	case "piece_T":
+		if heading == 0 {
+			if (yoff-1 < 20 && grid[yoff-1][5+xoff]) || (yoff < 20 && grid[yoff][4+xoff]) {
+				return false, yoff >= 20
+			}
+		} else if heading == 90 {
+			for i := xoff + 4; i < xoff+3+4; i++ {
+				if grid[yoff-1][i] {
+					return false, yoff >= 20
+				}
+			}
+		} else if heading == 180 {
+			if grid[yoff-1][4+xoff] || (yoff < 20 && grid[yoff][5+xoff]) {
+				return false, yoff >= 20
+			}
+		} else if heading == 270 {
+			if grid[yoff-1][5+xoff] || (yoff < 20 && grid[yoff][4+xoff]) || (yoff < 20 && grid[yoff][6+xoff]) {
+				return false, yoff >= 20
+			}
+		}
+	case "piece_O":
+		if grid[yoff-1][4+xoff] || grid[yoff-1][5+xoff] {
+			return false, yoff >= 20
+		}
+	case "piece_S":
+		if heading == 0 || heading == 180 {
+			if grid[yoff-1][5+xoff] || (yoff < 20 && grid[yoff][4+xoff]) {
+				return false, yoff >= 20
+			}
+		} else {
+			if grid[yoff-1][4+xoff] || grid[yoff-1][5+xoff] || (yoff < 20 && grid[yoff][6+xoff]) {
+				return false, yoff >= 20
+			}
+		}
+	case "piece_Z":
+		if heading == 0 || heading == 180 {
+			if grid[yoff-1][4+xoff] || (yoff < 20 && grid[yoff][5+xoff]) {
+				return false, yoff >= 20
+			}
+		} else {
+			if grid[yoff-1][5+xoff] || grid[yoff-1][6+xoff] || (yoff < 20 && grid[yoff][4+xoff]) {
+				return false, yoff >= 20
+			}
+		}
+	}
+	return true, false
+}
+
+func getXOffset(costume string, heading int) (float64, int, int) {
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			return 8, -5, 4
+		}
+		return 0, -3, 3
+	case "piece_L":
+		switch heading {
+		case 90:
+			return 8, -4, 3
+		case 270:
+			return 8, -4, 3
+		}
+		return 0, -4, 4
+	case "piece_J":
+		switch heading {
+		case 90:
+			return 8, -4, 3
+		case 270:
+			return 8, -4, 3
+		}
+		return 0, -4, 4
+	case "piece_T":
+		switch heading {
+		case 90:
+			return 8, -4, 3
+		case 270:
+			return 8, -4, 3
+		}
+		return 0, -4, 4
+	case "piece_S":
+		if heading == 90 || heading == 270 {
+			return 8, -4, 3
+		}
+		return 0, -4, 4
+	case "piece_Z":
+		if heading == 90 || heading == 270 {
+			return 8, -4, 3
+		}
+		return 0, -4, 4
+	}
+	return 0, -4, 4
+}
+
+func getYOffset(costume string, h int) float64 {
+	h = h % 360
+	switch costume {
+	case "piece_I":
+		if h == 0 || h == 180 {
+			return 2
+		}
+		return -7
+	case "piece_L":
+		switch h {
+		case 90:
+			return 2
+		case 270:
+			return 2
+		}
+		return -7
+	case "piece_J":
+		switch h {
+		case 90:
+			return 2
+		case 270:
+			return 2
+		}
+		return -7
+	case "piece_T":
+		switch h {
+		case 90:
+			return 2
+		case 270:
+			return 2
+		}
+		return -7
+	case "piece_S":
+		if h == 90 || h == 270 {
+			return 2
+		}
+		return -7
+	case "piece_Z":
+		if h == 90 || h == 270 {
+			return 2
+		}
+		return -7
+	case "piece_O":
+		return 2
+	}
+	return 0
+}
+
+func getEndYOffset(costume string, h int) float64 {
+	h = h % 360
+
+	switch costume {
+	case "piece_I":
+		if h == 0 || h == 180 {
+			return -134
+		}
+		return -160
+	case "piece_L":
+		switch h {
+		case 90:
+			return -151
+		case 270:
+			return -151
+		}
+		return -143
+	case "piece_J":
+		switch h {
+		case 90:
+			return -151
+		case 270:
+			return -151
+		}
+		return -143
+	case "piece_T":
+		switch h {
+		case 90:
+			return -151
+		case 270:
+			return -151
+		}
+		return -143
+	case "piece_S":
+		if h == 90 || h == 270 {
+			return -151
+		}
+		return -143
+	case "piece_Z":
+		if h == 90 || h == 270 {
+			return -151
+		}
+		return -143
+	case "piece_O":
+		return -151
+	}
+	return -160
+}
+
+func getReadyYOffset(costume string, heading int) float64 {
+	heading = heading % 360
+	switch costume {
+	case "piece_I":
+		if heading == 0 || heading == 180 {
+			return 221
+		}
+		return 187
+	case "piece_L":
+		switch heading {
+		case 90:
+			return 204
+		case 270:
+			return 204
+		}
+		return 212
+	case "piece_J":
+		switch heading {
+		case 90:
+			return 204
+		case 270:
+			return 204
+		}
+		return 212
+	case "piece_T":
+		switch heading {
+		case 90:
+			return 204
+		case 270:
+			return 204
+		}
+		return 212
+	case "piece_S":
+		if heading == 90 || heading == 270 {
+			return 204
+		}
+		return 212
+	case "piece_Z":
+		if heading == 90 || heading == 270 {
+			return 204
+		}
+		return 212
+	}
+	return 204
+}
+
+func min(a, b float64) float64 {
+	if a < b {
+		return a
+	}
+	return b
+}

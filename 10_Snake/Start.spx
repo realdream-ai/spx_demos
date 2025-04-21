@@ -1,0 +1,30 @@
+onStart => {
+	broadcast "menu"
+	setXYpos 0, -5
+}
+
+onClick => {
+	broadcast "start"
+	hide
+}
+
+onMsg "start", => {
+	hide
+}
+
+onMsg "menu", => {
+	gotoFront
+	show
+	for visible {
+		if touching(Mouse) {
+			setYpos 0
+		} else {
+			setYpos -5
+		}
+		wait 0.1
+	}
+}
+
+// onMsg "game over", => {
+// 	stop OtherScriptsInSprite
+// }

@@ -1,0 +1,12 @@
+onStart => {
+	show
+	for {
+		turn 8
+		wait 0.1
+	}
+}
+
+onClick => {
+	broadcast "start"
+	hide
+}

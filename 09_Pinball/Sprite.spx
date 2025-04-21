@@ -1,0 +1,9 @@
+onKey [KeyLeft, KeyRight], key => {
+	if key == KeyLeft {
+		setHeading -90
+		step 40
+	} else {
+		setHeading 90
+		step 40
+	}
+}
