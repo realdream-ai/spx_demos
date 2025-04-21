@@ -1,0 +1,95 @@
+direction := Right // 初始方向向上
+
+onMsg "start", => {
+	if play {
+		return
+	}
+	setXYpos -100, 0
+	play = true
+	show
+	print("start")
+	for {
+		// 根据当前方向移动
+		turnTo direction // 先转向当前方向
+
+		speed = 5 + cloneNum/3
+
+		step speed // 向当前方向移动
+		x := xpos
+		y := ypos
+
+		// 检查是否吃到食物
+		if touching("food") {
+			doeat = false
+			broadcast "eat"
+		}
+
+		if touching(Edge) {
+			play = false
+			print("touch edge")
+			broadcast "game over"
+			break // 结束移动循环
+		}
+
+		if touchSelf(x, y) {
+			play = false
+			print("touch self")
+			broadcast "game over"
+			break // 结束移动循环
+		}
+
+		// 记录当前位置到历史
+		historyX = append(historyX, x)
+		historyY = append(historyY, y)
+
+		// print historyX
+
+		// 保持历史记录在一定长度内
+		if len(historyX) > 1200 {
+			historyX = historyX[1:]
+			historyY = historyY[1:]
+		}
+
+		wait 0.1 // 等待一小段时间，控制移动速度
+	}
+}
+
+// 通过方向键控制移动方向
+onKey KeyUp, => {
+	direction = Up
+}
+
+onKey KeyDown, => {
+	direction = Down
+}
+
+onKey KeyLeft, => {
+	direction = Left
+}
+
+onKey KeyRight, => {
+	direction = Right
+}
+
+// 处理 eat 消息
+onMsg "eat", => {
+	// 创建一个克隆体
+	if !doeat {
+		cloneNum = cloneNum + 1
+		clone cloneNum
+		doeat = !doeat
+	}
+}
+
+onCloned i => {
+	index := i.(int)
+	for {
+		if !play {
+			die
+			break
+		}
+		pos := len(historyX) - index - 1
+		setXYpos historyX[pos], historyY[pos]
+		wait 0.1
+	}
+}

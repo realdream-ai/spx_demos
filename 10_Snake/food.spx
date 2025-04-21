@@ -1,0 +1,16 @@
+onMsg "eat", => {
+	// 随机生成新的位置坐标
+	hide
+	wait 0.01
+	x := rand(-200, 200) // 在-200到200之间随机选择X坐标
+	y := rand(-150, 150) // 在-150到150之间随机选择Y坐标
+	setXYpos x, y        // 移动到新位置
+	show
+}
+
+onMsg "start", => {
+	if play {
+		return
+	}
+	setXYpos 0, 0
+}

@@ -1,0 +1,56 @@
+import "fmt"
+
+func timeout() {
+	for i <- 0:60 {
+		wait 1
+		num := fmt.Sprintf("%d", i+1)
+		broadcast "timer", num, true
+	}
+	broadcast "timeout"
+}
+
+func randX() float64 {
+	return rand(-210, 210)
+}
+
+func randY() float64 {
+	return rand(50, 140)
+}
+
+func randAngle() float64 {
+	return rand(-90, 90)
+}
+
+onMsg (msg, data) => {
+	if stopGameFlag {
+		return
+	}
+	if msg == "timer" {
+		currentTime = data.(string)
+	} else if msg == "game" {
+		for !stopGameFlag {
+			move 20
+			bounceOffEdge()
+			if touching("Sprite") {
+				play "pop"
+				setHeading randAngle()
+				move 20
+			}
+			if touching(Edge) {
+				play "pop"
+				if touching(EdgeBottom) {
+					broadcast "gameFail", true
+				}
+			}
+			wait 0.1
+		}
+	}
+}
+
+onStart => {
+	currentTime = "0"
+	setXYpos randX(), randY()
+	setHeading randAngle()
+	broadcast "game"
+	timeout()
+}

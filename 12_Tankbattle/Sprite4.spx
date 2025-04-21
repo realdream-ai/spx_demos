@@ -1,0 +1,66 @@
+var (
+	yRate float64
+	hit   bool
+)
+
+func reset() {
+	hide
+	hit = false
+	yRate = -rand(3.0, 6.0)
+	setCostume "造型1"
+	x := rand(-220.0, 210.0)
+	y := rand(10.0, 160.0)
+	setXYpos x, y
+}
+
+func doHit() {
+	if isGameOver() {
+		return
+	}
+	hit = true
+	addScore()
+	setCostume("造型2")
+	play "recording1"
+	wait 0.05
+	clone()
+	die()
+}
+
+onTouchStart "Sprite3", => {
+	broadcast hitMsg
+	doHit()
+}
+
+onTouchStart "Sprite2", => {
+	broadcast failMsg
+}
+
+onCloned => {
+	reset()
+	show
+	for !isGameOver() {
+		if !hit {
+			changeYpos yRate
+		}
+		if touching(EdgeBottom) {
+			reset()
+			wait 1
+			clone()
+			show
+		}
+		wait 0.1
+	}
+}
+
+onStart => {
+	setRemainTime(60)
+	clone()
+}
+
+onMsg failMsg, => {
+	die
+}
+
+onMsg timeoutMsg, => {
+	die
+}

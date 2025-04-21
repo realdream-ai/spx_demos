@@ -1,0 +1,19 @@
+func stopGame(win bool) {
+	show
+	stopGameFlag = true
+	if win {
+		play "recording2"
+		say "你赢了"
+	} else {
+		play "recording1"
+		say "你输了"
+	}
+}
+
+onMsg (msg, data) => {
+	if msg == "timeout" {
+		stopGame(true)
+	} else if msg == "gameFail" {
+		stopGame(false)
+	}
+}

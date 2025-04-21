@@ -1,0 +1,158 @@
+var (
+	xoff        int
+	heading     int
+	initHeading int
+	yend        float64
+	drop        bool
+)
+
+onMsg "start", => {
+	hide
+	wait 1
+	clone
+	for {
+		if !ready && !fillBlock && !cleaning {
+			wait 0.1
+			continue
+		}
+		if next {
+			wait 0.1
+			continue
+		}
+		clone
+		wait 0.1
+	}
+}
+
+onCloned => {
+	setCostume rand(0, 6) // 选择一个 tetris
+	initHeading = directions[int(rand(0, 3))]
+	setXYpos 150, 120 // 放入 next
+	setHeading float64(initHeading)
+	next = true
+	show // 显示
+	for {
+		if !ready && !fillBlock && !cleaning {
+			break
+		}
+
+		wait 0.1
+	}
+
+	setXYpos 10, getReadyYOffset(costumeName, initHeading) // 放入 ready
+	xoff = 0
+	xmoved := 0
+	yoffset := 20
+	// xoldoffset, _, _ := getXOffset(costumeName, initHeading)
+	ready = true
+	next = false
+	scroll = true
+	for {
+		moveing := false
+
+		// check rorate
+		hd := (initHeading + heading)
+		setHeading float64(hd)
+
+		// check move
+		xoffset, xmin, xmax := getXOffset(costumeName, hd)
+		if xoff < xmin {
+			xoff = xmin
+		}
+		if xoff > xmax {
+			xoff = xmax
+		}
+
+		if xoff != xmoved {
+			if xoff < xmoved {
+				for i := xoff; i < xmoved; i++ {
+					if canMoveLeft(costumeName, hd, i, yoffset) {
+						moveing = true
+						xmoved = i
+					}
+				}
+			} else if xoff > xmoved {
+				for i := xmoved + 1; i <= xoff; i++ {
+					if canMoveRight(costumeName, hd, i, yoffset) {
+						moveing = true
+						xmoved = i
+					}
+				}
+			}
+		}
+
+		xoff = xmoved
+		setXpos float64(xmoved)*blockSize+xoffset
+
+		// check drop down
+		drop, gameOver = canDropDown(costumeName, hd, xoff, yoffset)
+		if !drop && !moveing && !gameOver {
+
+			scroll = false
+			fillGrid(costumeName, hd, xmoved, yoffset)
+			wait 0.1
+			for cleaning {
+				wait 0.5
+			}
+			ready = false
+			break
+		} else if moveing {
+			wait 1.0/speed
+			continue
+		} else if gameOver {
+			print costumeName, hd
+			broadcast "game over"
+			break
+		}
+		yoffset -= 1
+		yend := getEndYOffset(costumeName, hd)
+		setYpos float64(yend)+blockSize*float64(yoffset)
+		if yoffset == 0 {
+			scroll = false
+			fillGrid(costumeName, hd, xmoved, yoffset)
+			wait 0.1
+			for cleaning {
+				wait 0.5
+			}
+			ready = false
+			break
+		}
+
+		wait 1.0/speed
+	}
+
+	die
+	// if !gameOver {
+	// 	die
+	// }
+}
+
+// 监听向左键，向左移动
+onKey KeyLeft, => {
+	xoff -= 1
+}
+
+// 监听向右键，向右移动
+onKey KeyRight, => {
+	xoff += 1
+}
+
+onKey KeyUp, => {
+	heading += 90
+}
+
+onKey [KeyDown], key => {
+	if speed == maxSpeed {
+		return
+	}
+	oldSpeed := speed
+	for {
+		if keyPressed(key) {
+			speed = maxSpeed
+		} else {
+			speed = oldSpeed
+			break
+		}
+		wait 0.1
+	}
+}

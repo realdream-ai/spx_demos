@@ -1,0 +1,11 @@
+import "fmt"
+
+onMsg timeoutMsg, => {
+	show
+	say fmt.Sprintf("😄游戏结束，您得了%d分！", readScore())
+}
+
+onMsg failMsg, => {
+	play "recording2"
+	wait 2.4
+}

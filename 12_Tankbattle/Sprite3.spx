@@ -1,0 +1,45 @@
+const (
+	initYpos = -80
+)
+
+var (
+	yRate float64
+)
+
+func reBorn() {
+	reset
+	clone
+	die
+}
+
+func reset() {
+	goto "Sprite2"
+	forRate = 0.01
+	yRate = 15
+	setYpos initYpos
+	hide()
+}
+
+onMsg fireMsg, => {
+	reset()
+	show
+	for !isGameOver() {
+		changeYpos(yRate)
+		if touching(EdgeTop) {
+			reBorn
+		}
+		wait forRate
+	}
+}
+
+onMsg hitMsg, => {
+	reBorn
+}
+
+onMsg failMsg, => {
+	die
+}
+
+onMsg timeoutMsg, => {
+	die
+}

@@ -1,0 +1,16 @@
+var (
+	score int
+)
+
+func randX() float64 {
+	return rand(-211, 212)
+}
+
+func intRand(from, to int) int {
+	floatRand := rand(from, to)
+	return int(floatRand)
+}
+
+onStart => {
+	score = 0
+}

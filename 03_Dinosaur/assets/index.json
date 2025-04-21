@@ -1,0 +1,52 @@
+{
+  "costumes": [
+    {
+      "bitmapResolution": 1,
+      "name": "backdrop1",
+      "path": "6.png",
+      "x": 480,
+      "y": 360
+    }
+  ],
+  "debug": true,
+  "collisionByShape": true,
+  "currentCostumeIndex": 0,
+  "zorder": [
+    {
+      "color": 15629590,
+      "isDiscrete": true,
+      "name": "score",
+      "label": "score",
+      "mode": 1,
+      "sliderMax": 100,
+      "sliderMin": 0,
+      "target": "",
+      "type": "stageMonitor",
+      "val": "getVar:score",
+      "visible": true,
+      "x": 150,
+      "y": 175
+    },
+    {
+      "color": 15629590,
+      "isDiscrete": true,
+      "name": "high score",
+      "label": "high score",
+      "mode": 1,
+      "sliderMax": 100,
+      "sliderMin": 0,
+      "target": "",
+      "type": "stageMonitor",
+      "val": "getVar:highScore",
+      "visible": true,
+      "x": -230,
+      "y": 175
+    },
+    "SmallTree",
+    "LargeTree",
+    "Bird",
+    "Road",
+    "Dinosaur",
+    "GameStart"
+  ]
+}

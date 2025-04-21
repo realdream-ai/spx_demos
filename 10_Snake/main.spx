@@ -1,0 +1,46 @@
+var (
+	historyX []float64 // 存储历史X坐标
+	historyY []float64 // 存储历史Y坐标
+	cloneNum int
+	doeat    bool
+	play     bool
+	speed    int
+)
+
+func reset() {
+	cloneNum = 0
+	speed = 10
+	historyX = make([]float64, 0)
+	historyY = make([]float64, 0)
+}
+
+// 检查是否碰到自己
+func touchSelf(x, y float64) bool {
+	// 遍历历史位置
+	l := len(historyX)
+	start := l - cloneNum
+	end := len(historyX) - 2
+	if start > end {
+		return false
+	}
+	for i := start; i < end; i++ {
+		// 如果当前位置与历史位置的距离很近，就认为碰到了
+		hx := historyX[i]
+		hy := historyY[i]
+		diffx := abs(hx - x)
+		diffy := abs(hy - y)
+
+		if diffx < 3 && diffy < 3 {
+			return true
+		}
+	}
+	return false
+}
+
+// 计算绝对值的辅助函数
+func abs(x float64) float64 {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
