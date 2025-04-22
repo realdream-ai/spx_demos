@@ -1,11 +1,11 @@
 direction := Right // 初始方向向上
 
 onMsg "start", => {
-	if play {
+	if isPlaying {
 		return
 	}
 	setXYpos -100, 0
-	play = true
+	isPlaying = true
 	show
 	print("start")
 	for {
@@ -25,14 +25,14 @@ onMsg "start", => {
 		}
 
 		if touching(Edge) {
-			play = false
+			isPlaying = false
 			print("touch edge")
 			broadcast "game over"
 			break // 结束移动循环
 		}
 
 		if touchSelf(x, y) {
-			play = false
+			isPlaying = false
 			print("touch self")
 			broadcast "game over"
 			break // 结束移动循环
@@ -84,7 +84,7 @@ onMsg "eat", => {
 onCloned i => {
 	index := i.(int)
 	for {
-		if !play {
+		if !isPlaying {
 			die
 			break
 		}

@@ -3,7 +3,7 @@ var (
 	historyY []float64 // 存储历史Y坐标
 	cloneNum int
 	doeat    bool
-	play     bool
+	isPlaying     bool
 	speed    int
 )
 
