@@ -9,7 +9,7 @@ onMsg "eat", => {
 }
 
 onMsg "start", => {
-	if play {
+	if isPlaying {
 		return
 	}
 	setXYpos 0, 0
