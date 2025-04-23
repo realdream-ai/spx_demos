@@ -1,5 +1,5 @@
 onStart => {
-	setSize 40
+	setSize 0.40
 	setXYpos 30, 4
 	goBackLayers 15
 	setCostume "costume1"

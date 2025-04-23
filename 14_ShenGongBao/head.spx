@@ -1,5 +1,5 @@
 onStart => {
-	setSize 20
+	setSize 0.20
 	gotoFront
 	setXYpos 32, 110
 }

@@ -10,7 +10,7 @@ onStart => {
 
 onMsg "R-hand", => {
 	nextCostume
-	setSize 45
+	setSize 0.45
 	for {
 		gotoFront
 	}

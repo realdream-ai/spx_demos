@@ -1,5 +1,5 @@
 onStart => {
 	setCostume "costume1"
 	setXYpos -200, 30
-	setSize 50
+	setSize 0.50
 }

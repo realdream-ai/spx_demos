@@ -1,5 +1,5 @@
 onStart => {
-	setSize 45
+	setSize 0.45
 	goBackLayers 10
 	for {
 		nextCostume

@@ -1,6 +1,6 @@
 onStart => {
 	setXYpos 147, -87
-	setSize 55
+	setSize 0.55
 	gotoFront
 	setCostume "costume1"
 }
@@ -9,6 +9,6 @@ onMsg "x-L-hand", => {
 	nextCostume
 	for {
 		gotoFront
-		setSize 55
+		setSize 0.55
 	}
 }

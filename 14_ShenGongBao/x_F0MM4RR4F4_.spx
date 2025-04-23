@@ -1,5 +1,5 @@
 onStart => {
-	setSize 33
+	setSize 0.33
 	setXYpos 122, -127
 	goBackLayers 3
 	setEffect FishEyeEffect, 0
