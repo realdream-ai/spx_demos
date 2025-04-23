@@ -1,0 +1,21 @@
+onStart => {
+	setSize 33
+	setXYpos 122, -127
+	goBackLayers 3
+	setEffect toEffectKind("fisheye"), 0
+	setCostume "costume1"
+	for {
+		for _spx1 := 10; _spx1 > 0; _spx1-- {
+			changeEffect toEffectKind("fisheye"), 1
+			wait 0.1
+		}
+		for _spx2 := 10; _spx2 > 0; _spx2-- {
+			changeEffect toEffectKind("fisheye"), -1
+			wait 0.2
+		}
+	}
+}
+
+onMsg "x-body", => {
+	nextCostume
+}

@@ -1,0 +1,9 @@
+onStart => {
+	setSize 20
+	gotoFront
+	setXYpos 32, 110
+}
+
+onMsg "Head", => {
+	nextCostume
+}

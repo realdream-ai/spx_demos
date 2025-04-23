@@ -1,0 +1,12 @@
+onStart => {
+	setCostume "costume1"
+	setXYpos -200, -20
+	setSize 50
+}
+
+onClick => {
+	setCostume "costume2"
+	broadcast "x-body", true
+	wait 1
+	setCostume "costume1"
+}

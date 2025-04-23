@@ -1,0 +1,12 @@
+onStart => {
+	setCostume "costume1"
+	setXYpos -200, 60
+	setSize 50
+}
+
+onClick => {
+	setCostume "costume2"
+	broadcast "L-hand", true
+	wait 1
+	setCostume "costume1"
+}

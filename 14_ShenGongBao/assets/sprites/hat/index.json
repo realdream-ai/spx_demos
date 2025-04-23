@@ -1,0 +1,19 @@
+{
+  "costumes": [
+    {
+      "bitmapResolution": 1,
+      "name": "costume1",
+      "path": "137.svg",
+      "x": 51.13090873232218,
+      "y": 57.09678999999991
+    }
+  ],
+  "currentCostumeIndex": 0,
+  "heading": 90,
+  "isDraggable": false,
+  "rotationStyle": "normal",
+  "size": 1,
+  "visible": true,
+  "x": 125,
+  "y": -118
+}

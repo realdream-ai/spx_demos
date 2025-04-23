@@ -1,0 +1,19 @@
+onStart => {
+	setXYpos 45, 60
+	turnTo 79
+	setCostume "costume1"
+	gotoFront
+	for {
+		setSize 45
+		goBackLayers -5
+	}
+}
+
+onMsg "L-hand", => {
+	nextCostume
+	gotoFront
+	for {
+		setSize 45
+		goBackLayers -5
+	}
+}
