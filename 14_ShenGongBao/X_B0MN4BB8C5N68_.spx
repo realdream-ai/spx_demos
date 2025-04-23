@@ -1,0 +1,10 @@
+onStart => {
+	setXYpos 98, -83
+	setSize 55
+	goBackLayers 7
+	setCostume "costume1"
+}
+
+onMsg "x-R-hand", => {
+	nextCostume
+}

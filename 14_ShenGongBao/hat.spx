@@ -1,0 +1,6 @@
+onStart => {
+	setXYpos 125, -118
+	for {
+		goBackLayers 1.79e+308
+	}
+}

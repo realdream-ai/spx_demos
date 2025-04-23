@@ -1,0 +1,54 @@
+{
+  "costumes": [
+    {
+      "bitmapResolution": 1,
+      "name": "costume1",
+      "path": "131.svg",
+      "x": 210.12501,
+      "y": 7.429715669104326
+    },
+    {
+      "bitmapResolution": 1,
+      "name": "costume2",
+      "path": "132.svg",
+      "x": 219.27920594616887,
+      "y": 7.478498071080878
+    },
+    {
+      "bitmapResolution": 1,
+      "name": "costume3",
+      "path": "133.svg",
+      "x": 223.50216967080627,
+      "y": 7.976672345049991
+    },
+    {
+      "bitmapResolution": 1,
+      "name": "costume6",
+      "path": "134.svg",
+      "x": 199.95189797069258,
+      "y": 45.55134267795856
+    },
+    {
+      "bitmapResolution": 1,
+      "name": "costume4",
+      "path": "135.svg",
+      "x": 231.35807045002554,
+      "y": 15.243812914700271
+    },
+    {
+      "bitmapResolution": 1,
+      "name": "costume5",
+      "path": "136.svg",
+      "x": 211.56638123941897,
+      "y": 39.55602718218131
+    }
+  ],
+  "currentCostumeIndex": 5,
+  "heading": 90,
+  "isDraggable": false,
+  "rotationStyle": "normal",
+  "size": 0.45,
+  "visible": true,
+  "x": 108,
+  "y": -142
+}
