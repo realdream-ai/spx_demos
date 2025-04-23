@@ -4,7 +4,7 @@ onStart => {
 	setCostume "costume1"
 	gotoFront
 	for {
-		setSize 45
+		setSize 0.45
 		goBackLayers -5
 	}
 }
@@ -13,7 +13,7 @@ onMsg "L-hand", => {
 	nextCostume
 	gotoFront
 	for {
-		setSize 45
+		setSize 0.45
 		goBackLayers -5
 	}
 }

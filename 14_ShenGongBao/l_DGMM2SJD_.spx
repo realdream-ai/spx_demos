@@ -1,7 +1,7 @@
 onStart => {
 	setXYpos 45, 60
 	turnTo 79
-	setSize 45
+	setSize 0.45
 	goBackLayers 15
 	setCostume "costume1"
 }
