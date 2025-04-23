@@ -32,5 +32,5 @@ var (
 
 onStart => {
 	play easy_CLGN6U9DDLQN6QB3_, true
-	stop "all"
+	stop All
 }
