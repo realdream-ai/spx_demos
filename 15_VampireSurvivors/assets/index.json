@@ -1,0 +1,29 @@
+{
+  "backdrops": [
+    {
+      "bitmapResolution": 2,
+      "name": "backdrop1",
+      "path": "bg.png"
+    }
+  ],
+  "windowScale":1,
+  "zorder": [
+    "Wizard",
+    "Enemy",
+    "Spell"
+  ],
+  "sprites": [
+    {
+      "name": "Wizard",
+      "path": "wizard.png"
+    },
+    {
+      "name": "Enemy",
+      "path": "enemy.png"
+    },
+    {
+      "name": "Spell",
+      "path": "spell.png"
+    }
+  ]
+}
