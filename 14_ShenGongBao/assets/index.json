@@ -8,6 +8,11 @@
       "y": 417.80742752322624
     }
   ],
+  "map": {
+    "width": 480,
+    "height": 360
+  },
+  "debug":false,
   "currentCostumeIndex": 0,
   "zorder": [
     "hat",
