@@ -7,7 +7,7 @@ onStart => {
 
 onMsg "x-L-hand", => {
 	nextCostume
-	for {
+	forever => {
 		gotoFront
 		setSize 0.55
 	}
