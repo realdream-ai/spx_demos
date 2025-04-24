@@ -4,7 +4,7 @@ onStart => {
 	goBackLayers 3
 	setEffect FishEyeEffect, 0
 	setCostume "costume1"
-	for {
+	forever => {
 		for _spx1 := 10; _spx1 > 0; _spx1-- {
 			changeEffect FishEyeEffect, 1
 			wait 0.1

@@ -3,7 +3,7 @@ onStart => {
 	turnTo 79
 	setCostume "costume1"
 	gotoFront
-	for {
+	forever => {
 		setSize 0.45
 		goBackLayers -5
 	}
@@ -12,7 +12,7 @@ onStart => {
 onMsg "L-hand", => {
 	nextCostume
 	gotoFront
-	for {
+	forever => {
 		setSize 0.45
 		goBackLayers -5
 	}

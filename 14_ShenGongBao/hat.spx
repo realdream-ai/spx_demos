@@ -1,6 +1,6 @@
 onStart => {
 	setXYpos 125, -118
-	for {
+	forever => {
 		goBackLayers 100000
 	}
 }
