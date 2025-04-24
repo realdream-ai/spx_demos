@@ -1,0 +1,16 @@
+{
+  "costumeSet":{
+      "bitmapResolution": 2,
+      "faceRight": 90,
+      "path": "wizard_walk.png",
+      "nx": 5
+  },
+  "currentCostumeIndex": 0,
+  "heading": 0,
+  "isDraggable": false,
+  "rotationStyle": "normal",
+  "size": 0.2,
+  "visible": true,
+  "x": 0,
+  "y": 0
+}
