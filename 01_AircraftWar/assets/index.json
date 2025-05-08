@@ -9,7 +9,7 @@
     }
   ],
   "collisionByShape": true,
-  "debug": true,
+  "debug": false,
   "zorder": [
     "Backdrop",
     "TextIntro",
