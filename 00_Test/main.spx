@@ -70,8 +70,6 @@ func waitAndTest(msg string) {
 
 onStart =>{
 	hasTestDone = true
-	waitAndTest "testSound"
-	return 
 	waitAndTest "testVariable"
 	waitAndTest "testControl"
 	waitAndTest "testEvent"
@@ -82,4 +80,5 @@ onStart =>{
 	waitAndTest "testSensing"
 	waitAndTest "testEffect"
 	waitAndTest "testUnique"
+	waitAndTest "testSound"
 }
