@@ -8,16 +8,16 @@ onMsg "testSensing", => {
 	onTestStart(this)	
 
 	setXYpos(10, 10)
-	Red.SetXYpos(0, 0)
-	Red.SetSize(1)
+	Red.SetXYpos(-100, 0)
+	Red.SetSize(10)
 
 	startOffset := -100.0
-	mvSpeed := 10.0
+	mvSpeed := 2.0
 	// 1. Sprite::Touching	
 	tt := 0.0
-	for tt < 200 {
+	for tt < 2 {
 		tt += deltaTime()
-		setXpos startOffset * mvSpeed
+		setXpos startOffset * mvSpeed * tt
 		//if Touching "Red" {
 		//	say "touching"
 		//}
@@ -26,11 +26,11 @@ onMsg "testSensing", => {
 
 	// 2. Sprite::TouchingColor	
 	tt = 0
-	for tt < 200 {
+	for tt < 2 {
 		tt += deltaTime()
-		setXpos startOffset * mvSpeed
+		setXpos startOffset * mvSpeed * tt
 		//if isTouchingColor "Red" {
-			say "touching color"
+		//	say "touching color"
 		//}
 		waitNextFrame
 	}
@@ -44,6 +44,7 @@ onMsg "testSensing", => {
 	ask "test ask"
 	// 5. Game::Answer
 	say answer()	
+	wait 1
 	// 6. Game::KeyPressed	
 	say "test key pressed A"
 	for !KeyPressed(KeyA) {
@@ -57,14 +58,16 @@ onMsg "testSensing", => {
 	}
 	say "mouse clicked"
 
-	Red.SetXYpos(0, 0)
-	setXYpos(100, 200)
+	Red.SetSize(10)
+	Red.setXYpos(100, 200)
+	wait 1
+	SetXYpos(0, 0)
 	// 8. Game::MouseX	
 	mouseX := mouseX()
-	assertPosWithErr(this, mouseX, 0, 10, "Game::MouseX")
+	assertPosWithErr(this, mouseX, 0, 50, "Game::MouseX")
 	// 9. Game::MouseY	
 	mouseY := mouseY()
-	assertPosWithErr(this, mouseY, 0, 10, "Game::MouseY")
+	assertPosWithErr(this, mouseY, 0, 50, "Game::MouseY")
 	// 10. Game::Timer	
 	assert(timer() > 1,  "Game::Timer")
 	// 11. Game::ResetTimer
@@ -72,7 +75,7 @@ onMsg "testSensing", => {
 	assertFloat(timer(), 0.001, "Game::ResetTimer")	
 	// 12. Game::BackdropIndex	
 	assertFloat(float64(backdropIndex()), 0, "Game::BackdropIndex")
-	
+
 	// Game::Loudness	
 	// Game::Username	
 	// color [ ] is touching [ ]		

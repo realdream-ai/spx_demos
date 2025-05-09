@@ -42,7 +42,7 @@ onMsg "testLook", => {
 	wait 0.2
 
 	// 8. Sprite::Size	
-	assertFloat(size(), 3 "Sprite::Size")
+	assertFloat(size(), 3 , "Sprite::Size")
 	wait 0.2
 	
 	// 9. Sprite::ChangeEffect	

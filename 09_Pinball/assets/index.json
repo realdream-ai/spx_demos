@@ -1,1 +1,79 @@
-{"backdrops":[{"x":0,"y":0,"faceRight":0,"bitmapResolution":2,"name":"backdrop","path":"backdrop.png","builder_id":"6Uq-FYRBI2kJdVDX4-NCK"},{"x":0,"y":0,"faceRight":0,"bitmapResolution":1,"name":"背景2","path":"背景2.svg","builder_id":"yxFwrCoeQWtua3qv63OcY"},{"x":0,"y":0,"faceRight":0,"bitmapResolution":2,"name":"forest2","path":"forest2.png","builder_id":"mVE_tJPZF_R68hMxNyn6z"},{"x":0,"y":0,"faceRight":0,"bitmapResolution":1,"name":"baseball 2","path":"baseball 2.svg","builder_id":"ukGobj9_hE2HYaIyoGfSH"}],"backdropIndex":3,"map":{"width":480,"height":360,"mode":"fillRatio"},"run":{"width":480,"height":360},"zorder":["Sprite","TennisBall","NiuXiaoQi",{"type":"monitor","name":"monitor","x":-230,"y":170,"size":1,"visible":true,"builder_id":"oCKJsw9vQ34qbbpkKkPf_","label":"时间","val":"getVar:currentTime","mode":1,"target":""}],"builder_spriteOrder":["crYxvZ13DuGE7eTNKEte2","PyxFXdEODgdvoohRR5DbQ","KjDaz4iFcH4jHrAME9-RT"],"builder_soundOrder":["-YgjgzKpyjclVq98eMt8B","lUuDd_9fQLKSCJAz58exk","b3C7Yo8a2eO13Urvseete"]}
+{
+    "backdrops": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "backdrop",
+            "path": "backdrop.png",
+            "builder_id": "6Uq-FYRBI2kJdVDX4-NCK"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "背景2",
+            "path": "背景2.svg",
+            "builder_id": "yxFwrCoeQWtua3qv63OcY"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "forest2",
+            "path": "forest2.png",
+            "builder_id": "mVE_tJPZF_R68hMxNyn6z"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "baseball 2",
+            "path": "baseball 2.svg",
+            "builder_id": "ukGobj9_hE2HYaIyoGfSH"
+        }
+    ],
+    "windowScale":2,
+    "backdropIndex": 3,
+    "map": {
+        "width": 480,
+        "height": 360,
+        "mode": "fillRatio"
+    },
+    "run": {
+        "width": 480,
+        "height": 360
+    },
+    "zorder": [
+        "Sprite",
+        "TennisBall",
+        "NiuXiaoQi",
+        {
+            "type": "monitor",
+            "name": "monitor",
+            "x": -230,
+            "y": 170,
+            "size": 1,
+            "visible": true,
+            "builder_id": "oCKJsw9vQ34qbbpkKkPf_",
+            "label": "时间",
+            "val": "getVar:currentTime",
+            "mode": 1,
+            "target": ""
+        }
+    ],
+    "builder_spriteOrder": [
+        "crYxvZ13DuGE7eTNKEte2",
+        "PyxFXdEODgdvoohRR5DbQ",
+        "KjDaz4iFcH4jHrAME9-RT"
+    ],
+    "builder_soundOrder": [
+        "-YgjgzKpyjclVq98eMt8B",
+        "lUuDd_9fQLKSCJAz58exk",
+        "b3C7Yo8a2eO13Urvseete"
+    ]
+}

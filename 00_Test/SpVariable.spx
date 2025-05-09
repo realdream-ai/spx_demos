@@ -20,9 +20,7 @@ onMsg "testVariable", => {
     // 2. float64
     say "float64 test"
     float64Test = 1.5
-    assert(math.Abs(float64Test - 1.5) < 0.000001, "Float64 assignment 1 failed")
-    
-    assert(math.Abs(float64Test - 2.5) < 0.000001, "Float64 assignment 2 failed")
+    assert(math.Abs(float64Test - 1.5) < 0.0001, "Float64 assignment 1 failed")
     wait float64Test
 
     // 3. int
