@@ -32,17 +32,17 @@ onMsg "testLook", => {
 	assertFloat(float64(costumeIndex()), 0, "Sprite::CostumeIndex")
 
 	// 6. Sprite::ChangeSize	
-	changeSize 50
+	changeSize 3
 	wait 0.2
-	changeSize -50
+	changeSize -3
 	wait 0.2
 
 	// 7. Sprite::SetSize	
-	setSize 100
+	setSize 3
 	wait 0.2
 
 	// 8. Sprite::Size	
-	assertFloat(size(), 100, "Sprite::Size")
+	assertFloat(size(), 3 "Sprite::Size")
 	wait 0.2
 	
 	// 9. Sprite::ChangeEffect	

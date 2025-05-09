@@ -34,7 +34,7 @@ onMsg "testSensing", => {
 		//}
 		waitNextFrame
 	}
-
+	
 	// 3. Sprite::DistanceTo	
 	Red.SetXYpos(0, 0)
 	setXYpos(30, 40)

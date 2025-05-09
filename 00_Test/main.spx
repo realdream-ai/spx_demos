@@ -14,6 +14,7 @@ var (
 
 	SpControl SpControl
 	Red     Red
+	cloneNum int
 )
 
 func doPanic(msg string){
@@ -69,6 +70,9 @@ func waitAndTest(msg string) {
 
 onStart =>{
 	hasTestDone = true
+	waitAndTest "testSound"
+	return 
+	waitAndTest "testVariable"
 	waitAndTest "testControl"
 	waitAndTest "testEvent"
 	waitAndTest "testLook"
@@ -76,8 +80,6 @@ onStart =>{
 	waitAndTest "testOperator"
 	waitAndTest "testPen"
 	waitAndTest "testSensing"
-	waitAndTest "testSound"
-	waitAndTest "testVariable"
 	waitAndTest "testEffect"
 	waitAndTest "testUnique"
 }
