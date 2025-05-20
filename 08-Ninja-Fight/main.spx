@@ -28,10 +28,10 @@ func checkAttack(myHeading, myXpos, myYpos, attackeeXpos float64, attackeeYpos f
 
 	// 主角的必杀技
 	if ypa {
-		if int(myHeading) == Right {
+		if myHeading == Right {
 			result = attackeeXpos > (myXpos + 5)
 		}
-		if int(myHeading) == Left {
+		if myHeading == Left {
 			result = attackeeXpos < (myXpos - 5)
 		}
 	} else {
@@ -40,10 +40,10 @@ func checkAttack(myHeading, myXpos, myYpos, attackeeXpos float64, attackeeYpos f
 			// 不在同一水平线，打不到
 			return false
 		}
-		if int(myHeading) == Right {
+		if myHeading == Right {
 			result = attackeeXpos > (myXpos+5) && attackeeXpos < (myXpos+30)
 		}
-		if int(myHeading) == Left {
+		if myHeading == Left {
 			result = attackeeXpos < (myXpos-5) && attackeeXpos > (myXpos-30)
 		}
 	}
