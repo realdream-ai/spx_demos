@@ -1,0 +1,33 @@
+var (
+	shinobi   *Shinobi
+	samurai   *Samurai
+	isShinobi bool
+)
+
+onMsg (msg, data) => {
+	if msg != "explosion" {
+		return
+	}
+	if shinobi, ok := data.(*Shinobi); ok {
+		isShinobi = true
+		this.shinobi = shinobi
+		println "test3"
+	} else if samurai, ok := data.(*Samurai); ok {
+		isShinobi = false
+		this.samurai = samurai
+	}
+	clone
+}
+
+onCloned => {
+	println "test5"
+	if isShinobi {
+		setXYpos shinobi.xpos(), shinobi.ypos()
+	} else {
+		setXYpos samurai.xpos(), samurai.ypos()
+	}
+	show
+	wait 0.5
+	hide
+	die
+}
