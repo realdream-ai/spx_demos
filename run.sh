@@ -6,6 +6,7 @@
 # Parse command line arguments
 WEB_MODE=false
 APK_MODE=false
+IOS_MODE=false
 for arg in "$@"; do
     case $arg in
         --web)
@@ -14,6 +15,10 @@ for arg in "$@"; do
         ;;
         --apk)
         APK_MODE=true
+        shift
+        ;;
+        --ios)
+        IOS_MODE=true
         shift
         ;;
     esac
@@ -92,12 +97,42 @@ elif [ "$APK_MODE" = true ]; then
             # Enter subdirectory and run spx runweb
             (cd "$DIR" && spx clear && spx exportapk)
             cp -f "$DIR/project/.builds/android/game.apk" "$SCRIPT_DIR/builds/$DIR_NAME.apk"
-            spx clear
+            cd "$DIR" && spx clear
         fi
     done
     
     cd "$CURRENT_PATH"
     echo "spx exportapk commands in all subdirectories have been completed"
+elif [ "$IOS_MODE" = true ]; then
+    echo "Running in ios mode"
+    echo "The following subdirectories will run spx exportios command in sequence:"
+    for DIR in "${SUBDIRS[@]}"; do
+        if [ -d "$DIR" ]; then
+            echo "- $(basename "$DIR")"
+        fi
+    done
+    echo ""
+    cd $SCRIPT_DIR
+    mkdir -p $SCRIPT_DIR/builds
+    # Base port starting at 8106, will increment for each directory
+    mkdir -p "../build"
+    # Iterate through each subdirectory and run spx runweb
+    for DIR in "${SUBDIRS[@]}"; do
+        if [ -d "$DIR" ]; then
+            DIR_NAME=$(basename "$DIR")
+            echo "===================================="
+            echo "Entering $DIR_NAME and running spx exportios..."
+            echo "===================================="
+            
+            # Enter subdirectory and run spx runweb
+            (cd "$DIR" && spx clear && spx exportios)
+            cp -f "$DIR/project/.builds/ios/Game.ipa" "$SCRIPT_DIR/builds/$DIR_NAME.ipa"
+            cd "$DIR" && spx clear
+        fi
+    done
+    
+    cd "$CURRENT_PATH"
+    echo "spx exportios commands in all subdirectories have been completed"
 else
     echo "Running in normal mode"
     echo "The following subdirectories will run spx run command in sequence:"
