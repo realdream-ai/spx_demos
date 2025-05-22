@@ -3,3 +3,5 @@
 /**/.gitignore
 /07Match3
 /**/.temp
+/builds
+.DS_Store
