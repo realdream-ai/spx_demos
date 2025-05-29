@@ -7,6 +7,7 @@
 WEB_MODE=false
 APK_MODE=false
 IOS_MODE=false
+PC_MODE=false
 for arg in "$@"; do
     case $arg in
         --web)
@@ -19,6 +20,10 @@ for arg in "$@"; do
         ;;
         --ios)
         IOS_MODE=true
+        shift
+        ;;
+        --pc)
+        PC_MODE=true
         shift
         ;;
     esac
@@ -133,8 +138,8 @@ elif [ "$IOS_MODE" = true ]; then
     
     cd "$CURRENT_PATH"
     echo "spx exportios commands in all subdirectories have been completed"
-else
-    echo "Running in normal mode"
+elif [ "$PC_MODE" = true ]; then
+    echo "Running in pc mode"
     echo "The following subdirectories will run spx run command in sequence:"
     for DIR in "${SUBDIRS[@]}"; do
         if [ -d "$DIR" ]; then
@@ -169,4 +174,16 @@ else
     done
 
     echo "spx run commands in all subdirectories have been completed"
+else 
+    # Iterate through each subdirectory and run spx run
+    for DIR in "${SUBDIRS[@]}"; do
+        if [ -d "$DIR" ]; then
+            DIR_NAME=$(basename "$DIR")
+            echo "Entering $DIR_NAME and running spx clear..."
+            
+            # Enter subdirectory and run spx run
+            (cd "$DIR" && spx clear)
+           
+        fi
+    done
 fi
