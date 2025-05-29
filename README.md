@@ -20,8 +20,11 @@ spx run .
 The run.sh script allows you to batch run, export, or run all demo projects in a web browser.
 
 ```bash
+# Clear all demo caches
+./run.sh 
+
 # Run all demo projects locally
-./run.sh
+./run.sh --pc
 
 # Run all demo projects in web mode
 ./run.sh --web

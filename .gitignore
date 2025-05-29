@@ -5,3 +5,4 @@
 /**/.temp
 /builds
 .DS_Store
+gop_autogen.go
