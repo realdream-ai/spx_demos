@@ -157,7 +157,7 @@ elif [ "$PC_MODE" = true ]; then
             echo "===================================="
             
             # Enter subdirectory and run spx run
-            (cd "$DIR" && spx runi)
+            (cd "$DIR" && spx run)
             
             # Get the exit status of the previous command
             STATUS=$?
