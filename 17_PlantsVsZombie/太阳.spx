@@ -1,0 +1,59 @@
+var (
+	coolingTime int
+)
+
+onMsg StartGame, => {
+	gotoFront
+	leftZombies = 1
+
+	repeatUntil leftZombies < 1, => {
+		wait 7
+		if leftZombies > 0 {
+			sunx, suny := rand(-150, 150), rand(-150, 150)
+			clone struct {
+				x float64
+				y float64
+			}{
+				x: sunx,
+				y: suny,
+			}
+		}
+	}
+}
+
+onCloned data => {
+	pos := data.(struct {
+		x, y float64
+	})
+	show
+	setXYpos pos.x, pos.y
+	coolingTime = 50
+
+	repeatUntil coolingTime < 1, => {
+		coolingTime -= 1
+		wait 0.05
+		nextCostume
+	}
+
+	die
+}
+
+onCloned => {
+	repeatUntil touching(Mouse), => {
+
+	}
+
+	sun += 50
+
+	glide -199, 142, 1
+
+	die
+}
+
+onMsg GameOver, => {
+	die
+}
+
+onMsg PlantsWin, => {
+	deleteThisClone
+}

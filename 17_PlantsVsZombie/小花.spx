@@ -1,0 +1,48 @@
+onBackdrop "背景2", => {
+	hide
+}
+
+onMsg StartGame, => {
+	hide
+}
+
+onStart => {
+	setCostume "造型1"
+	gotoFront
+	show
+
+	for {
+		if backdropName() == "背景1" {
+			if 进度条2.costumeIndex() == 17 {
+				play "进度条花儿冒出Mp3"
+				setCostume "小花1"
+				waitUntil 进度条2.costumeIndex() != 17
+			}
+
+			if 进度条2.costumeIndex() == 25 {
+				play "进度条花儿冒出Mp3"
+				setCostume "小花2"
+				waitUntil 进度条2.costumeIndex() != 25
+			}
+
+			if 进度条2.costumeIndex() == 37 {
+				play "进度条花儿冒出Mp3"
+				setCostume "小花3"
+				waitUntil 进度条2.costumeIndex() != 37
+			}
+
+			if 进度条2.costumeIndex() == 43 {
+				play "进度条花儿冒出Mp3"
+				setCostume "小花4"
+				waitUntil 进度条2.costumeIndex() != 43
+			}
+
+			if 进度条2.costumeIndex() == 47 {
+				play "进度条花儿冒出Mp3"
+				setCostume "小花5"
+				waitUntil 进度条2.costumeIndex() != 47
+			}
+		}
+		wait 0.03
+	}
+}

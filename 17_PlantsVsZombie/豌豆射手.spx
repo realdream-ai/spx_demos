@@ -1,0 +1,118 @@
+import (
+	"math"
+)
+
+var (
+	i, j  int
+	x, y  float64
+	Blood int
+)
+
+func calPos(nx, ny float64) (float64, float64) {
+	i = int(math.round((nx + 126) / 39))
+	j = int(math.round((ny + 137) / 62.5))
+	if i < 0 {
+		i = 0
+	}
+	if i > 9 {
+		i = 9
+	}
+	if j < 0 {
+		j = 0
+	}
+	if j > 5 {
+		j = 5
+	}
+
+	x = 39*float64(i) - 126
+	y = 62.5*float64(j) - 137
+
+	return x, y
+}
+
+func hasZombies(x, y float64) bool {
+	j := int(math.round((y + 137) / 62.5))
+	if zombiesJpos[j] > 0 {
+		return true
+	}
+	return false
+}
+
+func runloop(x, y float64, sunshineRequire int) {
+	sun -= sunshineRequire
+	var cold int = 0
+	Blood = 100
+	setPlace(i, j, Blood)
+	for {
+		if getPlace(i, j) < 1 {
+			break
+		}
+		wait 0.09
+		nextCostume
+
+		if cold > 0 {
+			cold -= 1
+		} else {
+			if hasZombies(x, y) {
+				play "喷射1Mp3"
+				豌豆.clone struct {
+					x float64
+					y float64
+				}{
+					x: x + 9,
+					y: y + 12,
+				}
+				cold = 16
+			}
+		}
+
+		if touching("小铲子") && touching(Mouse) {
+			changeEffect BrightnessEffect, 20
+		} else {
+			changeEffect BrightnessEffect, 0
+		}
+	}
+
+	die
+}
+
+onMsg PlantsWin, => {
+	DeleteThisClone
+}
+
+onMsg GameOver, => {
+	DeleteThisClone
+}
+
+onCloned data => {
+	sunshineRequire := data.(int)
+	goto Mouse
+	show
+
+	wait 0.1
+
+	repeatUntil mousePressed(), => {
+		x, y := calPos(mouseX, mouseY)
+		setXYpos x, y
+	}
+
+	if !posPlaced(i, j) {
+		play "种植2Mp3"
+		runloop(xpos, ypos, sunshineRequire)
+	} else {
+		play "lowWhoosh"
+	}
+
+	DeleteThisClone
+}
+
+onCloned => {
+	for {
+		if touching("小铲子") && touching(Mouse) && mousePressed() {
+			setPlace(i, j, 0)
+			play "铲除Mp3"
+			deleteThisClone
+		}
+		wait 0.1
+	}
+}

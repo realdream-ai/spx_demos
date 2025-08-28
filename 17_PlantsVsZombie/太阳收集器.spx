@@ -1,0 +1,19 @@
+onStart => {
+	hide
+}
+
+onMsg StartGame, => {
+	show
+}
+
+onMsg GameOver, => {
+	hide
+	varSun := getWidget(Monitor, "sun")
+	varSun.hide
+}
+
+onMsg PlantsWin, => {
+	hide
+	varSun := getWidget(Monitor, "sun")
+	varSun.hide
+}
