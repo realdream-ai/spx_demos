@@ -1,0 +1,46 @@
+onStart => {
+	hide
+	gotoFront
+}
+
+onMsg PlantsWin, => {
+	hide
+}
+
+onMsg GameOver, => {
+	hide
+}
+
+onMsg StartLevel, => {
+	show
+}
+
+onBackdrop "背景2", => {
+	setXYpos 170, 124
+	playPut := false
+	for {
+		setXYpos 170, 124
+		wait 0.1
+		repeatUntil touching(Mouse) && mousePressed(), => {
+			if touching(Mouse) {
+				setEffect BrightnessEffect, 20
+				if !playPut {
+					play "pUT"
+					playPut = true
+				}
+			} else {
+				setEffect BrightnessEffect, 0
+				playPut = false
+			}
+		}
+
+		setEffect BrightnessEffect, 0
+		repeatUntil !mousePressed(), => {
+
+		}
+
+		repeatUntil mousePressed(), => {
+			goto Mouse
+		}
+	}
+}

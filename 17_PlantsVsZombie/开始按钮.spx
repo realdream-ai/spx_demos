@@ -1,0 +1,61 @@
+onStart => {
+	if backdropName() == "游戏失败" {
+		broadcast StartGame
+	} else {
+		show
+		putButton := false
+		repeatUntil touching(Mouse) && mousePressed, => {
+			if touching(Mouse) {
+				setCostume "按钮2"
+				if !putButton {
+					play "pUT"
+					putButton = true
+				}
+			} else {
+				setCostume "按钮1"
+				putButton = false
+			}
+		}
+
+		play "highWhoosh"
+		level = 1
+		println "start Game"
+		broadcast StartGame
+		hide
+	}
+}
+
+onStart => {
+	cardCostume = "太阳花"
+	植物卡片.clone
+}
+
+onMsg ClonedSunflower, => {
+	cardCostume = "豌豆射手"
+	植物卡片.clone
+}
+
+onMsg ClonedPea, => {
+	cardCostume = "坚果"
+	植物卡片.clone
+}
+
+onMsg ClonedNut, => {
+	cardCostume = "食人花"
+	植物卡片.clone
+}
+
+onMsg ClonedPiranha, => {
+	cardCostume = "双枪豌豆"
+	植物卡片.clone
+}
+
+onMsg ClonedDoubleGunShooter, => {
+	cardCostume = "倭瓜"
+	植物卡片.clone
+}
+
+onMsg ClonedJapMelon, => {
+	cardCostume = "樱桃炸弹"
+	植物卡片.clone
+}

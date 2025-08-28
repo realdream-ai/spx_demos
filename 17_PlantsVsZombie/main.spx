@@ -1,0 +1,201 @@
+import (
+	"math"
+)
+
+type Zombies struct {
+	zombiesType string
+	zombiesPos  int
+	waitTime    int
+}
+
+var (
+	植物卡片
+	豌豆射手
+	太阳花
+	坚果
+	双枪豌豆
+	机枪豌豆
+	倭瓜
+	樱桃炸弹
+	清除车
+	豌豆
+	太阳
+	食人花
+	僵尸
+	僵尸2
+	进度条2
+
+	// 地图
+	maps [][]int
+	// j 位置僵尸数
+	zombiesJpos   []int
+	activeZombies []*僵尸2
+
+	// 关卡
+	level int
+	// 卡片造型
+	cardCostume string
+	// 太阳
+	sun int
+	// 植物数
+	plantsCount int
+	// 等待关卡
+	waitSec float64
+	// 关卡结束
+	levelOver bool
+
+	// 剩余僵尸数
+	leftZombies int
+	// 僵尸列表
+	zombiesList []Zombies
+)
+
+var (
+	// 开始游戏
+	StartGame = "StartGame"
+	// 开始关卡
+	StartLevel = "StartLevel"
+	// 植物赢了
+	PlantsWin = "PlantsWin"
+	// 提示
+	Hint = "Hint"
+	// 显示卡片卡槽
+	ShowCardSlot = "ShowCardSlot"
+	// 胜利
+	GameWin = "GameWin"
+	// 结束
+	GameOver = "GameOver"
+
+	// 太阳花
+	ClonedSunflower = "ClonedSunflower"
+	// 豌豆射手
+	ClonedPea = "ClonedPea"
+	// 坚果
+	ClonedNut = "ClonedNut"
+	// 食人花
+	ClonedPiranha = "ClonedPiranha"
+	// 双枪射手
+	ClonedDoubleGunShooter = "ClonedDoubleGunShooter"
+	// 机枪射手
+	ClonedMachineGunner = "ClonedMachineGunner"
+	// 倭瓜
+	ClonedJapMelon = "ClonedJapMelon"
+)
+
+func initMap() {
+	maps = make([][]int, 9)
+	for i := 0; i < 9; i++ {
+		maps[i] = make([]int, 5)
+	}
+}
+
+// 加载关卡
+func loadLevels() {
+	initMap()
+	zombiesJpos = make([]int, 5)
+	zombiesList = make([]Zombies, 0)
+	activeZombies = make([]*僵尸2, 0)
+	switch level {
+	case 1:
+		plantsCount = 2
+		sun = 100
+		waitSec = 5
+		zombiesList = append(zombiesList, Zombies{"普通僵尸", 0, 15}, Zombies{"普通僵尸", 3, 15}, Zombies{"普通僵尸", 2, 15}, Zombies{"普通僵尸", 1, 5},
+			Zombies{"普通僵尸", 0, 5}, Zombies{"普通僵尸", 0, 1}, Zombies{"普通僵尸", 0, 1}, Zombies{"普通僵尸", 0, 0})
+		leftZombies = len(zombiesList)
+	case 2:
+		plantsCount = 3
+		sun = 100
+		waitSec = 5
+		zombiesList = append(zombiesList, Zombies{"普通僵尸", 0, 15}, Zombies{"普通僵尸", 1, 15}, Zombies{"普通僵尸", 4, 10}, Zombies{"普通僵尸", 3, 0},
+			Zombies{"普通僵尸", 4, 5}, Zombies{"普通僵尸", 2, 2}, Zombies{"普通僵尸", 1, 1}, Zombies{"普通僵尸", 1, 1}, Zombies{"普通僵尸", 1, 1},
+			Zombies{"路障僵尸", 1, 1})
+		leftZombies = len(zombiesList)
+	case 3:
+		plantsCount = 4
+		sun = 100
+		waitSec = 5
+		zombiesList = append(zombiesList, Zombies{"普通僵尸", 4, 15}, Zombies{"普通僵尸", 4, 15}, Zombies{"路障僵尸", 2, 10}, Zombies{"普通僵尸", 2, 0},
+			Zombies{"普通僵尸", 3, 0}, Zombies{"路障僵尸", 1, 10}, Zombies{"普通僵尸", 0, 5}, Zombies{"路障僵尸", 0, 5}, Zombies{"普通僵尸", 4, 5},
+			Zombies{"铁桶僵尸", 0, 5}, Zombies{"铁桶僵尸", 0, 1}, Zombies{"铁桶僵尸", 0, 0})
+		leftZombies = len(zombiesList)
+	case 4:
+		plantsCount = 5
+		sun = 160
+		waitSec = 5
+		zombiesList = append(zombiesList, Zombies{"普通僵尸", 4, 15}, Zombies{"普通僵尸", 4, 15}, Zombies{"路障僵尸", 2, 10}, Zombies{"普通僵尸", 2, 0},
+			Zombies{"普通僵尸", 3, 0}, Zombies{"路障僵尸", 1, 10}, Zombies{"普通僵尸", 0, 5}, Zombies{"路障僵尸", 0, 5}, Zombies{"普通僵尸", 4, 5},
+			Zombies{"铁桶僵尸", 0, 5}, Zombies{"铁桶僵尸", 0, 1}, Zombies{"铁桶僵尸", 0, 0})
+		leftZombies = len(zombiesList)
+	case 5:
+		plantsCount = 7
+		sun = 300
+		waitSec = 5
+		zombiesList = append(zombiesList, Zombies{"普通僵尸", 4, 15}, Zombies{"普通僵尸", 4, 7}, Zombies{"普通僵尸", 1, 3}, Zombies{"路障僵尸", 2, 5},
+			Zombies{"路障僵尸", 1, 5}, Zombies{"铁桶僵尸", 0, 1}, Zombies{"铁桶僵尸", 1, 1}, Zombies{"铁桶僵尸", 0, 2}, Zombies{"铁桶僵尸", 0, 0},
+			Zombies{"路障僵尸", 2, 10}, Zombies{"普通僵尸", 3, 15}, Zombies{"普通僵尸", 3, 0}, Zombies{"普通僵尸", 3, 1}, Zombies{"路障僵尸", 1, 4},
+			Zombies{"普通僵尸", 3, 15}, Zombies{"普通僵尸", 1, 0}, Zombies{"普通僵尸", 2, 0}, Zombies{"普通僵尸", 3, 0}, Zombies{"普通僵尸", 4, 0},
+			Zombies{"普通僵尸", 0, 3}, Zombies{"普通僵尸", 0, 0}, Zombies{"普通僵尸", 1, 0}, Zombies{"普通僵尸", 2, 0}, Zombies{"普通僵尸", 3, 0},
+			Zombies{"普通僵尸", 4, 1}, Zombies{"铁通僵尸", 2, 0}, Zombies{"铁通僵尸", 3, 0}, Zombies{"铁通僵尸", 4, 2}, Zombies{"路障僵尸", 0, 3},
+			Zombies{"铁通僵尸", 1, 5}, Zombies{"铁通僵尸", 2, 1}, Zombies{"铁通僵尸", 3, 1}, Zombies{"铁通僵尸", 0, 0}, Zombies{"铁通僵尸", 4, 1},
+			Zombies{"铁通僵尸", 1, 0}, Zombies{"铁桶僵尸", 4, 1}, Zombies{"铁通僵尸", 4, 1}, Zombies{"铁通僵尸", 4, 1})
+		leftZombies = len(zombiesList)
+	}
+}
+
+func posPlaced(i, j int) bool {
+	return maps[i][j] > 0
+}
+
+func getPlace(i, j int) int {
+	return maps[i][j]
+}
+
+func setPlace(i, j int, v int) {
+	maps[i][j] = v
+}
+
+func incrPlaced(i, j int, incr int) {
+	maps[i][j] += incr
+}
+
+onStart => {
+	startBackdrop "背景1"
+	varSun := getWidget(Monitor, "sun")
+	varSun.hide
+}
+
+onMsg StartGame, => {
+	startBackdrop "背景2"
+	varSun := getWidget(Monitor, "sun")
+	varSun.show
+	loadLevels
+	broadcast StartLevel
+}
+
+onMsg PlantsWin, => {
+	broadcast GameWin
+	wait 0.2
+	startBackdrop "植物赢了"
+}
+
+onBackdrop "游戏失败", => {
+	stopAllSounds
+	play "gameover"
+}
+
+onBackdrop "背景1", => {
+	stopAllSounds
+
+	repeatUntil backdropName != "背景1", => {
+		play "bgm2", true
+	}
+}
+
+onBackdrop "背景2", => {
+	stopAllSounds
+	broadcast Hint
+	repeatUntil backdropName != "背景2", => {
+		play "bgm2", true
+	}
+}

@@ -1,0 +1,36 @@
+onStart => {
+	if backdropIndex() != 3 {
+		setCostume "进度条1"
+		hide
+		wait 0.5
+		show
+
+		repeat 47, => {
+			nextCostume
+			if costumeName() == "进度条43" {
+				setYpos -130
+			} else if costumeName() == "进度条44" {
+				setYpos -135
+			} else if costumeName() == "进度条45" {
+				setYpos -138
+			} else if costumeName() == "进度条46" {
+				setYpos -140
+			} else if costumeName() == "进度条47" {
+				setYpos -148
+			} else if costumeName() == "进度条48" {
+				setYpos -152
+			} else {
+				setYpos -128
+			}
+			wait 0.01
+		}
+	}
+}
+
+onBackdrop "背景2", => {
+	hide
+}
+
+onMsg StartGame, => {
+	hide
+}

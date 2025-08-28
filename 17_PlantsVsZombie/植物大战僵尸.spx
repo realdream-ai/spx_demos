@@ -1,0 +1,9 @@
+onStart => {
+	setXYpos 3, 197
+	show
+	glide 3, 130, 1
+}
+
+onMsg StartGame, => {
+	hide
+}

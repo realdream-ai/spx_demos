@@ -1,0 +1,37 @@
+onTouchStart sprite => {
+	if sprite.name == "僵尸2" {
+		num := rand(1, 3)
+		play sprintf("豌豆击中僵尸%d", int(num))
+		destroy
+	}
+}
+
+onCloned data => {
+	pos := data.(struct {
+		x float64
+		y float64
+	})
+
+	setXYpos pos.x, pos.y
+	show
+	for {
+		wait 0.02
+		step 16
+
+		if touching(Edge) {
+			destroy
+		}
+	}
+}
+
+onMsg PlantsWin, => {
+	DeleteThisClone
+}
+
+onMsg GameOver, => {
+	DeleteThisClone
+}
+
+onMsg GameWin, => {
+	DeleteThisClone
+}
