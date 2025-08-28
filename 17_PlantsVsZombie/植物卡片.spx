@@ -1,0 +1,117 @@
+var (
+	PlantsRequire   int
+	SunshineRequire int
+)
+
+onCloned => {
+	setCostume cardCostume
+	name := costumeName()
+	if name == "太阳花" {
+		PlantsRequire = 1
+		SunshineRequire = 50
+		setXYpos -146, 147
+		setSize 0.7
+		broadcast ClonedSunflower
+	} else if name == "豌豆射手" {
+		PlantsRequire = 1
+		SunshineRequire = 100
+		setXYpos -111, 147
+		setSize 0.7
+		broadcast ClonedPea
+	} else if name == "坚果" {
+		PlantsRequire = 2
+		SunshineRequire = 50
+		setXYpos -77, 147
+		setSize 0.7
+		broadcast ClonedNut
+	} else if name == "食人花" {
+		PlantsRequire = 3
+		SunshineRequire = 200
+		setXYpos -44, 147
+		setSize 0.7
+		broadcast ClonedPiranha
+	} else if name == "双枪豌豆" {
+		PlantsRequire = 4
+		SunshineRequire = 200
+		setXYpos -10, 147
+		setSize 0.7
+		broadcast ClonedDoubleGunShooter
+	} else if name == "机枪射手" {
+		PlantsRequire = 5
+		SunshineRequire = 250
+		setXYpos 25, 147
+		setSize 0.7
+		broadcast ClonedMachineGunner
+	} else if name == "倭瓜" {
+		PlantsRequire = 5
+		SunshineRequire = 75
+		setXYpos 24, 147
+		setSize 0.7
+		broadcast ClonedJapMelon
+	} else if name == "樱桃炸弹" {
+		PlantsRequire = 5
+		SunshineRequire = 350
+		setXYpos 58, 147
+		setSize 0.7
+	}
+}
+
+onStart => {
+	PlantsRequire = 100
+	hide
+}
+
+onMsg GameWin, => {
+	hide
+}
+
+onMsg StartLevel, => {
+	if plantsCount > PlantsRequire {
+		show
+	} else {
+		hide
+	}
+
+	levelOver = false
+	playPut := false
+	repeatUntil levelOver, => {
+		if sun < SunshineRequire {
+			setEffect BrightnessEffect, -50
+		} else {
+			if touching(Mouse) {
+				setEffect BrightnessEffect, 20
+				if !playPut {
+					play "pUT"
+					playPut = true
+				}
+			} else {
+				setEffect BrightnessEffect, 0
+				playPut = false
+			}
+		}
+	}
+}
+
+onClick => {
+	if sun >= SunshineRequire {
+		play "点击卡片"
+		cardCostume = costumeName()
+		if cardCostume == "豌豆射手" {
+			豌豆射手.clone SunshineRequire
+		} else if cardCostume == "太阳花" {
+			太阳花.clone SunshineRequire
+		} else if cardCostume == "坚果" {
+			坚果.clone SunshineRequire
+		} else if cardCostume == "食人花" {
+			食人花.clone SunshineRequire
+		} else if cardCostume == "双枪豌豆" {
+			双枪豌豆.clone SunshineRequire
+		} else if cardCostume == "机枪射手" {
+			机枪豌豆.clone SunshineRequire
+		} else if cardCostume == "倭瓜" {
+			倭瓜.clone SunshineRequire
+		} else if cardCostume == "樱桃炸弹" {
+			樱桃炸弹.clone SunshineRequire
+		}
+	}
+}

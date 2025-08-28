@@ -1,0 +1,22 @@
+onStart => {
+	setSize 1
+
+	setXYpos 0, 0
+	hide
+}
+
+onMsg ShowCardSlot, => {
+	// show
+
+	// setXYpos 0, 50
+
+	// repeat 10, => {
+	// 	changeYpos -5
+	// }
+
+	// setXYpos 0, 0
+
+	// wait 0.1
+
+	// broadcast "ping"
+}

@@ -1,0 +1,27 @@
+onStart => {
+	hide
+	setXYpos 0, 0
+
+	for {
+		gotoFront
+		wait 0.1
+	}
+}
+
+onMsg Hint, => {
+	setXYpos 0, 0
+
+	setCostume "startReady"
+	setSize 0.8
+	show
+
+	repeat 2, => {
+		wait 0.7
+		nextCostume
+	}
+
+	wait 0.5
+	hide
+
+	broadcast ShowCardSlot
+}

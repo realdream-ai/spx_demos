@@ -1,0 +1,158 @@
+import (
+	"math"
+)
+
+type ZombiesInfo struct {
+	Type         string
+	Blood        int
+	HalfBlood    int
+	ColorEffects float64
+}
+
+var (
+	ZombiesInfo
+	Zombies
+	// 处于攻击模式
+	attack bool
+	// 攻击目标位置 i
+	targetI int
+	// 攻击目标位置 j
+	targetJ int
+)
+
+var (
+	NormalZombies ZombiesInfo = ZombiesInfo{
+		Type:         "普通僵尸",
+		Blood:        100,
+		HalfBlood:    50,
+		ColorEffects: 0,
+	}
+
+	RoadblockZombies ZombiesInfo = ZombiesInfo{
+		Type:         "路障僵尸",
+		Blood:        200,
+		HalfBlood:    100,
+		ColorEffects: 30,
+	}
+
+	DrumZombies ZombiesInfo = ZombiesInfo{
+		Type:         "铁桶僵尸",
+		Blood:        400,
+		HalfBlood:    200,
+		ColorEffects: 100,
+	}
+)
+
+func getZombiesInfo(t string) ZombiesInfo {
+	switch t {
+	case "路障僵尸":
+		return RoadblockZombies
+	case "铁桶僵尸":
+		return DrumZombies
+	default:
+		return NormalZombies
+	}
+}
+
+func isWin() {
+	leftZombies -= 1
+	if leftZombies == 0 {
+		broadcast PlantsWin
+		die
+	}
+}
+
+func calPos(nx, ny float64) {
+	targetI = int(math.round((nx + 126) / 39))
+	targetJ = int(math.round((ny + 137) / 62.5))
+}
+
+func getCostumeName() string {
+	name := "普通"
+	if Type == "路障僵尸" {
+		name = "路障"
+	} else if Type == "铁桶" {
+		name = "铁桶"
+	}
+	// if Blood < HalfBlood && Type != "铁桶" {
+	// 	name += "受伤"
+	// }
+	if attack {
+		name += "攻击"
+	}
+	return name
+}
+
+onStart => {
+	gotoFront
+	hide
+}
+
+onMsg StartGame, => {
+	wait waitSec
+	for _, zombies := range zombiesList {
+		clone zombies
+		wait float64(zombies.waitTime)
+	}
+}
+
+onTouchStart "豌豆", => {
+	Blood -= 20
+	changeEffect BrightnessEffect, 50
+	wait 0.08
+	changeEffect BrightnessEffect, -50
+}
+
+onTouchStart ["倭瓜", "太阳花", "豌豆射手", "食人花", "坚果", "双枪豌豆", "樱桃炸弹"], sprite => {
+	calPos(sprite.xpos, sprite.ypos)
+}
+
+onCloned data => {
+	Zombies = data.(Zombies)
+	ZombiesInfo = getZombiesInfo(this.Zombies.zombiesType)
+
+	activeZombies = append(activeZombies, this)
+	setEffect ColorEffect, ColorEffects
+
+	setXYpos 245, 62.5*float64(zombiesPos)-120
+	zombiesJpos[Zombies.zombiesPos]++
+	show
+	repeatUntil Blood < 1, => {
+		if !attack {
+			changeXpos -2
+		}
+		if xpos < -170 {
+			startBackdrop "游戏失败"
+			leftZombies = -1
+			broadcast GameOver
+		}
+
+		wait 0.08
+	}
+	zombiesJpos[Zombies.zombiesPos]--
+	isWin
+	die
+}
+
+onCloned => {
+	for {
+		if touching("倭瓜") || touching("太阳花") || touching("豌豆射手") || touching("坚果") ||
+			touching("食人花") || touching("双枪豌豆") || touching("樱桃炸弹") {
+			attack = true
+		} else {
+			attack = false
+		}
+
+		animate getCostumeName()
+		if attack {
+			incrPlaced(targetI, targetJ, -50)
+			num := rand(1, 3)
+			play sprintf("啃食声%d", int(num))
+		}
+	}
+}
+
+onBackdrop "游戏失败", => {
+	levelOver = true
+	stop OtherScriptsInSprite
+}
