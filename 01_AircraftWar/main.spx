@@ -1,18 +1,4 @@
 var (
-	Backdrop    Backdrop
-	Bomb        Bomb
-	TextIntro   TextIntro
-	GameLogo    GameLogo
-	GameStart   GameStart
-	MyAircraft  MyAircraft
-	MiddleEnemy MiddleEnemy
-	HugeEnemy   HugeEnemy
-	Bullet      Bullet
-	SmallEnemy  SmallEnemy
-	GameOver    GameOver
-	YouWin      YouWin
-	Restart     Restart
-
 	bombs int
 	score int
 )

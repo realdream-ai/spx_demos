@@ -1,18 +1,4 @@
 var (
-	Logo     Logo
-	GameOver GameOver
-	Reset    Reset
-	Ground   Ground
-	Calf     Calf
-	Pipe     Pipe
-	Start    Start
-	TapInfo  TapInfo
-
-	mdie   Sound
-	mwing  Sound
-	mhit   Sound
-	mpoint Sound
-
 	userScore int
 )
 
