@@ -1,4 +1,4 @@
-onTouchStart sprite => {
+onTouchStart "僵尸2", sprite => {
 	if sprite.name == "僵尸2" {
 		num := rand(1, 3)
 		play sprintf("豌豆击中僵尸%d", int(num))

@@ -1,14 +1,14 @@
 onStart => {
 	setXYpos 147, -87
 	setSize 0.55
-	gotoFront
+	setLayer Front
 	setCostume "costume1"
 }
 
 onMsg "x-L-hand", => {
-	nextCostume
+	setCostume Next
 	forever => {
-		gotoFront
+		setLayer Front
 		setSize 0.55
 	}
 }

@@ -117,9 +117,9 @@ func runloop(sunshineRequire int) {
 		setCostume costume
 
 		if touching("小铲子") && touching(Mouse) {
-			changeEffect BrightnessEffect, 20
+			changeGraphicEffect BrightnessEffect, 20
 		} else {
-			changeEffect BrightnessEffect, 0
+			changeGraphicEffect BrightnessEffect, 0
 		}
 	}
 }
@@ -134,7 +134,7 @@ onMsg GameOver, => {
 
 onCloned data => {
 	sunshineRequire := data.(int)
-	goto Mouse
+	stepTo Mouse
 	show
 	wait 0.1
 

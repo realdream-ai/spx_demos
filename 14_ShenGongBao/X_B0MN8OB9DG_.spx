@@ -1,8 +1,8 @@
 onStart => {
 	setSize 0.45
-	goBackLayers 10
+	setLayer Backward,10
 	forever => { 
-		nextCostume
+		setCostume Next
 		wait 0.2
 	}
 }

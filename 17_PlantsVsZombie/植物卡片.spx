@@ -76,16 +76,16 @@ onMsg StartLevel, => {
 	playPut := false
 	repeatUntil levelOver, => {
 		if sun < SunshineRequire {
-			setEffect BrightnessEffect, -50
+			setGraphicEffect BrightnessEffect, -50
 		} else {
 			if touching(Mouse) {
-				setEffect BrightnessEffect, 20
+				setGraphicEffect BrightnessEffect, 20
 				if !playPut {
 					play "pUT"
 					playPut = true
 				}
 			} else {
-				setEffect BrightnessEffect, 0
+				setGraphicEffect BrightnessEffect, 0
 				playPut = false
 			}
 		}

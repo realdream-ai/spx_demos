@@ -43,7 +43,7 @@ onMsg (message, data) => {
 		die
 	}
 	if message == "flash" && data == this {
-		gotoFront
+		setLayer Front
 		// TODO: size change animation
 		setSize 0.54
 		wait 0.3

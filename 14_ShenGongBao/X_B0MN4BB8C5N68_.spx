@@ -1,10 +1,10 @@
 onStart => {
 	setXYpos 98, -83
 	setSize 0.55
-	goBackLayers 7
+	setLayer Backward,7
 	setCostume "costume1"
 }
 
 onMsg "x-R-hand", => {
-	nextCostume
+	setCostume Next
 }

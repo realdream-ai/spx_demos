@@ -19,7 +19,7 @@ onCloned => {
 
 onCloned => {
 	for {
-		if xpos < -80.0 && calfPlay == true {
+		if xpos < -80.0 && calfplay == true {
 			userScore++
 			play mpoint, true
 			break

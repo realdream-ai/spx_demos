@@ -4,7 +4,7 @@ func timeout() {
 	for i <- 0:60 {
 		wait 1
 		num := fmt.Sprintf("%d", i+1)
-		broadcast "timer", num, true
+		broadcastAndWait "timer", num
 	}
 	broadcast "timeout"
 }
@@ -39,7 +39,7 @@ onMsg (msg, data) => {
 			if touching(Edge) {
 				play "pop"
 				if touching(EdgeBottom) {
-					broadcast "gameFail", true
+					broadcastAndWait "gameFail"
 				}
 			}
 			wait 0.1

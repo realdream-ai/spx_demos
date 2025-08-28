@@ -14,7 +14,7 @@ onMsg "start", => {
 
 		speed = 5 + cloneNum/3
 
-		step speed // 向当前方向移动
+		step float64(speed) // 向当前方向移动
 		x := xpos
 		y := ypos
 

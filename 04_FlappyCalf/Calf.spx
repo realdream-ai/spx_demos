@@ -9,16 +9,16 @@ onMsg "menu", => {
 }
 
 onMsg "menu", => {
-	for !calfPlay {
+	for !calfplay {
 		if calfDie == false {
 			for i := 0; i < 10; i++ {
-				if calfPlay == false {
+				if calfplay == false {
 					changeYpos -0.5
 				}
 				wait 0.05
 			}
 			for i := 0; i < 10; i++ {
-				if calfPlay == false {
+				if calfplay == false {
 					changeYpos 0.5
 				}
 				wait 0.05
@@ -29,14 +29,14 @@ onMsg "menu", => {
 
 onMsg "tap", => {
 	setCostume 0
-	for calfPlay {
+	for calfplay {
 		calfGravity = calfGravity - 0.25
 		wait 0.05
 	}
 }
 
 onMsg "tap", => {
-	for calfPlay {
+	for calfplay {
 		for !(keyPressed(KeySpace) || mousePressed) {
 			wait 0.01
 		}
@@ -50,7 +50,7 @@ onMsg "tap", => {
 }
 
 onMsg "tap", => {
-	for calfPlay {
+	for calfplay {
 		for !(keyPressed(KeySpace) || mousePressed) {
 			wait 0.01
 		}
@@ -60,14 +60,14 @@ onMsg "tap", => {
 }
 
 onMsg "tap", => {
-	for calfPlay {
+	for calfplay {
 		if touching("Pipe") || touching(EdgeTop) || ypos < -123.9 {
 
-			calfPlay = false
+			calfplay = false
 			calfDie = true
 			calfGravity = 0
 			broadcast "game over"
-			gotoFront
+			setLayer Front
 			break
 		}
 		wait 0.03
@@ -76,7 +76,7 @@ onMsg "tap", => {
 
 onMsg "tap", => {
 	flag := 0
-	for calfPlay {
+	for calfplay {
 		if calfGravity != 0.0 {
 
 			if heading < 150 && flag == 0 {
@@ -97,9 +97,9 @@ onMsg "tap", => {
 
 onMsg "game over", => {
 	if touching("Pipe") {
-		play mhit, true
+		play mhit
 	}
-	play mdie, false
+	play mdie
 }
 
 onMsg "game over", => {
@@ -113,7 +113,7 @@ onMsg "game over", => {
 	turnTo 180
 	for !calfPlay{
 
-		nextCostume
+		setCostume Next
 		wait 0.1
 	}
 }
