@@ -1,6 +1,6 @@
 onStart => {
 	hide
-	gotoFront
+	setLayer Front
 }
 
 onMsg PlantsWin, => {
@@ -23,24 +23,24 @@ onBackdrop "背景2", => {
 		wait 0.1
 		repeatUntil touching(Mouse) && mousePressed(), => {
 			if touching(Mouse) {
-				setEffect BrightnessEffect, 20
+				setGraphicEffect BrightnessEffect, 20
 				if !playPut {
 					play "pUT"
 					playPut = true
 				}
 			} else {
-				setEffect BrightnessEffect, 0
+				setGraphicEffect BrightnessEffect, 0
 				playPut = false
 			}
 		}
 
-		setEffect BrightnessEffect, 0
+		setGraphicEffect BrightnessEffect, 0
 		repeatUntil !mousePressed(), => {
 
 		}
 
 		repeatUntil mousePressed(), => {
-			goto Mouse
+			stepTo Mouse
 		}
 	}
 }

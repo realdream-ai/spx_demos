@@ -48,7 +48,7 @@ func runloop(x, y float64, sunshineRequire int) {
 			break
 		}
 		wait 0.09
-		nextCostume
+		setCostume Next
 
 		if cold > 0 {
 			cold -= 1
@@ -67,9 +67,9 @@ func runloop(x, y float64, sunshineRequire int) {
 		}
 
 		if touching("小铲子") && touching(Mouse) {
-			changeEffect BrightnessEffect, 20
+			changeGraphicEffect BrightnessEffect, 20
 		} else {
-			changeEffect BrightnessEffect, 0
+			changeGraphicEffect BrightnessEffect, 0
 		}
 	}
 
@@ -86,7 +86,7 @@ onMsg GameOver, => {
 
 onCloned data => {
 	sunshineRequire := data.(int)
-	goto Mouse
+	stepTo Mouse
 	show
 
 	wait 0.1

@@ -18,7 +18,7 @@ func attack() {
 	attacking = true
 	if checkAttack(heading(), xpos(), ypos(), Fighter.xpos(), Fighter.ypos(), false) {
 		println "attacking Fighter"
-		broadcast "attack Fighter", heading(), false
+		broadcast "attack Fighter", heading()
 	}
 	animate "attack"
 	attacking = false
@@ -57,7 +57,7 @@ onMsg (msg, data) => {
 	}
 	if msg == "attack ypa" {
 		println "广播爆炸效果"
-		broadcast "explosion", data.(*Shinobi), false
+		broadcast "explosion", data.(*Shinobi)
 	}
 	doDie
 	wait 0.5

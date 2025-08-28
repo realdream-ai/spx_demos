@@ -22,14 +22,14 @@ const (
 )
 
 var (
-	calfPlay    = false
+	calfplay    = false
 	calfDie     = false
 	calfGravity = 0.0
 )
 
 func reset() {
 	userScore = 0
-	calfPlay = false
+	calfplay = false
 	calfDie = false
 	calfGravity = 0.0
 }

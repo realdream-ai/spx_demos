@@ -9,22 +9,6 @@ type Zombies struct {
 }
 
 var (
-	植物卡片
-	豌豆射手
-	太阳花
-	坚果
-	双枪豌豆
-	机枪豌豆
-	倭瓜
-	樱桃炸弹
-	清除车
-	豌豆
-	太阳
-	食人花
-	僵尸
-	僵尸2
-	进度条2
-
 	// 地图
 	maps [][]int
 	// j 位置僵尸数
@@ -160,13 +144,13 @@ func incrPlaced(i, j int, incr int) {
 }
 
 onStart => {
-	startBackdrop "背景1"
+	setBackdrop "背景1"
 	varSun := getWidget(Monitor, "sun")
 	varSun.hide
 }
 
 onMsg StartGame, => {
-	startBackdrop "背景2"
+	setBackdrop "背景2"
 	varSun := getWidget(Monitor, "sun")
 	varSun.show
 	loadLevels
@@ -176,7 +160,7 @@ onMsg StartGame, => {
 onMsg PlantsWin, => {
 	broadcast GameWin
 	wait 0.2
-	startBackdrop "植物赢了"
+	setBackdrop "植物赢了"
 }
 
 onBackdrop "游戏失败", => {
@@ -188,7 +172,7 @@ onBackdrop "背景1", => {
 	stopAllSounds
 
 	repeatUntil backdropName != "背景1", => {
-		play "bgm2", true
+		play "bgm2"
 	}
 }
 
@@ -196,6 +180,6 @@ onBackdrop "背景2", => {
 	stopAllSounds
 	broadcast Hint
 	repeatUntil backdropName != "背景2", => {
-		play "bgm2", true
+		play "bgm2"
 	}
 }

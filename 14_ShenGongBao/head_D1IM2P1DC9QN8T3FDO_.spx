@@ -6,7 +6,7 @@ onStart => {
 
 onClick => {
 	setCostume "costume2"
-	broadcast "Head", true
+	broadcastAndWait "Head"
 	wait 1
 	setCostume "costume1"
 }

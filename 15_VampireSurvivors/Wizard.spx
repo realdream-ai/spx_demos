@@ -11,7 +11,7 @@ onStart => {
 	speed = 5.0
 }
 
-onTouchStart => {
+onTouchStart "Enemy",=> {
 	if touching("Enemy") {
 		health -= 10
 		if health <= 0 {

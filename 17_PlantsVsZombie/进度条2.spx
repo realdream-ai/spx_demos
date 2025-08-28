@@ -6,7 +6,7 @@ onStart => {
 		show
 
 		repeat 47, => {
-			nextCostume
+			setCostume Next
 			if costumeName() == "进度条43" {
 				setYpos -130
 			} else if costumeName() == "进度条44" {

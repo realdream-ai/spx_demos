@@ -3,14 +3,14 @@ onStart => {
 	setSize 0.55
 	setCostume "costume1"
 	forever => {
-		gotoFront
+		setLayer Front
 	}
 }
 
 onMsg "x-R-hand", => {
-	nextCostume
+	setCostume Next
 	forever => {
 		setSize 0.55
-		gotoFront
+		setLayer Front
 	}
 }

@@ -8,7 +8,7 @@ onMsg StartGame, => {
 
 onStart => {
 	setCostume "造型1"
-	gotoFront
+	setLayer Front
 	show
 
 	for {

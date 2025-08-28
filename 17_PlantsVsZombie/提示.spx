@@ -3,7 +3,7 @@ onStart => {
 	setXYpos 0, 0
 
 	for {
-		gotoFront
+		setLayer Front
 		wait 0.1
 	}
 }
@@ -17,7 +17,7 @@ onMsg Hint, => {
 
 	repeat 2, => {
 		wait 0.7
-		nextCostume
+		setCostume Next
 	}
 
 	wait 0.5

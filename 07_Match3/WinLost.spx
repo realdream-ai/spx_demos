@@ -1,6 +1,6 @@
 onMsg "lost", => {
 	setCostume "lost"
-	gotoFront
+	setLayer Front
 	show
 }
 onMsg "restartGame", => {

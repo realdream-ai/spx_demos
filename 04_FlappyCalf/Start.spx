@@ -13,7 +13,7 @@ onMsg "start", => {
 }
 
 onMsg "menu", => {
-	gotoFront
+	setLayer Front
 	show
 	for visible {
 		if touching(Mouse) {

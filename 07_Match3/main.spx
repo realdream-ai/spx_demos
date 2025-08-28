@@ -183,7 +183,7 @@ func removeCube(row, col int) {
 	cube := cubes[row][col]
 	cubes[row][col] = nil
 	if cube != nil {
-		broadcast "remove", cube, false
+		broadcast "remove", cube
 	}
 }
 
@@ -262,9 +262,7 @@ func startRound() {
 func endRound() {
 	roundTime = ROUND_TIME
 	inRound = false
-	play "tick", &PlayOptions{
-		Action: PlayStop,
-	}
+	stopPlaying "tick"
 }
 
 func clearBoard() {
@@ -375,8 +373,8 @@ func showSolution() {
 	solution := solutions[0]
 	fromCube := cubes[solution.fromRow][solution.fromCol]
 	toCube := cubes[solution.toRow][solution.toCol]
-	broadcast "flash", fromCube, false
-	broadcast "flash", toCube, false
+	broadcast "flash", fromCube
+	broadcast "flash", toCube
 }
 
 func resetGame(){
@@ -390,9 +388,7 @@ func resetGame(){
 }
 func gameLost(){
 	isPlaying = false
-	play "tick", &PlayOptions{
-		Action: PlayStop,
-	}
+	stopPlaying "tick"
 	broadcast "lost"
 }
 
@@ -425,9 +421,7 @@ onStart => {
 			gameLost()
 		}
 		if roundTime == REMIND_TIME {
-			play "tick", &PlayOptions{
-				Loop: true,
-			}
+			play "tick", true
 		}
 	}
 }
