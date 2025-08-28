@@ -23,7 +23,7 @@ onKey KeyRight, => {
 }
 
 onKey KeyUp, => {
-	broadcast fireMsg, false
+	broadcast fireMsg
 }
 
 onMsg failMsg, => {

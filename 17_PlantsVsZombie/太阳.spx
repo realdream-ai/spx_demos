@@ -3,7 +3,7 @@ var (
 )
 
 onMsg StartGame, => {
-	gotoFront
+	setLayer Front
 	leftZombies = 1
 
 	repeatUntil leftZombies < 1, => {
@@ -32,7 +32,7 @@ onCloned data => {
 	repeatUntil coolingTime < 1, => {
 		coolingTime -= 1
 		wait 0.05
-		nextCostume
+		setCostume Next
 	}
 
 	die

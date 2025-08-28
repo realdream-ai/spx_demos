@@ -1,9 +1,9 @@
 onStart => {
 	setSize 0.33
 	setXYpos 122, -127
-	goBackLayers 3
+	setLayer Backward,3
 }
 
 onMsg "x-body", => {
-	nextCostume
+	setCostume Next
 }

@@ -25,7 +25,7 @@ func attack() {
 	}
 	for _, shinobi := range shinobis {
 		if checkAttack(heading(), xpos(), ypos(), shinobi.xpos(), shinobi.ypos(), false) {
-			broadcast "attack", shinobi, false
+			broadcast "attack", shinobi
 			println "杀掉敌人！"
 		}
 	}
@@ -56,7 +56,7 @@ func attack3() {
 	}
 	for _, shinobi := range shinobis {
 		if checkAttack(heading(), xpos(), ypos(), shinobi.xpos(), shinobi.ypos(), false) {
-			broadcast "attack", shinobi, false
+			broadcast "attack", shinobi
 			println "杀掉敌人！"
 		}
 	}
@@ -74,12 +74,12 @@ func attackYpa() {
 	attacking = true
 	animate "乌拉"
 	if checkAttack(heading(), xpos(), ypos(), Samurai.xpos(), Samurai.ypos(), true) {
-		broadcast "attack Samurai ypa", Samurai, false
+		broadcast "attack Samurai ypa", Samurai
 		println "必杀技杀掉敌人！"
 	}
 	for _, shinobi := range shinobis {
 		if checkAttack(heading(), xpos(), ypos(), shinobi.xpos(), shinobi.ypos(), true) {
-			broadcast "attack ypa", shinobi, false
+			broadcast "attack ypa", shinobi
 			println "必杀技杀掉敌人！"
 		}
 	}

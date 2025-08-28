@@ -6,7 +6,7 @@ onStart => {
 
 onClick => {
 	setCostume "costume2"
-	broadcast "R-hand", true
+	broadcastAndWait "R-hand"
 	wait 1
 	setCostume "costume1"
 }

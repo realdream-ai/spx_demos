@@ -5,17 +5,13 @@ var (
 func playMusic() {
 	music = true
 	setCostume "mute"
-	play "background", &PlayOptions{
-		Loop: true,
-	}
+	play "background", true
 }
 
 func stopMusic() {
 	music = false
 	setCostume "music"
-	play "background", &PlayOptions{
-		Action: PlayStop,
-	}
+	stopPlaying "background"
 }
 
 onStart => {

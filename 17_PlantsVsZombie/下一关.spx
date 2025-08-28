@@ -15,9 +15,9 @@ onMsg PlantsWin, => {
 
 		repeatUntil backdropName() != "植物赢了", => {
 			if touching(Mouse) {
-				setEffect BrightnessEffect, 20
+				setGraphicEffect BrightnessEffect, 20
 			} else {
-				setEffect BrightnessEffect, 0
+				setGraphicEffect BrightnessEffect, 0
 			}
 		}
 	}

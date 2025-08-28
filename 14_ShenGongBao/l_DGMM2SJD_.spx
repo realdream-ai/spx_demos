@@ -2,10 +2,10 @@ onStart => {
 	setXYpos 45, 60
 	turnTo 79
 	setSize 0.45
-	goBackLayers 15
+	setLayer Backward,15
 	setCostume "costume1"
 }
 
 onMsg "L-hand", => {
-	nextCostume
+	setCostume Next
 }

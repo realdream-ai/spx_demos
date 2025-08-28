@@ -1,6 +1,6 @@
 onMsg "game over", => {
 	wait 0.5
-	gotoFront
+	setLayer Front
 	show
 	for visible {
 		if touching(Mouse) {
