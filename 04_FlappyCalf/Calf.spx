@@ -54,7 +54,7 @@ onMsg "tap", => {
 		for !(keyPressed(KeySpace) || mousePressed) {
 			wait 0.01
 		}
-		playAndWait "mwing"
+		play "mwing", true
 		wait 0.04
 	}
 }
@@ -97,7 +97,7 @@ onMsg "tap", => {
 
 onMsg "game over", => {
 	if touching("Pipe") {
-		playAndWait "mhit"
+		play "mhit", true
 	}
 	play "mdie"
 }
