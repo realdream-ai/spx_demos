@@ -1,9 +1,4 @@
 var (
-	Chess         Chess
-	Button4       Button4
-	CurrentChess  CurrentChess
-	Cat1          Cat1
-	Undoer        Undoer
 	undoIdList    List
 	undoOpList    List
 	undoParamList List

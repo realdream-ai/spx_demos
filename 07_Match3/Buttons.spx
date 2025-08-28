@@ -5,7 +5,7 @@ var (
 func playMusic() {
 	music = true
 	setCostume "mute"
-	play "background", true
+	play "background"
 }
 
 func stopMusic() {

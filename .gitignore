@@ -6,6 +6,5 @@
 /builds
 .DS_Store
 gop_autogen.go
-
-*.sum
 *.mod
+*.sum

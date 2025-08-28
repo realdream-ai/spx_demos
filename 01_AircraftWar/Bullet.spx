@@ -1,4 +1,4 @@
-onTouchStart dstSp => {
+onTouchStart ["MyAircraft","Backdrop","Bullet"], dstSp => {
 	if(dstSp.name != "MyAircraft" && dstSp.name != "Backdrop" && dstSp.name != "Bullet"){
 		destroy
 	}
