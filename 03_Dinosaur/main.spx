@@ -1,10 +1,4 @@
 var (
-	GameStart  GameStart
-	Dinosaur   Dinosaur
-	SmallTree  SmallTree
-	LargeTree  LargeTree
-	Bird       Bird
-	Road       Road
 	score      int
 	highScore  int
 	isFinish   bool

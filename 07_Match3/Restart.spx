@@ -20,5 +20,5 @@ onClick => {
 		return 
 	}
 	hide
-	broadcast "restartGame", this, false
+	broadcast "restartGame", this
 }

@@ -1,9 +1,6 @@
 import "math"
 
 var (
-	Fighter Fighter
-	// 这里最开始是 Samurai Samurai，应该改为指针
-	Samurai      *Samurai
 	shinobis     []*Shinobi
 	Score        int
 	cooldownTime int

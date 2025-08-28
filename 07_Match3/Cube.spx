@@ -32,7 +32,7 @@ onClick => {
 		return 
 	}
 	//onCubeClick this
-	broadcast "onCubeWasClick", this, false
+	broadcast "onCubeWasClick", this
 }
 
 onMsg (message, data) => {

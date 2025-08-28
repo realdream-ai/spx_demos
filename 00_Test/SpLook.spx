@@ -45,7 +45,7 @@ onMsg "testLook", => {
 	assertFloat(size(), 3 , "Sprite::Size")
 	wait 0.2
 	
-	// 9. Sprite::ChangeEffect	
+	// 9. Sprite::changeGraphicEffect	
 	changeGraphicEffect GhostEffect, 50
 	wait 0.2
 
@@ -67,20 +67,20 @@ onMsg "testLook", => {
 	say "Show", 0.5
 
 	// TODO tanjp check
-	// 14. Sprite::setLayer Back	
+	// 14. Sprite::GotoBack	
 	setLayer Back
 	wait 0.1
 	
 	// 15. Sprite::setLayer Front 
-	setLayer Front()
+	setLayer Front
 	wait 0.1
 	
 	// 16. Sprite::GoBackLayers	
-	goBackLayers(1)
+	setLayer Backward, 1
 	wait 0.1
 	
 	// 17. Game::StartBackdrop	
-	setBackdrop("backdrop1")
+	setBackdrop "backdrop1"
 	wait 0.1
 
 	// 18. Game::BackdropIndex	
@@ -88,10 +88,10 @@ onMsg "testLook", => {
 	wait 0.1
 
 	// 19. Game::NextBackdrop	
-	nextBackdrop()
+	SetBackdrop(Next)
 	wait 0.1
 	assertFloat(float64(backdropIndex()), 1, "Game::BackdropIndex")
-	setBackdrop("backdrop1")
+	setBackdrop "backdrop1"
 	wait 0.1
 	assertFloat(float64(backdropIndex()), 0, "Game::BackdropIndex")
 	wait 0.1
