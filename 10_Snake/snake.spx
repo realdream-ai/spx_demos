@@ -19,8 +19,8 @@ onMsg "start", => {
 		y := ypos
 
 		// 检查是否吃到食物
-		if touching("food") {
-			doeat = false
+		if touching("food") && !doeat {
+			doeat = true
 			broadcast "eat"
 		}
 
@@ -71,13 +71,13 @@ onKey KeyRight, => {
 	direction = Right
 }
 
-// 处理 eat 消息
+// 处理 eat 消息（只有原始精灵处理）
 onMsg "eat", => {
-	// 创建一个克隆体
-	if !doeat {
+	// 只有原始精灵（非克隆体）才处理eat消息
+	if doeat && !isCloned {
 		cloneNum = cloneNum + 1
 		clone cloneNum
-		doeat = !doeat
+		doeat = false
 	}
 }
 
@@ -88,8 +88,10 @@ onCloned i => {
 			die
 			break
 		}
-		pos := len(historyX) - index - 1
-		setXYpos historyX[pos], historyY[pos]
+		pos := max(0, len(historyX) - index * 1)
+		if pos < len(historyX) {
+			setXYpos historyX[pos], historyY[pos]
+		}
 		wait 0.1
 	}
 }
