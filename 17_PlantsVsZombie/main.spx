@@ -172,7 +172,7 @@ onBackdrop "背景1", => {
 	stopAllSounds
 
 	repeatUntil backdropName != "背景1", => {
-		play "bgm2"
+		playAndWait "bgm2"
 	}
 }
 
@@ -180,6 +180,6 @@ onBackdrop "背景2", => {
 	stopAllSounds
 	broadcast Hint
 	repeatUntil backdropName != "背景2", => {
-		play "bgm2"
+		playAndWait "bgm2"
 	}
 }
