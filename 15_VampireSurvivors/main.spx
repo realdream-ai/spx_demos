@@ -1,5 +1,5 @@
 var (
-	score int
+	score    int
 	gameOver bool
 )
 
@@ -8,4 +8,3 @@ onStart => {
 	score = 0
 	gameOver = false
 }
-

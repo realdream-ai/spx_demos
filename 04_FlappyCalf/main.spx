@@ -8,14 +8,14 @@ const (
 )
 
 var (
-	calfplay    = false
+	calfPlay    = false
 	calfDie     = false
 	calfGravity = 0.0
 )
 
 func reset() {
 	userScore = 0
-	calfplay = false
+	calfPlay = false
 	calfDie = false
 	calfGravity = 0.0
 }

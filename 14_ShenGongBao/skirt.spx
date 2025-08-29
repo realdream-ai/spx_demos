@@ -1,5 +1,5 @@
 onStart => {
 	setXYpos 28, -96
-	setLayer Backward,25
+	setLayer Backward, 25
 	setCostume "costume1"
 }

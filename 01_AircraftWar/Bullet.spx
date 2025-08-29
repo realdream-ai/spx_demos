@@ -1,5 +1,5 @@
-onTouchStart ["MyAircraft","Backdrop","Bullet"], dstSp => {
-	if(dstSp.name != "MyAircraft" && dstSp.name != "Backdrop" && dstSp.name != "Bullet"){
+onTouchStart ["Backdrop", "Bomb", "Bullet", "GameLogo", "GameOver", "GameStart", "HugeEnemy", "MiddleEnemy", "MyAircraft", "Restart", "SmallEnemy", "TextIntro", "YouWin"], dstSp => {
+	if dstSp.name != "MyAircraft" && dstSp.name != "Backdrop" && dstSp.name != "Bullet" {
 		destroy
 	}
 }

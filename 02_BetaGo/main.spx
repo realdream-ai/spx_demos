@@ -60,7 +60,7 @@ func checkEat() {
 		restoreRestoreList eatenPlayer
 	}
 	if eatNum > 0 {
-		broadcast "eat chesses", true
+		broadcastAndWait "eat chesses"
 	}
 }
 

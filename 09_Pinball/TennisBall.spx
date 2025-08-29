@@ -1,7 +1,7 @@
 import "fmt"
 
 func timeout() {
-	for i <- 0:60 {
+	for i in 0:60 {
 		wait 1
 		num := fmt.Sprintf("%d", i+1)
 		broadcastAndWait "timer", num

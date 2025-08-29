@@ -1,6 +1,6 @@
 var (
 	health int
-	speed float64
+	speed  float64
 )
 
 onStart => {
@@ -16,13 +16,13 @@ onCloned => {
 	for {
 		waitNextFrame()
 		//pointTowards "Wizard"
-		step(speed * deltaTime)
-		
+		step float64(speed*deltaTime)
+
 		if touching("Wizard") {
 			// Attack wizard
 			broadcast "HitWizard"
 		}
-		
+
 		if touching("Spell") {
 			// Hit by magic
 			health -= 20
@@ -33,4 +33,4 @@ onCloned => {
 			}
 		}
 	}
-} 
+}

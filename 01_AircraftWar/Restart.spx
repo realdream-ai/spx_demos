@@ -1,6 +1,7 @@
 onMsg msgRestart, => {
 	wait 0.3
 	setLayer Front
+
 	show
 	for {
 		if touching(Mouse) {

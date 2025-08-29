@@ -16,7 +16,7 @@ func attack() {
 		return
 	}
 
-	play "拳攻击", false
+	play "拳攻击"
 
 	attacking = true
 	if checkAttack(heading(), xpos(), ypos(), Samurai.xpos(), Samurai.ypos(), false) {
@@ -37,7 +37,7 @@ func attack() {
 	// } else {
 	// 	animate "attack3"
 	// }
-	animate "attack"
+	animateAndWait "attack"
 	attacking = false
 }
 
@@ -47,7 +47,7 @@ func attack3() {
 		return
 	}
 
-	play "attack3", false
+	play "attack3"
 
 	attacking = true
 	if checkAttack(heading(), xpos(), ypos(), Samurai.xpos(), Samurai.ypos(), false) {
@@ -61,7 +61,7 @@ func attack3() {
 		}
 	}
 
-	animate "attack3"
+	animateAndWait "attack3"
 	attacking = false
 }
 
@@ -72,7 +72,7 @@ func attackYpa() {
 	}
 
 	attacking = true
-	animate "乌拉"
+	animateAndWait "乌拉"
 	if checkAttack(heading(), xpos(), ypos(), Samurai.xpos(), Samurai.ypos(), true) {
 		broadcast "attack Samurai ypa", Samurai
 		println "必杀技杀掉敌人！"
@@ -92,7 +92,7 @@ func shield() {
 		return
 	}
 	shielding = true
-	animate "shield"
+	animateAndWait "shield"
 	shielding = false
 }
 
@@ -150,7 +150,7 @@ onKey KeyU, => {
 	if walking {
 		return
 	}
-	play "瞬间移动", false
+	play "瞬间移动"
 	move 50
 }
 
@@ -176,7 +176,7 @@ onMsg (msg, data) => {
 	println "接受死亡吧"
 	println "游戏结束"
 	broadcast "end"
-	play "死亡", false
+	play "死亡"
 	die
 }
 onStart => {

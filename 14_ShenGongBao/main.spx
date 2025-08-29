@@ -1,8 +1,8 @@
 var (
-	my_DLSI0TJ1E9KM2OJCCK_      int
+	my_DLSI0TJ1E9KM2OJCCK_ int
 )
 
 onStart => {
-	play "easy_CLGN6U9DDLQN6QB3_", true
+	playAndWait "easy_CLGN6U9DDLQN6QB3_"
 	stop All
 }

@@ -1,6 +1,9 @@
 import "math"
 
 var (
+
+	// 这里最开始是 Samurai Samurai，应该改为指针
+
 	shinobis     []*Shinobi
 	Score        int
 	cooldownTime int

@@ -3,15 +3,18 @@ onStart => {
 	turnTo 79
 	setCostume "costume1"
 	setLayer Front
+
 	forever => {
-		setLayer Backward,-1
+		setLayer Backward, -1
 	}
 }
 
 onMsg "R-hand", => {
 	setCostume Next
+
 	setSize 0.45
 	forever => {
 		setLayer Front
+
 	}
 }

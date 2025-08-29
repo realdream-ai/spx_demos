@@ -9,9 +9,9 @@ func undo(op int, id int, val int) {
 		if undoOpList.len == 0 {
 			hide
 		}
-		broadcast "try put chess", true
+		broadcastAndWait "try put chess"
 		gameState.set id-1, _Eating
-		broadcast "eat chesses", true
+		broadcastAndWait "eat chesses"
 		undoing = 0
 	} else {
 		Chess.clone

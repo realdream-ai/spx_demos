@@ -7,7 +7,7 @@ onCloned => {
 	show()
 	for {
 		waitNextFrame()
-		step(250 * deltaTime)
+		step float64(250*deltaTime)
 		if touching("Edge") {
 			destroy()
 		}
@@ -17,4 +17,4 @@ onCloned => {
 			destroy()
 		}
 	}
-} 
+}

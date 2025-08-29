@@ -13,7 +13,7 @@ func attack() {
 		println "attacking Fighter"
 		broadcast "attack Fighter", heading()
 	}
-	animate "attack"
+	animateAndWait "attack"
 	attacking = false
 }
 
@@ -29,11 +29,11 @@ onStart => {
 		}
 		distance := rand(10, 120)
 		wait rand(0.5, 1.5)
-		step distance
+		step float64(distance)
 		wait 0.5
 		attack
 		changeHeading 180
-		step distance
+		step float64(distance)
 		wait 0.5
 		attack
 		changeHeading 180

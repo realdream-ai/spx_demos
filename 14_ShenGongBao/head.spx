@@ -1,9 +1,11 @@
 onStart => {
 	setSize 0.20
 	setLayer Front
+
 	setXYpos 32, 110
 }
 
 onMsg "Head", => {
 	setCostume Next
+
 }
