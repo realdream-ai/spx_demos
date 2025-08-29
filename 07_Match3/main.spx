@@ -27,7 +27,7 @@ var (
 
 	protoCube      *Cube
 	selectedCube   *Cube
-	selectedBorder *SelectedBorder
+	selectBorder *SelectedBorder
 	cubes          [BOARD_ROW_NUM][BOARD_COL_NUM]*Cube
 	interactive    bool
 	inRound        bool
@@ -94,13 +94,13 @@ func adjoin(from, to *Cube) bool {
 
 func setSelected(cube *Cube) {
 	selectedCube = cube
-	selectedBorder.setRowCol selectedCube.row, selectedCube.col
-	selectedBorder.show
+	selectBorder.setRowCol selectedCube.row, selectedCube.col
+	selectBorder.show
 }
 
 func clearSelected() {
 	selectedCube = nil
-	selectedBorder.hide
+	selectBorder.hide
 }
 
 func doExchange(sourceCube, targetCube *Cube) {
