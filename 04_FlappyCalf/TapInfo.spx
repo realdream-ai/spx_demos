@@ -9,7 +9,7 @@ onMsg "start", => {
 	for !(keyPressed(KeySpace) || mousePressed) {
 		wait 0.03
 	}
-	calfplay = true
+	calfPlay = true
 	broadcast "tap"
 	hide
 }

@@ -6,6 +6,7 @@ onStart => {
 onMsg "game over", => {
 	wait 0.5
 	setLayer Front
+
 	show
 	for ypos < 0 {
 		changeYpos 10.0

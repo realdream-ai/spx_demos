@@ -1,10 +1,10 @@
 var (
-	historyX []float64 // 存储历史X坐标
-	historyY []float64 // 存储历史Y坐标
-	cloneNum int
-	doeat    bool
-	isPlaying     bool
-	speed    int
+	historyX  []float64 // 存储历史X坐标
+	historyY  []float64 // 存储历史Y坐标
+	cloneNum  int
+	doeat     bool
+	isPlaying bool
+	speed     int
 )
 
 func reset() {

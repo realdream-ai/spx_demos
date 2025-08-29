@@ -4,13 +4,16 @@ onStart => {
 	setCostume "costume1"
 	forever => {
 		setLayer Front
+
 	}
 }
 
 onMsg "x-R-hand", => {
 	setCostume Next
+
 	forever => {
 		setSize 0.55
 		setLayer Front
+
 	}
 }

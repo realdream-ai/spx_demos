@@ -1,4 +1,4 @@
-onTouchStart "MyAircraft", => {
+onTouchStart ["Backdrop", "Bomb", "Bullet", "GameLogo", "GameOver", "GameStart", "HugeEnemy", "MiddleEnemy", "MyAircraft", "Restart", "SmallEnemy", "TextIntro", "YouWin"], => {
 	destroy
 }
 

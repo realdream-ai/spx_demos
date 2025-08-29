@@ -54,7 +54,7 @@ onMsg "tap", => {
 		for !(keyPressed(KeySpace) || mousePressed) {
 			wait 0.01
 		}
-		play "mwing", true
+		playAndWait "mwing"
 		wait 0.04
 	}
 }
@@ -68,6 +68,7 @@ onMsg "tap", => {
 			calfGravity = 0
 			broadcast "game over"
 			setLayer Front
+
 			break
 		}
 		wait 0.03
@@ -97,7 +98,7 @@ onMsg "tap", => {
 
 onMsg "game over", => {
 	if touching("Pipe") {
-		play "mhit", true
+		playAndWait "mhit"
 	}
 	play "mdie"
 }
@@ -111,9 +112,9 @@ onMsg "game over", => {
 	}
 	setYpos -124
 	turnTo 180
-	for !calfPlay{
+	for !calfPlay {
+		setCostume Next
 
-		setCostume(Next)
 		wait 0.1
 	}
 }

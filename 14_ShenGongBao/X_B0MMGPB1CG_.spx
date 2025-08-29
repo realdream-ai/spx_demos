@@ -1,10 +1,11 @@
 onStart => {
 	setXYpos 120, -65
 	setSize 0.25
-	setLayer Backward,5
+	setLayer Backward, 5
 	setCostume "costume1"
 }
 
 onMsg "X-head", => {
 	setCostume Next
+
 }

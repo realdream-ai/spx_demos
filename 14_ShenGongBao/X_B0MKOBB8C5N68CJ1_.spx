@@ -2,13 +2,16 @@ onStart => {
 	setXYpos 147, -87
 	setSize 0.55
 	setLayer Front
+
 	setCostume "costume1"
 }
 
 onMsg "x-L-hand", => {
 	setCostume Next
+
 	forever => {
 		setLayer Front
+
 		setSize 0.55
 	}
 }

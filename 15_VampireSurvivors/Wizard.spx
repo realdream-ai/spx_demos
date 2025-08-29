@@ -1,6 +1,6 @@
 var (
 	health int
-	speed float64
+	speed  float64
 )
 
 onStart => {
@@ -11,7 +11,7 @@ onStart => {
 	speed = 5.0
 }
 
-onTouchStart "Enemy",=> {
+onTouchStart ["Enemy", "Spell", "Wizard"], => {
 	if touching("Enemy") {
 		health -= 10
 		if health <= 0 {
@@ -42,7 +42,7 @@ onCloned => {
 	show()
 	for {
 		waitNextFrame()
-		step(250 * deltaTime)
+		step float64(250*deltaTime)
 		if touching("Edge") {
 			destroy()
 		}

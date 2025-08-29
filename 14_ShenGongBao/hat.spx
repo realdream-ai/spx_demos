@@ -1,6 +1,6 @@
 onStart => {
 	setXYpos 125, -118
 	forever => {
-		setLayer Backward,100000
+		setLayer Backward, 100000
 	}
 }
