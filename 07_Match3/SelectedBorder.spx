@@ -4,5 +4,5 @@ func setRowCol(r, c int) {
 }
 
 onStart => {
-	selectedBorder = this
+	selectBorder = this
 }
