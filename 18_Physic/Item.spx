@@ -1,0 +1,6 @@
+
+onTouchStart "Fighter", => {
+	say "碰到我了"
+	Score ++
+	die
+}

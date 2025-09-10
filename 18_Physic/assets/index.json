@@ -1,0 +1,79 @@
+{
+    "backdrops": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "backdrop",
+            "path": "backdrop.png",
+            "builder_id": "Hg64o5_ZS9qP-qamWXVIz"
+        }
+    ],
+    "backdropIndex": 1,
+    "map": {
+        "width": 960,
+        "height": 720,
+        "mode": "fillRatio"
+    },
+    "run": {
+        "width": 480,
+        "height": 360
+    },
+    "windowScale":2,
+    "debug":false,
+    "autoSetCollisionLayer": false,
+    "physics": true,
+    "globalGravity": 1,
+    "globalFriction": 1,
+    "globalAirDrag": 1,
+    "zorder": [
+        "Calf",
+        "Fighter",
+        "Platform",
+        "Ground",
+        "Item",
+        {
+            "type": "monitor",
+            "name": "Score",
+            "x": 79,
+            "y": 172,
+            "size": 1.7,
+            "visible": true,
+            "builder_id": "fKgfR1aViMHX_0CjDjcqp",
+            "label": "得分",
+            "val": "getVar:Score",
+            "mode": 1,
+            "target": ""
+        },
+        {
+            "type": "monitor",
+            "name": " cooldownTime",
+            "x": -227,
+            "y": 167,
+            "size": 1,
+            "visible": true,
+            "builder_id": "AC08gu32-TqHckh2uH33Z",
+            "label": "技能冷却",
+            "val": "getVar:cooldownTime",
+            "mode": 1,
+            "target": ""
+        }
+    ],
+    "builder_spriteOrder": [
+        "Nt_-wc1JObZhX210KoH_l",
+        "9EVrsVq66d_kW3BXxw22O",
+        "a68vXBtwlW1TFOcOdRwX-",
+        "VrFFYEXh9iyEXsCzMVXYC",
+        "UPbiMKQ3nVUTAJu0bJUtu"
+    ],
+    "builder_soundOrder": [
+        "MtTZ_IBj0Xu_XVRcq2H0A",
+        "F6oaZZYKmmXmfFlFnldlA",
+        "oPhFQoKDjy6rT0KW78RDt",
+        "1yvE2GyCmL3OS9rSMVAdC",
+        "BBPQSug6ArZyno2pfFMW3",
+        "hs0rz_JBoCJQbNbuFLBLp",
+        "CKEA_zx_CzdN-5-HBwI-t"
+    ]
+}

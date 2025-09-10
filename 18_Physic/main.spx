@@ -1,0 +1,11 @@
+var (
+	Score        int
+	cooldownTime int
+)
+
+onStart =>{
+	datas := Scene1.Load()
+	for idx ,data :=range datas.Prefabs {
+		println idx, data.Name
+	}
+}
