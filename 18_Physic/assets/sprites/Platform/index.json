@@ -1,0 +1,32 @@
+{
+    "heading": 90,
+    "x": 0,
+    "y": -100,
+    "size": 2,
+    "rotationStyle": "left-right",
+    "costumeIndex": 0,
+    "visible": true,
+    "isDraggable": false,
+    "pivot": {
+        "x": 32,
+        "y": -32
+    },
+    "physicMode": "static",
+    "triggerLayer":1,
+    "triggerMask":0,
+    "collisionLayer":1,
+    "collisionMask":0,
+    "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 2,
+            "name": "Platform",
+            "path": "Platform.png"
+        }
+    ],
+    "fAnimations": {},
+    "defaultAnimation": ""
+    
+}

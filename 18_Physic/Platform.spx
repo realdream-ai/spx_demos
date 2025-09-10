@@ -1,0 +1,9 @@
+
+onCloned data => {
+	//inits := data.(CubeInits)
+	//setCostume inits.costume
+	//x, y := getPos(inits.row-1, inits.col)
+	//setXYpos x, y
+	//show
+	//setRowCol(inits.row, inits.col, false)
+}
