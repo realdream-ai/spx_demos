@@ -1,11 +1,40 @@
+import "sort"
 var (
 	Score        int
 	cooldownTime int
 )
-
-onStart =>{
-	datas := Scene1.Load()
-	for idx ,data :=range datas.Prefabs {
-		println idx, data.Name
+func loadTilemaps(datas *tscnMapData) {
+	paths := make(map[int]string)
+	for _, item := range datas.TileMap.TileSet.Sources {
+		paths[item.ID] = item.TexturePath
 	}
+	for idx, layer := range datas.TileMap.Layers {
+		SetTileMapLayerIndex(int64(idx+1))
+		tiles := layer.Tiles
+		sort.Slice (tiles, func(i, j int) bool {
+			return tiles[i].SourceID < tiles[j].SourceID
+		})
+		lastId := -1
+		for _, tile := range tiles {
+			if(lastId != tile.SourceID){
+				lastId = tile.SourceID
+				path := paths[tile.SourceID]
+				SetTileTexture path
+			}
+			y,x := tile.WorldCoords.X,tile.WorldCoords.Y
+			PlaceTile(x,-y )
+		}
+		ExitTilemapEditorMode()
+	}
+}
+func loadSprite2ds(datas *tscnMapData) {
+	for _, item := range datas.Sprite2Ds {
+		CreatePureSprite(item.TexturePath, item.Position.X, -item.Position.Y, int64(item.ZIndex))
+	}
+}
+
+onStart => {
+	datas := Scene1.Load()
+	loadTilemaps(datas)
+	loadSprite2ds(datas)
 }

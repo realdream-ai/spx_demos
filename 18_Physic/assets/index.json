@@ -1,16 +1,4 @@
 {
-    "backdrops": [
-        {
-            "x": 0,
-            "y": 0,
-            "faceRight": 0,
-            "bitmapResolution": 1,
-            "name": "backdrop",
-            "path": "backdrop.png",
-            "builder_id": "Hg64o5_ZS9qP-qamWXVIz"
-        }
-    ],
-    "backdropIndex": 1,
     "map": {
         "width": 960,
         "height": 720,
