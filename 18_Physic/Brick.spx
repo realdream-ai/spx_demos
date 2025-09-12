@@ -1,12 +1,12 @@
 
-onTouchStart "Player", => {
-	// 只能从下顶上来 才会被销毁
-	if Player.ypos < ypos {
-		println "trigger Brick"
-		die
+onMsg (message, data) => {
+	if message == "hitBrick"  {
+		if data == this {
+			Score += 1
+			die()
+		}
 	}
 }
-
 
 onCloned data => {
 	trans := data.(Transform)

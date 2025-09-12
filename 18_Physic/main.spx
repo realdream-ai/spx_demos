@@ -71,7 +71,7 @@ func loadGameObjs(datas *tscnMapData) {
 	}
 }
 func loadPlatforms(datas *tscnMapData) {
-	Platform.clone Transform{X:-100, Y: -50}
+	Platform.clone Transform{X:-100, Y: -80}
 	Platform.clone Transform{X:880, Y: -100}
 }
 
