@@ -1,0 +1,28 @@
+var(
+	remainCount int64
+)
+
+
+onMsg (message, data) => {
+	if message == "hitMysteryBox"  {
+		if(remainCount == 0){
+			return 
+		}
+		if data == this {
+			Score += 2
+			remainCount --
+			Coin.clone Transform{X:xpos-8, Y: ypos + 16}
+			if(remainCount == 0){
+				animate "empty"
+			}
+		}
+	}
+}
+
+onCloned data => {
+	trans := data.(Transform)
+	setXYpos trans.X, trans.Y
+	show 
+	animate "idle", true
+	remainCount = 10
+}
