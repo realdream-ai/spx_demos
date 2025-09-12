@@ -111,7 +111,22 @@ func OnUpdate(delta float64) {
 	if keyPressed(KeyF) {
 		fire()
 	}
+	if(velY > 0){
+		checkBrick()
+	}
 }
+
+func checkBrick(){
+	x,y := xpos+8, ypos+28
+	sps := CheckCollision(x,y, 8, 4)
+	//debugDrawRect(x,y, 8, 4, HSB(1,100,100))
+	for _, item := range sps  {
+        if(item != nil && item.name == "Brick") {
+		    broadcast "hitBrick", item
+        }
+	}
+}
+
 func fire() {
 	if fireTimer < 0{
 		fireTimer = fireInterval
