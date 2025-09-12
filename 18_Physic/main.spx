@@ -67,6 +67,9 @@ func loadGameObjs(datas *tscnMapData) {
 				Coin.clone trans
 			case "goomba":
 				Goomba.clone trans
+			case "mystery_box":
+				MysteryBox.clone trans
+				
 		}
 	}
 }

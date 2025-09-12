@@ -1,66 +1,58 @@
 {
     "costumes": [
         {
-            "x": 0,
-            "y": 0,
+            "x": 8,
+            "y": 8,
             "faceRight": 0,
             "bitmapResolution": 1,
-            "name": "Coin",
-            "path": "Coin.png"
+            "name": "EmptyBlock",
+            "path": "EmptyBlock.png"
         },
         {
-            "x": 0,
-            "y": 0,
+            "x": 8,
+            "y": 8,
             "faceRight": 0,
             "bitmapResolution": 1,
-            "name": "Coin1",
-            "path": "Coin1.png"
+            "name": "MysteryBlock",
+            "path": "MysteryBlock.png"
         },
         {
-            "x": 0,
-            "y": 0,
+            "x": 8,
+            "y": 8,
             "faceRight": 0,
             "bitmapResolution": 1,
-            "name": "Coin2",
-            "path": "Coin2.png"
+            "name": "MysteryBox1",
+            "path": "MysteryBox1.png"
         },
         {
-            "x": 0,
-            "y": 0,
+            "x": 8,
+            "y": 8,
             "faceRight": 0,
             "bitmapResolution": 1,
-            "name": "Coin3",
-            "path": "Coin3.png"
-        },
-        {
-            "x": 0,
-            "y": 0,
-            "faceRight": 0,
-            "bitmapResolution": 1,
-            "name": "Coin4",
-            "path": "Coin4.png"
+            "name": "MysterBox2",
+            "path": "MysterBox2.png"
         }
-       
     ],
     "fAnimations": {
         "idle": {
-            "frameFrom": "Coin1",
-            "frameTo": "Coin4",
-            "frameFps": 10,
-            "onStart": {
-                "play": "attack1"
-            },
-            "builder_id": "PTxEyiDiQhhEtACnzkQ_S"
+            "frameFrom": "MysteryBlock",
+            "frameTo": "MysterBox2",
+            "frameFps": 3
+        },
+        "empty": {
+            "frameFrom": "EmptyBlock",
+            "frameTo": "EmptyBlock",
+            "frameFps": 5
         }
     },
-    "defaultAnimation": "idle",
+    "defaultAnimation": "",
     "costumeIndex": 0,
     "heading": 90,
-    "physicMode": "no",
-    "triggerLayer":8,
-    "triggerMask":1,
-    "collisionLayer":8,
-    "collisionMask":1,
+    "physicMode": "static",
+    "triggerLayer":4,
+    "triggerMask":3,
+    "collisionLayer":4,
+    "collisionMask":3,
     "isDraggable": false,
     "rotationStyle": "normal",
     "size": 1,

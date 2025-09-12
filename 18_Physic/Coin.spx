@@ -1,4 +1,28 @@
 
+func Jump() {
+	SetPhysicsMode NoPhysic
+	animate "idle"
+	speed := 200.0
+	y1 :=  ypos + 50
+	y2 :=  ypos - 0
+	x := xpos
+	for {
+		if( ypos > y1){
+			break
+		}
+		setXYpos(x,ypos + speed * deltaTime)
+		waitNextFrame()
+	}
+	for {
+		if( ypos < y2){
+			break
+		}
+		setXYpos(x, ypos - speed * deltaTime)
+		waitNextFrame()
+	}
+	die()
+}
+
 onTouchStart "Player", => {
 	Score += 10
 	die
@@ -8,4 +32,5 @@ onCloned data => {
 	trans := data.(Transform)
 	setXYpos trans.X, trans.Y
 	show 
+	Jump()
 }

@@ -76,6 +76,7 @@
         "FlagPole",
         "Fireball",
         "Platform",
+        "MysteryBox",
         "Goomba",
         {
             "type": "monitor",

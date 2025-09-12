@@ -46,10 +46,7 @@
         "idle": {
             "frameFrom": "Coin1",
             "frameTo": "Coin4",
-            "frameFps": 10,
-            "onStart": {
-                "play": "attack1"
-            },
+            "frameFps": 20,
             "builder_id": "PTxEyiDiQhhEtACnzkQ_S"
         }
     },
