@@ -1,0 +1,308 @@
+{
+    "heading": 90,
+    "x": -100,
+    "y": -50,
+    "size": 1.4,
+    "rotationStyle": "left-right",
+    "costumeIndex": 0,
+    "visible": true,
+    "isDraggable": false,
+    "pivot": {
+        "x": 32,
+        "y": -32
+    },
+    "physicMode": "dynamic",
+    "triggerLayer":1,
+    "triggerMask":14,
+    "collisionLayer":1,
+    "collisionMask":14,
+    "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Idle",
+            "path": "Mario_Small_Idle.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Idle",
+            "path": "Mario_Big_Idle.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Jump",
+            "path": "Mario_Big_Jump.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Pole",
+            "path": "Mario_Big_Pole.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Run1",
+            "path": "Mario_Big_Run1.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Run2",
+            "path": "Mario_Big_Run2.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Run3",
+            "path": "Mario_Big_Run3.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Big_Slide",
+            "path": "Mario_Big_Slide.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Idle",
+            "path": "Mario_Shooting_Idle.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Death",
+            "path": "Mario_Small_Death.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario-Shooting",
+            "path": "Mario-Shooting.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Jump",
+            "path": "Mario_Shooting_Jump.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Pole",
+            "path": "Mario_Shooting_Pole.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Run1",
+            "path": "Mario_Shooting_Run1.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Run2",
+            "path": "Mario_Shooting_Run2.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting_Run3",
+            "path": "Mario_Shooting_Run3.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Shooting-Slide",
+            "path": "Mario_Shooting-Slide.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Jump",
+            "path": "Mario_Small_Jump.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Pole",
+            "path": "Mario_Small_Pole.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Run1",
+            "path": "Mario_Small_Run1.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Run2",
+            "path": "Mario_Small_Run2.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Run3",
+            "path": "Mario_Small_Run3.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_Small_Slide",
+            "path": "Mario_Small_Slide.png"
+        }
+    ],
+    "fAnimations": {
+        "big_idle": {
+            "frameFrom": "Mario_Big_Idle",
+            "frameTo": "Mario_Big_Idle",
+            "frameFps": 5
+        },
+        "big_jump": {
+            "frameFrom": "Mario_Big_Jump",
+            "frameTo": "Mario_Big_Jump",
+            "frameFps": 5
+        },
+        "big_pole": {
+            "frameFrom": "Mario_Big_Pole",
+            "frameTo": "Mario_Big_Pole",
+            "frameFps": 5
+        },
+        "big_run": {
+            "frameFrom": "Mario_Big_Run1",
+            "frameTo": "Mario_Big_Run3",
+            "frameFps": 10
+        },
+        "big_slide": {
+            "frameFrom": "Mario_Big_Slide",
+            "frameTo": "Mario_Big_Slide",
+            "frameFps": 5
+        },
+        "big_to_shooting": {
+            "frameFrom": "Mario_Big_Idle",
+            "frameTo": "Mario_Shooting_Idle",
+            "frameFps": 5
+        },
+        "death": {
+            "frameFrom": "Mario_Small_Death",
+            "frameTo": "Mario_Small_Death",
+            "frameFps": 5
+        },
+        "shoot": {
+            "frameFrom": "Mario-Shooting",
+            "frameTo": "Mario-Shooting",
+            "frameFps": 10
+        },
+        "shooting_idle": {
+            "frameFrom": "Mario_Shooting_Idle",
+            "frameTo": "Mario_Shooting_Idle",
+            "frameFps": 5
+        },
+        "shooting_jump": {
+            "frameFrom": "Mario_Shooting_Jump",
+            "frameTo": "Mario_Shooting_Jump",
+            "frameFps": 5
+        },
+        "shooting_pole": {
+            "frameFrom": "Mario_Shooting_Pole",
+            "frameTo": "Mario_Shooting_Pole",
+            "frameFps": 5
+        },
+        "shooting_run": {
+            "frameFrom": "Mario_Shooting_Run1",
+            "frameTo": "Mario_Shooting_Run3",
+            "frameFps": 10
+        },
+        "shooting_slide": {
+            "frameFrom": "Mario_Shooting-Slide",
+            "frameTo": "Mario_Shooting-Slide",
+            "frameFps": 5
+        },
+        "small_idle": {
+            "frameFrom": "Mario_Small_Idle",
+            "frameTo": "Mario_Small_Idle",
+            "frameFps": 5
+        },
+        "small_jump": {
+            "frameFrom": "Mario_Small_Jump",
+            "frameTo": "Mario_Small_Jump",
+            "frameFps": 5
+        },
+        "small_pole": {
+            "frameFrom": "Mario_Small_Pole",
+            "frameTo": "Mario_Small_Pole",
+            "frameFps": 5
+        },
+        "small_run": {
+            "frameFrom": "Mario_Small_Run1",
+            "frameTo": "Mario_Small_Run3",
+            "frameFps": 10
+        },
+        "small_slide": {
+            "frameFrom": "Mario_Small_Slide",
+            "frameTo": "Mario_Small_Slide",
+            "frameFps": 5
+        },
+        "small_to_big": {
+            "frameFrom": "Mario_Small_Idle",
+            "frameTo": "Mario_Big_Idle",
+            "frameFps": 5
+        },
+        "small_to_shooting": {
+            "frameFrom": "Mario_Small_Idle",
+            "frameTo": "Mario_Shooting_Idle",
+            "frameFps": 5
+        }
+    },
+    "defaultAnimation": ""
+}

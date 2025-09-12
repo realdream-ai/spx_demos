@@ -1,0 +1,23 @@
+{
+  "costumes": [
+    {
+      "name": "FlagPole",
+      "path": "FlagPole.png",
+      "x": 8,
+      "y": 160
+    }
+  ],
+  "costumeIndex": 0,    
+  "physicMode": "no",
+  "triggerLayer":8,
+  "triggerMask":1,
+  "collisionLayer":8,
+  "collisionMask":1,
+  "heading": 90,
+  "isDraggable": false,
+  "rotationStyle": "normal",
+  "size": 1,
+  "visible": true,
+  "x": 3192, 
+  "y": -64
+}

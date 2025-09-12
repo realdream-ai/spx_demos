@@ -1,7 +1,7 @@
 {
     "heading": 90,
-    "x": 0,
-    "y": -100,
+    "x": -10000,
+    "y": -10000,
     "size": 2,
     "rotationStyle": "left-right",
     "costumeIndex": 0,
@@ -12,10 +12,10 @@
         "y": -32
     },
     "physicMode": "static",
-    "triggerLayer":1,
-    "triggerMask":0,
-    "collisionLayer":1,
-    "collisionMask":0,
+    "triggerLayer":4,
+    "triggerMask":3,
+    "collisionLayer":4,
+    "collisionMask":3,
     "costumes": [
         {
             "x": 0,
