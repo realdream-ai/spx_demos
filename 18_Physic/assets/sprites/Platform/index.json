@@ -2,10 +2,10 @@
     "heading": 90,
     "x": -10000,
     "y": -10000,
-    "size": 2,
+    "size": 1,
     "rotationStyle": "left-right",
     "costumeIndex": 0,
-    "visible": true,
+    "visible": false,
     "isDraggable": false,
     "pivot": {
         "x": 32,

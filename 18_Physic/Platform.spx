@@ -1,9 +1,27 @@
 
+
 onCloned data => {
-	//inits := data.(CubeInits)
-	//setCostume inits.costume
-	//x, y := getPos(inits.row-1, inits.col)
-	//setXYpos x, y
-	//show
-	//setRowCol(inits.row, inits.col, false)
+	trans := data.(Transform)
+	setXYpos trans.X, trans.Y
+	show 
+	speed := 20.0
+	initY := ypos
+	for {
+		// move up
+		for {
+			if ypos > initY + 100{
+				break
+			}
+			setYpos ypos + speed * deltaTime
+			waitNextFrame
+		}
+		// move down
+		for {
+			if ypos < initY {
+				break
+			}
+			setYpos ypos - speed * deltaTime
+			waitNextFrame
+		}
+	}
 }

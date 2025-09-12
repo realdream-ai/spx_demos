@@ -36,18 +36,19 @@ func DoDie() {
 	isControlled = true
 	y1 :=  ypos + 25
 	y2 :=  ypos - 500
+	x := xpos
 	for {
 		if( ypos > y1){
 			break
 		}
-		setYpos(ypos + 75 * deltaTime)
+		setXYpos(x,ypos + 75 * deltaTime)
 		waitNextFrame()
 	}
 	for {
 		if( ypos < y2){
 			break
 		}
-		setYpos(ypos - 400 * deltaTime)
+		setXYpos(x, ypos - 400 * deltaTime)
 		waitNextFrame()
 	}
 	die()
@@ -95,7 +96,7 @@ func OnUpdate(delta float64) {
 	} else {
 		velX = (MoveToward(velX, 0, SPEED))
 	}
-	if xpos < cameraLeftBound+40 && velX <= 0 {
+	if xpos < cameraLeftBound && velX <= 0 {
 		velX = 0
 	}
 	if(dir != 0){
