@@ -1,0 +1,14 @@
+
+onCloned data => {
+	trans := data.(Transform)
+	setXYpos trans.X, trans.Y
+    SetVelocity (float64(200 * trans.Dir), 0)
+	show 
+    wait 2
+    die
+}
+
+onTouchStart "Goomba", sp => {
+    broadcast "killGoomba", sp
+    die
+}
