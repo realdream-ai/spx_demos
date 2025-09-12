@@ -5,25 +5,9 @@ var(
 	isControlled      bool
 )
 
-func DoDie() {
+func doDie() {
 	SetPhysicsMode NoPhysic
 	isControlled = true
-	y1 :=  ypos + 25
-	y2 :=  ypos - 500
-	for {
-		if( ypos > y1){
-			break
-		}
-		setYpos(ypos + 75 * deltaTime)
-		waitNextFrame()
-	}
-	for {
-		if( ypos < y2){
-			break
-		}
-		setYpos(ypos - 400 * deltaTime)
-		waitNextFrame()
-	}
 	die()
 }
 
@@ -53,7 +37,17 @@ func OnUpdate(delta float64) {
 	}
 }
 
-
+onMsg (message, data) => {
+	if isControlled {
+		return
+	}
+	if message == "killGoomba"  {
+		if data == this {
+			Score += 10
+			doDie()
+		}
+	}
+}
 
 onCloned data => {
 	trans := data.(Transform)

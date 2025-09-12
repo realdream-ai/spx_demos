@@ -6,6 +6,9 @@ var (
 	PlayerMode      EPlayerMode
 	isControlled    bool
 	hasPressedJumpLastFrame  bool
+	fireInterval float64
+	fireTimer float64
+
 )
 
 type EPlayerMode = int64
@@ -17,8 +20,8 @@ const (
 )
 
 const (
-	SPEED         = float64(100)//100
-	JUMP_VELOCITY = float64(450.0)
+	SPEED         = float64(150)
+	JUMP_VELOCITY = float64(500.0)
 	PLAYER_MODE   = int64(1)
 	GRAVITY       = float64(-980)
 
@@ -95,25 +98,26 @@ func OnUpdate(delta float64) {
 	if xpos < cameraLeftBound+40 && velX <= 0 {
 		velX = 0
 	}
+	if(dir != 0){
+		curDir = int64(dir)
+	}
 	SetVelocity(velX,velY)
 	TriggeraAnimation(velX, float64(dir), PlayerMode)
 	if ypos < DEADLINE {
 		gameStatus = FAILED
 		DoDie()
 	}
-}
-
-func getAnimDir() int64 {
-	return curDir
-}
-
-func setAnimSign(isRight bool) {
-	dir := int64(1)
-	if !isRight {
-		dir = -1
+	if keyPressed(KeyF) {
+		fire()
 	}
-	curDir = dir
 }
+func fire() {
+	if fireTimer < 0{
+		fireTimer = fireInterval
+		Fireball.clone Transform{X: xpos + float64(curDir*6), Y: ypos + 16, Dir: curDir}
+	}
+}
+
 
 func TriggeraAnimation(velX float64, direction float64, playerMode EPlayerMode) {
 	animation_prefix := PlayModeAnimName[int64(playerMode)]
@@ -121,11 +125,7 @@ func TriggeraAnimation(velX float64, direction float64, playerMode EPlayerMode) 
 		Animate(animation_prefix + "_jump")
 	} else if Sign(velX) != Sign(direction) && velX != 0 && direction != 0 {
 		Animate(animation_prefix + "_slide")
-		setAnimSign(direction > 0.5)
 	} else {
-		if getAnimDir() != Sign(velX) && Sign(velX) != 0 {
-			setAnimSign(Sign(velX) == 1)
-		}
 		if velX != 0 {
 			Animate(animation_prefix + "_run")
 		} else {
@@ -142,6 +142,7 @@ onStart => {
 		"big",
 		"shooting",
 	}
+	fireInterval = 1
 	curDir = 1
 	runSpeedDamping = 0.5
 	PlayerMode = SMALL
@@ -150,6 +151,7 @@ onStart => {
 		if !IsPlaying() {
 			return 
 		}
+		fireTimer -= deltaTime
 		OnUpdate(deltaTime)
 		waitNextFrame
 	}
@@ -161,8 +163,7 @@ onTouchStart "Goomba", enemy => {
 	}
 	angleOfCollision := RadToDeg(AngleToPoint(xpos, ypos,enemy.xpos,enemy.ypos))
 	if angleOfCollision > minStompDegree && maxStompDegree > angleOfCollision {
-		enemy.(*Goomba).SetPhysicsMode NoPhysic
-		enemy.Die()
+		broadcast "killGoomba", enemy
 	} else {
 		DoDie()
 	}

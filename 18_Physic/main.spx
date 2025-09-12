@@ -17,6 +17,7 @@ const (
 type Transform struct {
 	X float64
 	Y float64
+	Dir int64
 }
 
 func IsPlaying() bool {
@@ -116,4 +117,13 @@ onStart => {
 	loadTilemaps(datas)
 	loadSprite2ds(datas)
 	loadGameObjs(datas)
+}
+
+
+onStart =>{
+	cooldownTime = 60
+	for{
+		wait 1
+		cooldownTime--
+	}
 }
