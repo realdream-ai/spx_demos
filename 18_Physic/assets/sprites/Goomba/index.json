@@ -1,0 +1,54 @@
+{
+    "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Goomba_Flat",
+            "path": "Goomba_Flat.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Goomba_Walk1",
+            "path": "Goomba_Walk1.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Goomba_Walk2",
+            "path": "Goomba_Walk2.png"
+        }
+    ],
+    "fAnimations": {
+        "walk": {
+            "frameFrom": "Goomba_Walk1",
+            "frameTo": "Goomba_Walk2",
+            "frameFps": 5
+        },
+        "die": {
+            "frameFrom": "Goomba_Flat",
+            "frameTo": "Goomba_Flat",
+            "frameFps": 2
+        }
+    },
+    "defaultAnimation": "walk",
+    "costumeIndex": 0,
+    "heading": 90,
+    "physicMode": "dynamic",
+    "triggerLayer":2,
+    "triggerMask":5,
+    "collisionLayer":2,
+    "collisionMask":5,
+    "isDraggable": false,
+    "rotationStyle": "normal",
+    "size": 1,
+    "visible": true,
+    "x": -10000,
+    "y": -10000
+}

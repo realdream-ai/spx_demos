@@ -1,0 +1,90 @@
+
+var(
+	horizontalSpeed float64
+	verticalSpeed   float64
+	isControlled      bool
+)
+
+func DoDie() {
+	SetPhysicsMode NoPhysic
+	isControlled = true
+	y1 :=  ypos + 25
+	y2 :=  ypos - 500
+	for {
+		if( ypos > y1){
+			break
+		}
+		setYpos(ypos + 75 * deltaTime)
+		waitNextFrame()
+	}
+	for {
+		if( ypos < y2){
+			break
+		}
+		setYpos(ypos - 400 * deltaTime)
+		waitNextFrame()
+	}
+	die()
+}
+
+
+func OnUpdate(delta float64) {
+	if isControlled {
+		return
+	}
+
+	velX, velY := Velocity()
+	if !IsOnFloor() {
+		velY += (GRAVITY * delta)
+	}
+
+    velX = horizontalSpeed
+	SetVelocity(velX,velY)
+
+	width := 15.0
+	pos := xpos + Signf(horizontalSpeed) * width
+    // check return 
+    sps := CheckCollision(pos, ypos+8, width, 2)
+	for _, item := range sps  {
+        if(item != nil && item.name != "Goomba") {
+		    horizontalSpeed = -horizontalSpeed
+            break
+        }
+	}
+}
+
+
+
+onCloned data => {
+	trans := data.(Transform)
+	setXYpos trans.X, trans.Y
+	show
+    
+	horizontalSpeed = 20
+	verticalSpeed = 100
+	isControlled = false
+    
+    // checkout enter 
+    for {
+		if !IsPlaying() {
+			return 
+		}
+        _,_, camSizeX,_ := Camera.ViewportRect()
+        cameraLeftBound := Camera.xpos - float64(camSizeX/2.0)
+        cameraRightBound := Camera.xpos + float64(camSizeX/2.0)
+        if xpos > cameraRightBound+8 {
+		    waitNextFrame
+            continue 
+        }
+        if xpos < cameraLeftBound -20 || ypos < DEADLINE{
+            isControlled = true
+            Die()
+            return 
+        }
+		OnUpdate(deltaTime)
+		waitNextFrame
+	}
+}
+
+
+

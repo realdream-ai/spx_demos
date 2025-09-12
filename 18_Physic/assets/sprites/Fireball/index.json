@@ -1,0 +1,58 @@
+{
+    "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "fireball1",
+            "path": "fireball1.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "fireball2",
+            "path": "fireball2.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "fireball3",
+            "path": "fireball3.png"
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "fireball4",
+            "path": "fireball4.png"
+        }
+       
+    ],
+    "fAnimations": {
+        "idle": {
+            "frameFrom": "fireball1",
+            "frameTo": "fireball4",
+            "frameFps": 10
+        }
+    },
+    "defaultAnimation": "",
+    "costumeIndex": 0,
+    "heading": 90,
+    "physicMode": "no",
+    "triggerLayer":8,
+    "triggerMask":1,
+    "collisionLayer":8,
+    "collisionMask":1,
+    "isDraggable": false,
+    "rotationStyle": "normal",
+    "size": 1,
+    "visible": false,
+    "x": -10000,
+    "y": -10000
+}

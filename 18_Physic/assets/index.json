@@ -1,4 +1,49 @@
 {
+    "__commnetLayer":"player 1, enemy 2, static 4, item 8, decorator 16",
+    "__commnetMask":"player 14 (enemy+static+item), enemy 5 (player+static), static 3 (player+enemy), item 1(player), decorator 0",
+    "__commnetPhysic":"player dynamic, enemy dynamic, static static, item no, decorator no",
+    "__commnetPhysicInfo": {
+        "player":{
+            "physicMode": "dynamic",
+            "triggerLayer":1,
+            "triggerMask":14,
+            "collisionLayer":1,
+            "collisionMask":14,
+            "__":""
+        },
+        "enemy":{
+            "physicMode": "dynamic",
+            "triggerLayer":2,
+            "triggerMask":5,
+            "collisionLayer":2,
+            "collisionMask":5,
+            "__":""
+        },
+        "static":{
+            "physicMode": "static",
+            "triggerLayer":4,
+            "triggerMask":3,
+            "collisionLayer":4,
+            "collisionMask":3,
+            "__":""
+        },
+        "item":{
+            "physicMode": "no",
+            "triggerLayer":8,
+            "triggerMask":1,
+            "collisionLayer":8,
+            "collisionMask":1,
+            "__":""
+        },
+        "decorator":{
+            "physicMode": "no",
+            "triggerLayer":16,
+            "triggerMask":0,
+            "collisionLayer":16,
+            "collisionMask":0,
+            "__":""
+        }
+    },
     "map": {
         "width": 960,
         "height": 720,
@@ -16,11 +61,12 @@
     "globalFriction": 1,
     "globalAirDrag": 1,
     "zorder": [
-        "Calf",
-        "Fighter",
-        "Platform",
-        "Ground",
-        "Item",
+        "Player",
+        "Coin",
+        "Brick",
+        "Flag",
+        "FlagPole",
+        "Goomba",
         {
             "type": "monitor",
             "name": "Score",

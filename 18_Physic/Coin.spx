@@ -1,0 +1,11 @@
+
+onTouchStart "Player", => {
+	Score += 10
+	die
+}
+
+onCloned data => {
+	trans := data.(Transform)
+	setXYpos trans.X, trans.Y
+	show 
+}

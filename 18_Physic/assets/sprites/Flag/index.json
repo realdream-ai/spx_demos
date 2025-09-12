@@ -1,0 +1,24 @@
+{
+  "costumes": [
+    {
+      "name": "calf-0",
+      "path": "Flag.png",
+      "x": 16,
+      "y": 0
+    }
+  ],    
+  "physicMode": "no",
+  "triggerLayer":16,
+  "triggerMask":0,
+  "collisionLayer":16,
+  "collisionMask":0,
+  "costumeIndex": 0,
+  "heading": 90,
+  "isDraggable": false,
+  "rotationStyle": "normal",
+  "size": 1,
+  "visible": true,
+  "___":3192,
+  "x": 3192, 
+  "y": 86
+}
