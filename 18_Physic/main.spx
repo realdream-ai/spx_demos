@@ -70,6 +70,11 @@ func loadGameObjs(datas *tscnMapData) {
 		}
 	}
 }
+func loadPlatforms(datas *tscnMapData) {
+	Platform.clone Transform{X:-100, Y: -50}
+	Platform.clone Transform{X:880, Y: -100}
+}
+
 const Math_PI = float64(3.1415926535897932384626433833)
 
 
@@ -117,6 +122,7 @@ onStart => {
 	loadTilemaps(datas)
 	loadSprite2ds(datas)
 	loadGameObjs(datas)
+	loadPlatforms(datas)
 }
 
 

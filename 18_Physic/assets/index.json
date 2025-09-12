@@ -75,6 +75,7 @@
         "Flag",
         "FlagPole",
         "Fireball",
+        "Platform",
         "Goomba",
         {
             "type": "monitor",
