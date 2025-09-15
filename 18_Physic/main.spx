@@ -1,5 +1,6 @@
 import (
 	"sort"
+	"fmt"
 	"math"
 )
 var (
@@ -20,6 +21,10 @@ type Transform struct {
 	Dir int64
 }
 
+func (p* Transform) ToString() string{
+	return fmt.Sprintf("TransformData %.1f %.1f %d", p.X, p.Y, p.Dir)
+}
+
 func IsPlaying() bool {
 	return gameStatus == PLAYING
 }
@@ -36,17 +41,15 @@ func loadTilemaps(datas *tscnMapData) {
 			return tiles[i].SourceID < tiles[j].SourceID
 		})
 		lastId := -1
+		path := ""
 		for _, tile := range tiles {
 			if(lastId != tile.SourceID){
 				lastId = tile.SourceID
-				path := paths[tile.SourceID]
-				SetTileTexture path
+				path = paths[tile.SourceID]
 			}
 			y,x := tile.WorldCoords.X,tile.WorldCoords.Y
-			PlaceTile(x,-y )
+			PlaceTile(x,-y,path)
 		}
-		//SetTileMapOffset(layerId, 0, 0)
-		ExitTilemapEditMode()
 	}
 }
 func loadSprite2ds(datas *tscnMapData) {

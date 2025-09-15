@@ -1,0 +1,8 @@
+
+onStart => {
+    setXYpos 568, -16
+    clone 
+}
+onCloned => {
+    setXYpos 24, 56
+}
