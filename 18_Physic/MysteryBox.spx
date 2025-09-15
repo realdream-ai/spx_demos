@@ -11,7 +11,9 @@ onMsg (message, data) => {
 		if data == this {
 			Score += 2
 			remainCount --
-			Coin.clone Transform{X:xpos-8, Y: ypos + 16}
+			info := Transform{X:xpos-8, Y: ypos + 16}
+			println "mbox ",info.ToString()
+			Coin.clone info
 			if(remainCount == 0){
 				animate "empty"
 			}
@@ -22,6 +24,7 @@ onMsg (message, data) => {
 onCloned data => {
 	trans := data.(Transform)
 	setXYpos trans.X, trans.Y
+	println "create MysteryBox",xpos, ypos,trans.ToString()
 	show 
 	animate "idle", true
 	remainCount = 10

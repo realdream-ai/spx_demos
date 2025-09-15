@@ -32,7 +32,7 @@ const (
 
 
 func DoDie() {
-	SetPhysicsMode NoPhysic
+	SetPhysicMode NoPhysic
 	isControlled = true
 	y1 :=  ypos + 25
 	y2 :=  ypos - 500
@@ -55,8 +55,18 @@ func DoDie() {
 }
 
 
+func testCast() {
+	startOffset := 0.0
+	x1,y1,x2,y2 := xpos+startOffset,ypos+startOffset,xpos + 100,ypos+100
+	hit, _, x,y := Raycast(x1,y1,x2,y2, this)
+	DebugDrawLine(x1,y1,x2,y2,HSB(100,100,100))
+	if hit {
+		debugDrawCircle(x, y, 2, HSB(50,100,100))
+	}
+}
 
 func OnUpdate(delta float64) {
+	testCast()
 	if xpos > Camera.xpos {
 		Camera.SetXYpos(xpos, Camera.ypos)
 	}
@@ -191,4 +201,11 @@ onTouchStart "Goomba", enemy => {
 	} else {
 		DoDie()
 	}
+}
+
+onKey KeyH, => {
+	println "my pos",xpos,ypos
+}
+onKey KeyM, => {
+	println "m pos",mouseX,mouseY
 }

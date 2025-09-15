@@ -1,11 +1,12 @@
 
 func Jump() {
-	SetPhysicsMode NoPhysic
+	SetPhysicMode NoPhysic
 	animate "idle"
 	speed := 200.0
 	y1 :=  ypos + 50
 	y2 :=  ypos - 0
 	x := xpos
+	println "xpos ", x
 	for {
 		if( ypos > y1){
 			break
@@ -31,6 +32,7 @@ onTouchStart "Player", => {
 onCloned data => {
 	trans := data.(Transform)
 	setXYpos trans.X, trans.Y
+	println "onCloned coin ", xpos, ypos ,trans.ToString()
 	show 
 	Jump()
 }
