@@ -11,7 +11,7 @@
         "x": 32,
         "y": -32
     },
-    "physicMode": "static",
+    "physicsMode": "static",
     "triggerLayer":4,
     "triggerMask":3,
     "collisionLayer":4,

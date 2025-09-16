@@ -44,7 +44,7 @@
     "defaultAnimation": "",
     "costumeIndex": 0,
     "heading": 90,
-    "physicMode": "no",
+    "physicsMode": "no",
     "triggerLayer":32,
     "triggerMask":6,
     "collisionLayer":32,

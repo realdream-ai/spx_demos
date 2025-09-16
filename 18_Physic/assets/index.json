@@ -4,7 +4,7 @@
     "__commnetPhysic":"player dynamic, enemy dynamic, static static, item no, decorator no, pbullet kinematic",
     "__commnetPhysicInfo": {
         "player":{
-            "physicMode": "dynamic",
+            "physicsMode": "dynamic",
             "triggerLayer":1,
             "triggerMask":14,
             "collisionLayer":1,
@@ -12,7 +12,7 @@
             "__":""
         },
         "enemy":{
-            "physicMode": "dynamic",
+            "physicsMode": "dynamic",
             "triggerLayer":2,
             "triggerMask":5,
             "collisionLayer":2,
@@ -20,7 +20,7 @@
             "__":""
         },
         "static":{
-            "physicMode": "static",
+            "physicsMode": "static",
             "triggerLayer":4,
             "triggerMask":3,
             "collisionLayer":4,
@@ -28,7 +28,7 @@
             "__":""
         },
         "item":{
-            "physicMode": "no",
+            "physicsMode": "no",
             "triggerLayer":8,
             "triggerMask":1,
             "collisionLayer":8,
@@ -36,7 +36,7 @@
             "__":""
         },
         "decorator":{
-            "physicMode": "no",
+            "physicsMode": "no",
             "triggerLayer":16,
             "triggerMask":0,
             "collisionLayer":16,
@@ -44,7 +44,7 @@
             "__":""
         },
         "pbullet":{
-            "physicMode": "kinematic",
+            "physicsMode": "kinematic",
             "triggerLayer":32,
             "triggerMask":6,
             "collisionLayer":32,

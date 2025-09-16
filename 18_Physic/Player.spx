@@ -32,7 +32,7 @@ const (
 
 
 func DoDie() {
-	SetPhysicMode NoPhysic
+	SetPhysicsMode NoPhysics
 	isControlled = true
 	y1 :=  ypos + 25
 	y2 :=  ypos - 500

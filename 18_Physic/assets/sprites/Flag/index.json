@@ -7,7 +7,7 @@
       "y": 0
     }
   ],    
-  "physicMode": "no",
+  "physicsMode": "no",
   "triggerLayer":16,
   "triggerMask":0,
   "collisionLayer":16,

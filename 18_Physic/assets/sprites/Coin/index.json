@@ -53,7 +53,7 @@
     "defaultAnimation": "idle",
     "costumeIndex": 0,
     "heading": 90,
-    "physicMode": "no",
+    "physicsMode": "no",
     "triggerLayer":8,
     "triggerMask":1,
     "collisionLayer":8,

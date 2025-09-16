@@ -8,7 +8,7 @@
     }
   ],
   "costumeIndex": 0,    
-  "physicMode": "no",
+  "physicsMode": "no",
   "triggerLayer":8,
   "triggerMask":1,
   "collisionLayer":8,

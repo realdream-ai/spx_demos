@@ -11,7 +11,7 @@
     ],
     "costumeIndex": 0,
     "heading": 90,
-    "physicMode": "static",
+    "physicsMode": "static",
     "triggerLayer":4,
     "triggerMask":3,
     "collisionLayer":4,

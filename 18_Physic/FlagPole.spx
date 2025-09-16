@@ -10,7 +10,7 @@ onTouchStart "Player", =>{
         Flag.setYpos (Flag.ypos - 100 * deltaTime)
         waitNextFrame
     }
-    Player.SetPhysicMode(NoPhysic)
+    Player.SetPhysicsMode(NoPhysics)
     dstPos := Player.xpos + 120
     Player.animate "small_run"
     for {
