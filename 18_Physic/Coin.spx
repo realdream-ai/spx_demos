@@ -1,6 +1,6 @@
 
 func Jump() {
-	SetPhysicMode NoPhysic
+	SetPhysicsMode NoPhysics
 	animate "idle"
 	speed := 200.0
 	y1 :=  ypos + 50

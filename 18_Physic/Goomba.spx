@@ -6,7 +6,7 @@ var(
 )
 
 func doDie() {
-	SetPhysicMode NoPhysic
+	SetPhysicsMode NoPhysics
 	isControlled = true
 	die()
 }

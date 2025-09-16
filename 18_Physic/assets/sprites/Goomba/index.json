@@ -40,7 +40,7 @@
     "defaultAnimation": "walk",
     "costumeIndex": 0,
     "heading": 90,
-    "physicMode": "dynamic",
+    "physicsMode": "dynamic",
     "triggerLayer":2,
     "triggerMask":5,
     "collisionLayer":2,

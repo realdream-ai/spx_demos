@@ -13,7 +13,7 @@
   "rotationStyle": "normal",
   "size": 0.3,
   "visible": false,
-  "physicMode": "no",
+  "physicsMode": "no",
   "triggerLayer":0,
   "triggerMask":0,
   "collisionLayer":0,
