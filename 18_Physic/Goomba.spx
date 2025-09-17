@@ -28,7 +28,7 @@ func OnUpdate(delta float64) {
 	width := 15.0
 	pos := xpos + Signf(horizontalSpeed) * width
     // check return 
-    sps := CheckCollision(pos, ypos+8, width, 2)
+    sps := IntersectRect(pos, ypos+8, width, 2)
 	for _, item := range sps  {
         if(item != nil && item.name != "Goomba") {
 		    horizontalSpeed = -horizontalSpeed
