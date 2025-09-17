@@ -68,7 +68,10 @@
     "globalGravity": 1,
     "globalFriction": 1,
     "globalAirDrag": 1,
+    "audioMaxDistance": 500,
+    "audioAttenuation": 1,
     "zorder": [
+        "Calf",
         "Player",
         "Coin",
         "Brick",
