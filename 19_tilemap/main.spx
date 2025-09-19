@@ -1,0 +1,24 @@
+import (
+	"sort"
+	"fmt"
+	"math"
+)
+var (
+	Score        int
+	cooldownTime int
+)
+type Transform interface {
+	X()   float64
+	Y()   float64
+	Dir() int64
+	ToString() string
+}
+
+onStart =>{
+	cooldownTime = 60
+	for{
+		wait 1
+		cooldownTime--
+	}
+}
+
