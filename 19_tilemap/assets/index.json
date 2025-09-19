@@ -1,0 +1,96 @@
+{
+    "__commnetLayer":"player 1, enemy 2, static 4, item 8, decorator 16 , pbullet 32",
+    "__commnetMask":"player 14 (enemy+static+item), enemy 5 (player+static), static 3 (player+enemy), item 1(player), decorator 0, pbullet 6(enemy + static)",
+    "__commnetPhysic":"player dynamic, enemy dynamic, static static, item no, decorator no, pbullet kinematic",
+    "__commnetPhysicInfo": {
+        "player":{
+            "physicsMode": "dynamic",
+            "triggerLayer":1,
+            "triggerMask":14,
+            "collisionLayer":1,
+            "collisionMask":14,
+            "__":""
+        },
+        "enemy":{
+            "physicsMode": "dynamic",
+            "triggerLayer":2,
+            "triggerMask":5,
+            "collisionLayer":2,
+            "collisionMask":5,
+            "__":""
+        },
+        "static":{
+            "physicsMode": "static",
+            "triggerLayer":4,
+            "triggerMask":3,
+            "collisionLayer":4,
+            "collisionMask":3,
+            "__":""
+        },
+        "item":{
+            "physicsMode": "no",
+            "triggerLayer":8,
+            "triggerMask":1,
+            "collisionLayer":8,
+            "collisionMask":1,
+            "__":""
+        },
+        "decorator":{
+            "physicsMode": "no",
+            "triggerLayer":16,
+            "triggerMask":0,
+            "collisionLayer":16,
+            "collisionMask":0,
+            "__":""
+        },
+        "pbullet":{
+            "physicsMode": "kinematic",
+            "triggerLayer":32,
+            "triggerMask":6,
+            "collisionLayer":32,
+            "collisionMask":6,
+            "__":""
+        }
+    },
+    "map": {
+        "width": 960,
+        "height": 720,
+        "mode": "fillRatio"
+    },
+    "run": {
+        "width": 480,
+        "height": 360
+    },
+    "windowScale":2,
+    "debug":false,
+    "autoSetCollisionLayer": false,
+    "physics": true,
+    "globalGravity": 1,
+    "globalFriction": 1,
+    "globalAirDrag": 1,
+    "audioMaxDistance": 300,
+    "audioAttenuation": 1,
+    "tilemapPath": "tilemaps/scene1.json",
+    "zorder": [
+        "病床",
+        "Calf",
+        "Player",
+        "Coin"
+    ],
+    "builder_spriteOrder": [
+        "Nt_-wc1JObZhX210KoH_l",
+        "9EVrsVq66d_kW3BXxw22O",
+        "a68vXBtwlW1TFOcOdRwX-",
+        "VrFFYEXh9iyEXsCzMVXYC",
+        "UPbiMKQ3nVUTAJu0bJUtu"
+    ],
+    "builder_soundOrder": [
+        "MtTZ_IBj0Xu_XVRcq2H0A",
+        "F6oaZZYKmmXmfFlFnldlA",
+        "oPhFQoKDjy6rT0KW78RDt",
+        "1yvE2GyCmL3OS9rSMVAdC",
+        "BBPQSug6ArZyno2pfFMW3",
+        "hs0rz_JBoCJQbNbuFLBLp",
+        "CKEA_zx_CzdN-5-HBwI-t"
+    ]
+}
