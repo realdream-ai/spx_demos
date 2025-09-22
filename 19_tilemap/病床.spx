@@ -1,0 +1,13 @@
+
+onMsg (message, data) => {
+	if message == "hitBrick"  {
+		if data == this {
+			Score += 0
+			die()
+		}
+	}
+}
+
+onCloned data => {
+	show 
+}

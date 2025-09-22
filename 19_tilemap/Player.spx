@@ -1,0 +1,129 @@
+
+var (
+	PlayModeAnimName []string
+	curDir 	 int64
+	runSpeedDamping float64
+	PlayerMode      EPlayerMode
+	isControlled    bool
+	hasPressedJumpLastFrame  bool
+	fireInterval float64
+	fireTimer float64
+
+)
+
+type EPlayerMode = int64
+
+const (
+	SMALL EPlayerMode = iota
+	BIG
+	SHOOTING
+)
+
+const (
+	SPEED         = float64(150)
+	JUMP_VELOCITY = float64(500.0)
+	PLAYER_MODE   = int64(1)
+	GRAVITY       = float64(-980)
+
+	minStompDegree = float64(25)
+	maxStompDegree = float64(155)
+	ShouldSyncCamera = true
+)
+
+
+func OnUpdate(delta float64) {
+	if xpos > Camera.xpos {
+		Camera.SetXYpos(xpos, Camera.ypos)
+	}
+	if isControlled {
+		return
+	}
+
+	velX, velY := Velocity()
+	
+	dir := 0
+	isUp := keyPressed(KeyUp) || keyPressed(KeyW)
+	isDown := keyPressed(KeyDown) || keyPressed(KeyS)
+	if isDown {
+		dir = -1
+	}
+	if isUp {
+		dir = 1
+	}
+	if dir != 0 {
+		velY = (float64(dir)*SPEED)
+	} else{
+		velY = 0
+	}
+	
+	dir = 0
+	isLeft := keyPressed(KeyLeft) || keyPressed(KeyA)
+	isRight := keyPressed(KeyRight) || keyPressed(KeyD)
+	if isRight {
+		dir = 1
+		setHeading Right
+	}
+	if isLeft {
+		dir = -1
+		setHeading Left
+	}
+	if dir != 0 {
+		velX = (float64(dir)*SPEED)
+	}else{
+		velX = 0
+	}
+
+	if(dir != 0){
+		curDir = int64(dir)
+	}
+	SetVelocity(velX,velY)
+	
+}
+onStart =>{
+	setGravity 0
+	Camera.Follow this
+	wait 0.1
+	setXYpos 800, 500
+	Camera.SetZoom(Camera.Zoom() -0.5)
+}
+
+onStart => {
+	PlayModeAnimName = []string{
+		"small",
+		"big",
+		"shooting",
+	}
+	fireInterval = 1
+	curDir = 1
+	runSpeedDamping = 0.5
+	PlayerMode = SMALL
+	isControlled = false
+	for{
+		fireTimer -= deltaTime
+		OnUpdate(deltaTime)
+		waitNextFrame
+	}
+}
+
+onKey KeyH, => {
+	println "my pos",xpos,ypos
+}
+onKey KeyM, => {
+	println "m pos",mouseX,mouseY
+}
+
+onKey KeyI, => {
+	Camera.SetXYpos(Camera.xpos, Camera.ypos + 10)
+}
+
+onKey KeyK, => {
+	Camera.SetXYpos(Camera.xpos, Camera.ypos - 10)
+}
+
+onKey KeyO, => {
+	Camera.SetZoom(Camera.Zoom() +0.1)
+}
+
+onKey KeyL, => {
+	Camera.SetZoom(Camera.Zoom() -0.1)
+}
