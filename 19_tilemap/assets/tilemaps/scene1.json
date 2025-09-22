@@ -8,433 +8,8 @@
     "tileset": {
       "sources": [
         {
-          "id": 10,
-          "texture_path": "tilemaps/textures/草地/路右上.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 37,
-          "texture_path": "tilemaps/textures/墙/墙左下.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
           "id": 38,
           "texture_path": "tilemaps/textures/墙/墙右.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 40,
-          "texture_path": "tilemaps/textures/墙/墙左.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 44,
-          "texture_path": "tilemaps/textures/墙/墙end左.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 13,
-          "texture_path": "tilemaps/textures/地砖/小区地砖.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "texture_path": "tilemaps/textures/草地/路2.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 25,
-          "texture_path": "tilemaps/textures/墙/墙.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 43,
-          "texture_path": "tilemaps/textures/墙/墙end右.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 11,
-          "texture_path": "tilemaps/textures/草地/路左下.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 1,
-          "texture_path": "tilemaps/textures/草地/草地2.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "texture_path": "tilemaps/textures/草地/草地3.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "texture_path": "tilemaps/textures/草地/路1.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "texture_path": "tilemaps/textures/草地/路3.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 7,
-          "texture_path": "tilemaps/textures/草地/路5.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 8,
-          "texture_path": "tilemaps/textures/草地/路4.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 9,
-          "texture_path": "tilemaps/textures/草地/路左上.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 0,
-          "texture_path": "tilemaps/textures/草地/草地1.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 12,
-          "texture_path": "tilemaps/textures/草地/路右下.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {}
-            }
-          ]
-        },
-        {
-          "id": 34,
-          "texture_path": "tilemaps/textures/墙/墙右上.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 35,
-          "texture_path": "tilemaps/textures/墙/墙右下.png",
-          "tiles": [
-            {
-              "atlas_coords": {
-                "x": 0,
-                "y": 0
-              },
-              "physics": {
-                "collision_points": [
-                  {
-                    "x": -8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": -8
-                  },
-                  {
-                    "x": 8,
-                    "y": 8
-                  },
-                  {
-                    "x": -8,
-                    "y": 8
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": 36,
-          "texture_path": "tilemaps/textures/墙/墙左上.png",
           "tiles": [
             {
               "atlas_coords": {
@@ -529,6 +104,206 @@
           ]
         },
         {
+          "id": 13,
+          "texture_path": "tilemaps/textures/地砖/小区地砖.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 0,
+          "texture_path": "tilemaps/textures/草地/草地1.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "texture_path": "tilemaps/textures/草地/草地2.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "texture_path": "tilemaps/textures/草地/路1.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "texture_path": "tilemaps/textures/草地/路2.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "texture_path": "tilemaps/textures/草地/路3.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "texture_path": "tilemaps/textures/墙/墙右下.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "texture_path": "tilemaps/textures/墙/墙end右.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "texture_path": "tilemaps/textures/墙/墙end左.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "texture_path": "tilemaps/textures/草地/路右上.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "texture_path": "tilemaps/textures/草地/路左下.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
           "id": 16,
           "texture_path": "tilemaps/textures/地砖/诊所地砖.png",
           "tiles": [
@@ -538,6 +313,231 @@
                 "y": 0
               },
               "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "texture_path": "tilemaps/textures/草地/草地3.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "texture_path": "tilemaps/textures/草地/路4.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "texture_path": "tilemaps/textures/墙/墙.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "texture_path": "tilemaps/textures/墙/墙左上.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "texture_path": "tilemaps/textures/墙/墙左下.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "texture_path": "tilemaps/textures/墙/墙左.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "texture_path": "tilemaps/textures/草地/路5.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "texture_path": "tilemaps/textures/草地/路左上.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "texture_path": "tilemaps/textures/草地/路右下.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {}
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "texture_path": "tilemaps/textures/墙/墙右上.png",
+          "tiles": [
+            {
+              "atlas_coords": {
+                "x": 0,
+                "y": 0
+              },
+              "physics": {
+                "collision_points": [
+                  {
+                    "x": -8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": -8
+                  },
+                  {
+                    "x": 8,
+                    "y": 8
+                  },
+                  {
+                    "x": -8,
+                    "y": 8
+                  }
+                ]
+              }
             }
           ]
         }
@@ -70938,7 +70938,7 @@
       }
     ]
   },
-  "sprite2ds": [],
+  "decorators": [],
   "prefabs": [
     {
       "name": "盆栽",
