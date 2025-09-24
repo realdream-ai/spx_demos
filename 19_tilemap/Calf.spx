@@ -1,3 +1,0 @@
-onStart => {
-    play "乌拉", true
-}

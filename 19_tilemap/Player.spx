@@ -12,7 +12,7 @@ var (
 )
 
 type EPlayerMode = int64
-
+const STEP_DIST = 20
 const (
 	SMALL EPlayerMode = iota
 	BIG
@@ -77,14 +77,16 @@ func OnUpdate(delta float64) {
 		curDir = int64(dir)
 	}
 	SetVelocity(velX,velY)
-	
 }
 onStart =>{
+	
+	isControlled = true
 	setGravity 0
 	Camera.Follow this
 	wait 0.1
-	setXYpos 800, 500
-	Camera.SetZoom(Camera.Zoom() -0.5)
+	isControlled = false
+	setXYpos 0, 0
+	Camera.SetZoom(1)
 }
 
 onStart => {

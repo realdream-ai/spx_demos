@@ -1,0 +1,34 @@
+{
+    "heading": 90,
+    "x": -287,
+    "y": 295,
+    "size": 1,
+    "rotationStyle": "normal",
+    "physicsMode": "static",
+    "costumeIndex": 0,
+    "visible": false,
+    "isDraggable": false,
+    "collisionPivot": {
+        "x": 0.07653061224491964,
+        "y": 5.317593505803799
+    },
+    "collisionShapeType": "rect",
+    "collisionShapeParams": [
+        8.46530359355631,
+        10.497772045621181
+    ],
+    "costumes": [
+        {
+            "x": 7.346938775510205,
+            "y": 13.268027210884355,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "板凳",
+            "path": "板凳.png",
+            "builder_id": "O4d4DlznUsGpKoq6LOtKc"
+        }
+    ],
+    "fAnimations": {},
+    "animBindings": {},
+    "builder_id": "AdlARN1TIKJEASmqvxxwY"
+}
