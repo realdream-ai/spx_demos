@@ -12,10 +12,7 @@
         "y": -16
     },
     "physicsMode": "dynamic",
-    "triggerLayer":1,
-    "triggerMask":14,
-    "collisionLayer":1,
-    "collisionMask":14,
+    "triggerLayer":1,"triggerMask":1,"collisionLayer":1,"collisionMask":1,
 
     "animBindings": {
         "die": "dying",

@@ -565,7 +565,7 @@ onStart => {
 onStart => {
 	forever => {
 		if(curMovePath != nil){
-			debugDrawLines(curMovePath, HSB(0,100,100), curPathIdx)
+			debugDrawLines(curMovePath[curPathIdx:], HSB(0,100,100))
 		}
 		
 	}

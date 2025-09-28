@@ -8,6 +8,7 @@
     "costumeIndex": 0,
     "visible": false,
     "isDraggable": false,
+    "triggerLayer":1,"triggerMask":1,"collisionLayer":1,"collisionMask":1,
     "collisionPivot": {
         "x": -0.25,
         "y": 9.731412639405203
