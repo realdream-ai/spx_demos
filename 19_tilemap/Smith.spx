@@ -28,7 +28,8 @@ var (
 
 	// 个性特征
 	personality map[string]int // 个性
-
+	curMovePath []float64
+	curPathIdx int
 )
 
 // 个性属性
@@ -310,19 +311,22 @@ func moveToLocation(location string) {
 	moveAlongPath(path)
 }
 
+
 // 依照寻路路径移动
 func moveAlongPath(movePath []float64) {
 	// 路径数组格式：[x1,y1,x2,y2,x3,y3,...]
 	// 每次循环处理一对坐标 (x,y)
+	curMovePath = movePath
+	curPathIdx = 0
 	for pathIndex := 0; pathIndex < len(movePath)-1; pathIndex += 2 {
 		nextX := movePath[pathIndex]
 		nextY := movePath[pathIndex+1]
-
 		// 移动到下一个点
 		move(nextX, nextY)
-		// wait 1
+		waitNextFrame
+		curPathIdx = pathIndex
 	}
-
+	curMovePath = nil
 	// 到达目标
 	log "到达："+targetLocation
 	currentLocation = targetLocation
@@ -338,19 +342,37 @@ func moveAlongPath(movePath []float64) {
 
 // 移动到这个点
 func move(x, y float64) {
-	// 计算移动方向
-	direction, stepN := getDirection(xpos, ypos, x, y)
-
-	// 只在方向改变时播放新动画
-	if direction != currentDirection {
-		currentDirection = direction
-		setHeading direction
+	sx,sy := xpos, ypos
+	dx,dy := x,y
+	diffX := dx - sx
+	diffY := dy - sy
+	moveX := abs(diffX) > 0.1
+	moveSpeed := 100.0
+	totalTime := (abs(diffX) + abs(diffY)) / moveSpeed
+	for {
+		totalTime -= deltaTime
+		if(totalTime <= 0){
+			break
+		}
+		val := moveSpeed * deltaTime
+		if(moveX ){
+			if diffX > 0 {
+				sx += val
+			} else {
+				sx -= val
+			}
+		}else{
+			if(diffY >0){
+				sy += val
+			} else {
+				sy -= val
+			}
+		}
+		setXYpos sx,sy
+		waitNextFrame
 	}
-
-	if timeSpeed > 0 {
-		moveSpeed = timeSpeed
-	}
-	step stepN, moveSpeed, getCurrentAnimation()
+	setXYpos dx,dy
+	 
 }
 
 func updateStatusDisplay() {
@@ -392,7 +414,7 @@ func onCmdGoTo(cmd CmdGoTo)  error {
 	if isMoving {
 		return errorf("我正在移动中，请稍后")
 	}
-	message cmd.Reason
+	message cmd.Reason + " " + cmd.Location
 	moveToLocation(cmd.Location)
 	return nil
 }
@@ -437,8 +459,80 @@ func onCmdSpeakWith(cmd CmdSpeakWith)  error {
 	speakWithResident(cmd.TargetName, cmd.Message)
 	return nil
 }
-func onThink(msg string, data any){
-	say msg
+func doRand(min, max int) int {
+	return int(rand(min, max))
+}
+
+func runAI(msg string, data any){
+	println "think start ",msg
+	say msg , 2
+	// 随机选择执行一个命令（1-3）
+	cmdChoice := doRand(1, 1) // TODO force set 1
+	println "cmdChoice" ,cmdChoice
+	
+	if cmdChoice == 1 {
+		// 随机执行 onCmdGoTo
+		locations := []string{"farm", "clinic", "park", "shop", "restaurant", "house1", "house2", "house3"}
+		reasons := []string{"去看看有什么有趣的", "想去这里走走", "需要去办点事", "想去放松一下", "去看看朋友"}
+		
+		location := locations[doRand(0, len(locations)-1)]
+		reason := reasons[doRand(0, len(reasons)-1)]
+		
+		cmd := CmdGoTo{
+			Location: location,
+			Reason:   reason,
+		}
+		onCmdGoTo(cmd)
+		
+	} else if cmdChoice == 2 {
+		// 随机执行 onCmdActivity
+		activities := []string{"sleep", "eat", "work", "shop", "socialize", "exercise", "rest"}
+		activity := activities[doRand(0, len(activities)-1)]
+		duration := float64(doRand(2, 6)) // 10-60分钟
+		
+		cmd := CmdActivity{
+			Activity: activity,
+			Duration: duration,
+		}
+		onCmdActivity(cmd)
+		
+	} else {
+		// 随机执行 onCmdSpeakWith
+		nearbyResidents := getNearbyResidents()
+		if nearbyResidents.len() > 0 {
+			// 从附近的居民中随机选一个
+			idx := doRand(0, nearbyResidents.Len()-1)
+			targetName := nearbyResidents.At(idx).String()
+			
+			messages := []string{
+				"你好！天气真不错呢！",
+				"最近怎么样？",
+				"今天过得如何？",
+				"很高兴在这里遇到你！",
+				"有什么新鲜事吗？",
+				"这里真是个好地方呢！",
+			}
+			message := messages[doRand(0, len(messages)-1)]
+			
+			cmd := CmdSpeakWith{
+				TargetName: targetName,
+				Message:    message,
+			}
+			onCmdSpeakWith(cmd)
+		} else {
+			// 如果附近没有人，就执行其他活动
+			activities := []string{"rest", "exercise", "work"}
+			activity := activities[doRand(0, len(activities)-1)]
+			duration := float64(doRand(10, 30))
+			
+			cmd := CmdActivity{
+				Activity: activity,
+				Duration: duration,
+			}
+			onCmdActivity(cmd)
+		}
+	}
+	println "think done"
 }
 onStart => {
 	initPersonality()
@@ -451,9 +545,9 @@ onStart => {
 
 	// 开始 AI 生活循环
 	forever => {
-		wait 5+rand(1, 5)
+		wait 2+rand(1, 2)
 		if !isMoving && currentAction == Idle {
-			onThink("我现在应该做什么？可以去一个地方，可以做一件事，如果附近有朋友的话，跟附近朋友打招呼～", getCurrentStatus())
+			runAI("我现在应该做什么？可以去一个地方，可以做一件事，如果附近有朋友的话，跟附近朋友打招呼～", getCurrentStatus())
 		}
 	}
 }
@@ -466,6 +560,14 @@ onStart => {
 		if followSprite == name {
 			updateStatusDisplay()
 		}
+	}
+}
+onStart => {
+	forever => {
+		if(curMovePath != nil){
+			debugDrawLines(curMovePath, HSB(0,100,100), curPathIdx)
+		}
+		
 	}
 }
 
@@ -481,11 +583,11 @@ onMsg (msg, data) => {
 	case "hour_changed":
 		hour := data.(int)
 		if hour == 22 && currentLocation != home && !isMoving {
-			onThink "现在很晚了，我应该回家睡觉", getCurrentStatus()
+			runAI "现在很晚了，我应该回家睡觉", getCurrentStatus()
 		} else if hour == 8 && currentLocation == home && currentAction == "rest" {
-			onThink "新的一天开始了，我应该起床了", getCurrentStatus()
+			runAI "新的一天开始了，我应该起床了", getCurrentStatus()
 		} else if hour == 12 && currentLocation != "restaurant" && !isMoving {
-			onThink "午餐时间到了，我有点饿了", getCurrentStatus()
+			runAI "午餐时间到了，我有点饿了", getCurrentStatus()
 		}
 	case "time_update":
 		updateStats()
@@ -494,7 +596,7 @@ onMsg (msg, data) => {
 		if req["to"] == name {
 			fromName := req["from"].(string)
 			message := req["message"].(string)
-			onThink sprintf("%s 跟你说了句话：%s, 回应一下他(她)吧", fromName, message), getCurrentStatus()
+			runAI sprintf("%s 跟你说了句话：%s, 回应一下他(她)吧", fromName, message), getCurrentStatus()
 		}
 	}
 }

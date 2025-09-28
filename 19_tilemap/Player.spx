@@ -33,7 +33,7 @@ const (
 
 func OnUpdate(delta float64) {
 	if xpos > Camera.xpos {
-		Camera.SetXYpos(xpos, Camera.ypos)
+		//Camera.SetXYpos(xpos, Camera.ypos)
 	}
 	if isControlled {
 		return
@@ -79,10 +79,9 @@ func OnUpdate(delta float64) {
 	SetVelocity(velX,velY)
 }
 onStart =>{
-	
 	isControlled = true
 	setGravity 0
-	Camera.Follow this
+	//Camera.Follow this
 	wait 0.1
 	isControlled = false
 	setXYpos 0, 0
