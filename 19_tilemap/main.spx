@@ -357,4 +357,5 @@ onKey Key2, => {
 
 onStart => {
 	cloneSprites()
+	//SetupPathFinder(120,60,16,16,true,true)
 }
