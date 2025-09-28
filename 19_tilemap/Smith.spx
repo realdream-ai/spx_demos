@@ -1,0 +1,500 @@
+var (
+	// 个人信息
+	home string // 家
+	work string // 工作地
+	role string // 角色
+
+	// 角色信息
+	roleInfo map[string]any // 角色设定
+
+	// 基本属性
+	energy    int // 精力 0-100
+	hunger    int // 饥饿 0-100
+	health    int // 健康 0-100
+	happiness int // 快乐 0-100
+	money     int // 金钱
+
+	// 状态
+	currentLocation  string    // 当前位置
+	currentDirection Direction // 当前方向
+	currentAction    Activity  // 当前动作
+	targetLocation   string    // 目标位置
+	isMoving         bool      // 是否在移动
+	moveSpeed        float64   // 移动速度
+
+	// 社交系统
+	friendships   map[string]float64 // 朋友圈：名字 -> 友好度 (0-100)
+	lastSpeakTime map[string]int     // 上次打招呼时间，避免频繁打招呼
+
+	// 个性特征
+	personality map[string]int // 个性
+
+)
+
+// 个性属性
+func initPersonality() {
+	personality = {
+		"workLove":   80, // 工作热爱度
+		"socialNeed": 70, // 社交需求
+		"healthCare": 60, // 健康关注度
+		"sleepNeed":  50, // 睡眠需求
+		"foodLove":   60, // 美食喜爱度
+	}
+
+	home = "house1"
+	work = "farm"
+	role = "Town Resident"
+
+	roleInfo = {
+		"name":        name,
+		"personality": personality,
+		"language":    "中文",
+		"traits":      "hardworking and social",
+		"occupation":  "farmer",
+		"home":        home,
+		"socialRules": "can greet nearby residents, values friendships",
+	}
+}
+
+// 社交相关函数
+func initFriendships() {
+	friendships = {
+		"Diana的小孩": 95,
+		"Diana":    50,
+		// "Smith":      85,
+		"Alice":      85,
+		"Charile":    90,
+		"Charile的小孩": 95,
+	}
+	lastSpeakTime = {}
+}
+
+// 任务状态
+func initStats() {
+	energy = 80
+	hunger = 30
+	health = 90
+	happiness = 70
+	money = 100
+	currentLocation = home
+	currentAction = Idle
+	currentDirection = Down
+	isMoving = false
+	moveSpeed = 1
+}
+
+// 状态：随时间自然变化
+func updateStats() {
+	if !isNightTime() {
+		energy -= 2
+		hunger += 3
+	}
+
+	if currentAction == Work {
+		energy -= 5
+		happiness -= 2
+		hunger += 2
+		money += 10
+	} else if currentAction == Eat {
+		hunger -= 30
+		happiness += 10
+	} else if currentAction == Sleep {
+		energy += 20
+		hunger += 1
+	} else if currentAction == Socialize {
+		happiness += 15
+		energy -= 3
+	} else if currentAction == Rest {
+		energy += 10
+		hunger += 1
+	}
+
+	// 确保数值在合理范围内
+	if energy < 0 {
+		energy = 0
+	}
+	if energy > 100 {
+		energy = 100
+	}
+	if hunger < 0 {
+		hunger = 0
+	}
+	if hunger > 100 {
+		hunger = 100
+	}
+	if health < 0 {
+		health = 0
+	}
+	if health > 100 {
+		health = 100
+	}
+	if happiness < 0 {
+		happiness = 0
+	}
+	if happiness > 100 {
+		happiness = 100
+	}
+}
+
+// 获取当前状态
+func getCurrentStatus() map[string]any {
+	return {
+		"energy":          energy,
+		"hunger":          hunger,
+		"health":          health,
+		"happiness":       happiness,
+		"money":           money,
+		"location":        currentLocation,
+		"action":          currentAction,
+		"time":            stringTime(),
+		"isNight":         isNightTime(),
+		"isMealTime":      isMealTime(),
+		"isWorkTime":      isWorkTime(),
+		"farmWorkNeeded":  farmWorkNeeded,
+		"clinicBusy":      clinicBusy,
+		"socialInfo":      getFriendshipStatus(),
+		"nearbyResidents": getNearbyResidents(),
+	}
+}
+
+func getCostume() string {
+	if isMoving {
+		return ""
+	}
+
+	if currentDirection == Up {
+		return "up"
+	}
+	if currentDirection == Down {
+		return "down"
+	}
+	if currentDirection == Left {
+		return "left"
+	}
+	if currentDirection == Right {
+		return "right"
+	}
+	return ""
+}
+
+// 获取当前动画
+func getCurrentAnimation() string {
+	if !isMoving {
+		return ""
+	}
+
+	if currentDirection == Up {
+		return "up"
+	}
+	if currentDirection == Down {
+		return "down"
+	}
+	if currentDirection == Left {
+		return "left"
+	}
+	if currentDirection == Right {
+		return "right"
+	}
+	return ""
+}
+
+func canSpeakWith(targetName string) bool {
+	// 检查是否刚刚交谈过（避免频繁交谈）
+	currentTime := currentTime()
+	if lastTime, ok := lastSpeakTime[targetName]; ok {
+		if currentTime-lastTime < 15 { // 15分钟内不重复主动交谈
+			return false
+		}
+	}
+	return true
+}
+
+// 获取附近的人
+func getNearbyResidents() *List {
+	if isMoving || isOutdoorLocation(currentLocation) {
+		// 户外 或正在移动 需要在一定范围内
+		return getResidentsInRange(xpos, ypos, 200.0) // 200像素范围内
+	} else {
+		// 室内只要在同一场所
+		residents := getResidentsInLocation(currentLocation)
+		var result = &List{}
+		for _, residentName := range residents {
+			if residentName != name { // 排除自己
+				result.append(name)
+			}
+		}
+		return result
+	}
+}
+
+// 与 $targetName 说话
+func speakWithResident(targetName, msg string) {
+	// 发送交谈请求
+	broadcast "conversation_request", {
+		"from":     name,
+		"to":       targetName,
+		"message":  msg,
+		"location": currentLocation,
+	}
+
+	// 记录交谈时间
+	lastSpeakTime[targetName] = currentTime()
+
+	// 增加友好度和快乐度
+	if friendship, ok := friendships[targetName]; ok {
+		friendships[targetName] = min(friendship+3, 100)
+	}
+	happiness += 5
+
+	message msg
+}
+
+// 获取朋友圈信息
+func getFriendshipStatus() map[string]any {
+	nearbyResidents := getNearbyResidents()
+	friendList := []map[string]any{}
+
+	for name, friendship := range friendships {
+		friendList = append(friendList, {
+			"name":       name,
+			"friendship": friendship,
+			"isNearby":   nearbyResidents.contains(name),
+		})
+	}
+
+	return {
+		"friends":         friendList,
+		"nearbyResidents": nearbyResidents,
+	}
+}
+
+// 方向获取函数
+func getDirection(fromX, fromY, toX, toY float64) (Direction, float64) {
+	deltaX := toX - fromX
+	deltaY := toY - fromY
+
+	if deltaX > 0 {
+		return Right, deltaX
+	} else if deltaX < 0 {
+		return Left, abs(deltaX)
+	} else if deltaY > 0 {
+		return Up, deltaY
+	} else if deltaY < 0 {
+		return Down, abs(deltaY)
+	}
+
+	// 没动即为当前方向
+	return currentDirection, 0.0
+}
+
+// 移动到目的地
+func moveToLocation(location string) {
+	if isMoving || currentLocation == location {
+		return
+	}
+
+	targetLocation = location
+	isMoving = true
+
+	// 获取目标位置
+	toX, toY := getLocation(location)
+	if toX == 0 && toY == 0 {
+		isMoving = false
+		return
+	}
+
+	// 使用寻路算法 TODO
+	path := findPath(xpos, ypos, toX, toY)
+
+	// 开始移动
+	moveAlongPath(path)
+}
+
+// 依照寻路路径移动
+func moveAlongPath(movePath []float64) {
+	// 路径数组格式：[x1,y1,x2,y2,x3,y3,...]
+	// 每次循环处理一对坐标 (x,y)
+	for pathIndex := 0; pathIndex < len(movePath)-1; pathIndex += 2 {
+		nextX := movePath[pathIndex]
+		nextY := movePath[pathIndex+1]
+
+		// 移动到下一个点
+		move(nextX, nextY)
+		// wait 1
+	}
+
+	// 到达目标
+	log "到达："+targetLocation
+	currentLocation = targetLocation
+	isMoving = false
+	stopAnimation getCurrentAnimation()
+
+	broadcast "resident_status", {
+		"name":     name,
+		"action":   "arrived at " + currentLocation,
+		"location": currentLocation,
+	}
+}
+
+// 移动到这个点
+func move(x, y float64) {
+	// 计算移动方向
+	direction, stepN := getDirection(xpos, ypos, x, y)
+
+	// 只在方向改变时播放新动画
+	if direction != currentDirection {
+		currentDirection = direction
+		setHeading direction
+	}
+
+	if timeSpeed > 0 {
+		moveSpeed = timeSpeed
+	}
+	step stepN, moveSpeed, getCurrentAnimation()
+}
+
+func updateStatusDisplay() {
+	status := getCurrentStatus()
+
+	// 格式化显示文本
+	text := sprintf(`%s状态:
+时间: %s
+位置: %s
+行动: %s
+金钱：%d
+精力: %d
+饥饿: %d
+健康: %d
+快乐: %d
+附近的朋友：%d`, name, status["time"].(string), status["location"].(string), status["action"].(Activity), status["money"].(int),
+		status["energy"].(int), status["hunger"].(int), status["health"].(int), status["happiness"].(int), status["nearbyResidents"].(*List).len())
+
+	// 更新监视器显示
+	setStatusText text
+}
+
+func message(a any) {
+	if followSprite == name {
+		println name+":", a
+	}
+	say a
+}
+
+func log(a ...any) {
+	if followSprite == name {
+		a = append([]any{name + ":"}, a...)
+		println a...
+	}
+}
+
+// 注册 AI 命令
+func onCmdGoTo(cmd CmdGoTo)  error {
+	if isMoving {
+		return errorf("我正在移动中，请稍后")
+	}
+	message cmd.Reason
+	moveToLocation(cmd.Location)
+	return nil
+}
+
+func onCmdActivity(cmd CmdActivity)  error {
+	if isMoving {
+		return errorf("我正在移动中，请稍后")
+	}
+	currentAction = getActivity(cmd.Activity)
+	message currentAction+"..."
+
+	// 根据活动类型执行相应逻辑
+	if cmd.Activity == "work" && currentLocation == "farm" {
+		broadcast "farm_work_done"
+	} else if cmd.Activity == "eat" && currentLocation == "restaurant" {
+		money -= 20
+	} else if cmd.Activity == "shop" && currentLocation == "shop" {
+		money -= 30
+		happiness += 5
+	}
+
+	wait cmd.Duration/timeSpeed
+	currentAction = Idle
+	return nil
+}
+
+func onCmdSpeakWith(cmd CmdSpeakWith)  error {
+	println "CmdSpeakWith:", cmd.TargetName, ":", cmd.Message
+	if isMoving {
+		return errorf("我正在移动中，无法交谈")
+	}
+
+	nearbyResidents := getNearbyResidents()
+	if !nearbyResidents.contains(cmd.TargetName) {
+		return errorf(cmd.TargetName + "不在附近，无法交谈")
+	}
+
+	if !canSpeakWith(cmd.TargetName) {
+		return errorf("我刚刚已经和" + cmd.TargetName + "交谈过了")
+	}
+
+	speakWithResident(cmd.TargetName, cmd.Message)
+	return nil
+}
+func onThink(msg string, data any){
+	say msg
+}
+onStart => {
+	initPersonality()
+	initStats()
+	initFriendships()
+
+	// 设置初始位置
+	setCostume getCostume()
+
+
+	// 开始 AI 生活循环
+	forever => {
+		wait 5+rand(1, 5)
+		if !isMoving && currentAction == Idle {
+			onThink("我现在应该做什么？可以去一个地方，可以做一件事，如果附近有朋友的话，跟附近朋友打招呼～", getCurrentStatus())
+		}
+	}
+}
+
+onStart => {
+	forever => {
+		wait 2
+		updateStats()
+		// 如果视口是自己就更新状态信息到 monitor
+		if followSprite == name {
+			updateStatusDisplay()
+		}
+	}
+}
+
+onClick => {
+	if followSprite == name {
+		updateStatusDisplay()
+	}
+	toggleStatus()
+}
+
+onMsg (msg, data) => {
+	switch msg {
+	case "hour_changed":
+		hour := data.(int)
+		if hour == 22 && currentLocation != home && !isMoving {
+			onThink "现在很晚了，我应该回家睡觉", getCurrentStatus()
+		} else if hour == 8 && currentLocation == home && currentAction == "rest" {
+			onThink "新的一天开始了，我应该起床了", getCurrentStatus()
+		} else if hour == 12 && currentLocation != "restaurant" && !isMoving {
+			onThink "午餐时间到了，我有点饿了", getCurrentStatus()
+		}
+	case "time_update":
+		updateStats()
+	case "conversation_request":
+		req := data.(map[string]any)
+		if req["to"] == name {
+			fromName := req["from"].(string)
+			message := req["message"].(string)
+			onThink sprintf("%s 跟你说了句话：%s, 回应一下他(她)吧", fromName, message), getCurrentStatus()
+		}
+	}
+}

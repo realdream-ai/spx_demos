@@ -2,7 +2,7 @@
     "heading": 90,
     "x": -150,
     "y": 50,
-    "size": 1.4,
+    "size": 1,
     "rotationStyle": "left-right",
     "costumeIndex": 0,
     "visible": true,
@@ -16,7 +16,21 @@
     "triggerMask":14,
     "collisionLayer":1,
     "collisionMask":14,
+
+    "animBindings": {
+        "die": "dying",
+        "step": "small_run"
+    },
+    
     "costumes": [
+        {
+            "x": 0,
+            "y": 0,
+            "faceRight": 0,
+            "bitmapResolution": 1,
+            "name": "Mario_default",
+            "path": "Mario_default.png"
+        },
         {
             "x": 0,
             "y": 0,

@@ -1,25 +1,34 @@
 {
+    "heading": 90,
+    "x": 707,
+    "y": 369,
+    "size": 2,
+    "rotationStyle": "normal",
+    "physicsMode": "static",
+    "costumeIndex": 0,
+    "visible": false,
+    "isDraggable": false,
+    "collisionPivot": {
+        "x": -0.25,
+        "y": 9.731412639405203
+    },
+    "collisionShapeType": "rect",
+    "collisionShapeParams": [
+        9.5,
+        19.5
+    ],
     "costumes": [
         {
-            "x": 8,
-            "y": 8,
+            "x": 16,
+            "y": 41.962825278810406,
             "faceRight": 0,
-            "bitmapResolution": 1,
-            "name": "床头柜",
-            "path": "床头柜.png"
+            "bitmapResolution": 2,
+            "name": "病床",
+            "path": "病床.png",
+            "builder_id": "x8IbHTu1EwmzuqRQCWpsE"
         }
     ],
-    "costumeIndex": 0,
-    "heading": 90,
-    "physicsMode": "static",
-    "triggerLayer":4,
-    "triggerMask":3,
-    "collisionLayer":4,
-    "collisionMask":3,
-    "isDraggable": false,
-    "rotationStyle": "normal",
-    "size": 1,
-    "visible": false,
-    "x": -10000,
-    "y": -10000
+    "fAnimations": {},
+    "animBindings": {},
+    "builder_id": "IysTb9XamXcN3VZkfJh6U"
 }

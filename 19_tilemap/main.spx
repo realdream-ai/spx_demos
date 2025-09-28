@@ -1,24 +1,355 @@
 import (
-	"sort"
 	"fmt"
 	"math"
+	"sort"
 )
+
 var (
-	Score        int
-	cooldownTime int
+	// 游戏时间系统
+	gameHour   int
+	gameMinute int
+	timeSpeed  float64
+
+	// 地图位置定义
+	locations        map[string][]float64
+	outdoorLocations []string
+
+	// 活动定义
+	activitys map[string]Activity
+
+	// 全局状态
+	farmWorkNeeded int
+	clinicBusy     bool
+
+	// AI 居民列表
+	residents []Sprite
+
+	// 视口精灵
+	followSprite string
+
+	// 创建监视器显示人物状态
+	statusMonitor string
 )
-type Transform interface {
-	X()   float64
-	Y()   float64
-	Dir() int64
-	ToString() string
+
+type Transform struct {
+	X   float64
+	Y   float64
+	Dir int64
 }
 
-onStart =>{
-	cooldownTime = 60
-	for{
-		wait 1
-		cooldownTime--
+func (p *Transform) ToString() string {
+	return fmt.Sprintf("TransformData %.1f %.1f %d", p.X, p.Y, p.Dir)
+}
+
+func OnCloneSprite(sp Sprite, data any) {
+	if data == nil {
+		return
+	}
+	trans := data.(Transform)
+	sp.setXYpos trans.X, trans.Y
+	sp.show
+}
+
+func cloneSprites() {
+	书凳.clone Transform{X:815.0,Y:-296.0}
+	书凳.clone Transform{X:63.0,Y:298.0}
+	书凳.clone Transform{X:818.0,Y:-345.0}
+	书架.clone Transform{X:667.0,Y:-154.0}
+	书架.clone Transform{X:667.0,Y:-223.0}
+	书架.clone Transform{X:817.0,Y:-153.0}
+	书桌.clone Transform{X:81.0,Y:295.0}
+	书桌.clone Transform{X:838.0,Y:-298.0}
+	书桌.clone Transform{X:841.0,Y:-347.0}
+	地毯.clone Transform{X:298.0,Y:189.0}
+	地毯.clone Transform{X:-286.0,Y:189.0}
+	床.clone Transform{X:67.0,Y:342.0}
+	床.clone Transform{X:-336.0,Y:338.0}
+	床.clone Transform{X:340.0,Y:341.0}
+	床.clone Transform{X:270.0,Y:341.0}
+	床.clone Transform{X:-34.0,Y:340.0}
+	床头.clone Transform{X:316.0,Y:355.0}
+	床头.clone Transform{X:-308.0,Y:353.0}
+	床头.clone Transform{X:42.0,Y:355.0}
+	收银台.clone Transform{X:-334.0,Y:-286.0}
+	收银台.clone Transform{X:32.0,Y:-199.0}
+	板凳.clone Transform{X:440.0,Y:190.0}
+	板凳.clone Transform{X:-289.0,Y:298.0}
+	板凳.clone Transform{X:386.0,Y:190.0}
+	板凳.clone Transform{X:-91.0,Y:195.0}
+	桌.clone Transform{X:-261.0,Y:293.0}
+	桌.clone Transform{X:-64.0,Y:189.0}
+	桌.clone Transform{X:414.0,Y:184.0}
+	水桶.clone Transform{X:-640.0,Y:264.0}
+	沙发.clone Transform{X:243.0,Y:189.0}
+	沙发.clone Transform{X:-339.0,Y:192.0}
+	洗手台.clone Transform{X:434.0,Y:345.0}
+	洗衣机.clone Transform{X:387.0,Y:343.0}
+	电脑.clone Transform{X:817.0,Y:-216.0}
+	电视.clone Transform{X:64.0,Y:232.0}
+	番茄.clone Transform{X:-837.0,Y:270.0}
+	番茄.clone Transform{X:-794.0,Y:270.0}
+	盆栽.clone Transform{X:232.0,Y:288.0}
+	盆栽.clone Transform{X:-32.0,Y:288.0}
+	盆栽.clone Transform{X:-346.0,Y:285.0}
+	盆栽.clone Transform{X:696.0,Y:185.0}
+	秋千.clone Transform{X:-598.0,Y:-288.0}
+	秋千.clone Transform{X:-638.0,Y:-288.0}
+	稻草人.clone Transform{X:-578.0,Y:386.0}
+	脏衣服.clone Transform{X:434.0,Y:293.0}
+	药柜.clone Transform{X:770.0,Y:298.0}
+	药柜.clone Transform{X:770.0,Y:250.0}
+	药柜.clone Transform{X:840.0,Y:299.0}
+	衣柜.clone Transform{X:-82.0,Y:343.0}
+	衣柜.clone Transform{X:-256.0,Y:345.0}
+	衣柜.clone Transform{X:233.0,Y:346.0}
+	诊所导诊台.clone Transform{X:824.0,Y:174.0}
+	超市冰冻柜.clone Transform{X:302.0,Y:-140.0}
+	超市冰冻柜.clone Transform{X:341.0,Y:-140.0}
+	超市冰激凌柜.clone Transform{X:54.0,Y:-242.0}
+	超市水果柜.clone Transform{X:285.0,Y:-322.0}
+	超市肉柜.clone Transform{X:98.0,Y:-354.0}
+	超市货架.clone Transform{X:285.0,Y:-238.0}
+	超市面包柜.clone Transform{X:54.0,Y:-292.0}
+	超市鱼柜.clone Transform{X:55.0,Y:-355.0}
+	超市鱼柜.clone Transform{X:20.0,Y:-355.0}
+	长桌.clone Transform{X:666.0,Y:-298.0}
+	餐厅厨房.clone Transform{X:-232.0,Y:-181.0}
+	餐桌.clone Transform{X:-128.0,Y:-338.0}
+	餐桌.clone Transform{X:-239.0,Y:-247.0}
+	餐桌.clone Transform{X:-239.0,Y:-338.0}
+	餐桌.clone Transform{X:-129.0,Y:-246.0}
+	餐椅.clone Transform{X:-164.0,Y:-236.0}
+	餐椅.clone Transform{X:-274.0,Y:-327.0}
+	餐椅.clone Transform{X:-272.0,Y:-236.0}
+	餐椅.clone Transform{X:-163.0,Y:-325.0}
+	餐椅.clone Transform{X:-207.0,Y:-236.0}
+}
+// AI 命令定义
+
+// 走路
+// 目标地
+type CmdGoTo struct {
+	Location string `desc:"目标位置: farm, clinic, park, shop, restaurant, house1-house3"`
+	Reason   string `desc:"前往的原因"`
+}
+
+// 到目的地后，干什么事
+type CmdActivity struct {
+	Activity string  `desc:"活动类型: sleep, eat, work, shop, socialize, exercise, rest"`
+	Duration float64 `desc:"活动持续时间（游戏分钟）"`
+}
+
+// 和人交流
+type CmdSpeakWith struct {
+	TargetName string `desc:"要交谈/打招呼的人名，必须在附近或者在一间屋子里"`
+	Message    string `desc:"要说的话或交谈内容"`
+}
+
+type Activity string
+
+const (
+	Idle      Activity = "空闲"
+	Work      Activity = "工作"
+	Sleep     Activity = "睡觉"
+	Eat       Activity = "吃饭"
+	Shop      Activity = "购物"
+	Socialize Activity = "社交"
+	Exercise  Activity = "锻炼"
+	Rest      Activity = "休息"
+)
+
+
+func initActivitys() {
+	// sleep, eat, work, shop, socialize, exercise, rest
+	activitys = {
+		"sleep":     Sleep,
+		"eat":       Eat,
+		"work":      Work,
+		"shop":      Shop,
+		"socialize": Socialize,
+		"exercise":  Exercise,
+		"rest":      Rest,
 	}
 }
 
+func initLocations() {
+	locations = {
+		"farm":       [-666, 337],
+		"clinic":     [824, 167],
+		"park":       [-657, -202],
+		"shop":       [64, 177],
+		"restaurant": [-221, -197],
+		"house1":     [-308, 254],
+		"house2":     [51, 218],
+		"house3":     [315, 222],
+	}
+
+	outdoorLocations = ["farm", "park"]
+}
+
+func setStatusText(text string) {
+	statusMonitor = text
+}
+
+func toggleStatus() {
+	status := getWidget(Monitor, "statusMonitor")
+	if status.visible {
+		status.hide
+	} else {
+		status.show
+	}
+}
+
+func hideStatus() {
+	status := getWidget(Monitor, "statusMonitor")
+	status.hide
+}
+
+func showStatus() {
+	status := getWidget(Monitor, "statusMonitor")
+	status.show
+}
+
+func getLocation(name string) (float64, float64) {
+	if loc, ok := locations[name]; ok {
+		return loc[0], loc[1]
+	}
+	return 0, 0
+}
+
+func getActivity(activity string) Activity {
+	if ac, ok := activitys[activity]; ok {
+		return ac
+	}
+	return Idle
+}
+
+func currentTime() int {
+	return gameHour*100 + gameMinute
+}
+
+func stringTime() string {
+	return sprintf("%d:%d", gameHour, gameMinute)
+}
+
+func isOutdoorLocation(location string) bool {
+	for _, outdoor := range outdoorLocations {
+		if outdoor == location {
+			return true
+		}
+	}
+	return false
+}
+
+// [小孩B16, Diana, Farmer, Alice, Charile, 小孩A]
+func getResidentsInLocation(location string) []string {
+	var result []string
+
+	return result
+}
+
+func getResidentsInRange(x, y float64, maxDistance float64) *List {
+	var result = &List{}
+	for _, resident := range residents {
+		dx := resident.xpos - x
+		dy := resident.ypos - y
+		distance := sqrt(dx*dx + dy*dy)
+
+		if distance <= maxDistance && distance > 0 {
+			result.append(resident.name)
+		}
+	}
+	return result
+}
+
+// 世界时间
+func updateTime() {
+	gameMinute += int(timeSpeed)
+	if gameMinute >= 60 {
+		gameMinute = 0
+		gameHour++
+		if gameHour >= 24 {
+			gameHour = 0
+		}
+		broadcast "hour_changed", gameHour
+	}
+	broadcast "time_update", gameHour*100+gameMinute
+}
+
+// 休息时间
+func isNightTime() bool {
+	return gameHour >= 22 || gameHour <= 6
+}
+
+// 用餐时间
+func isMealTime() bool {
+	return gameHour == 8 || gameHour == 12 || gameHour == 18
+}
+
+// 工作时间
+func isWorkTime() bool {
+	return gameHour >= 9 && gameHour <= 17
+}
+
+// 视口跟随某个精灵
+func follow(spr Sprite) {
+	hideStatus
+	followSprite = spr.name
+	Camera.follow spr
+}
+
+onStart => {
+	initLocations()
+	initActivitys()
+	gameHour = 8
+	gameMinute = 0
+	timeSpeed = 2
+	farmWorkNeeded = 5
+	clinicBusy = false
+
+	// setupPathFinder(50, 50, 70, 50, true, false)
+
+	residents = [Smith]
+
+	// 镜头设置
+	Camera.setZoom 1
+	follow Smith
+
+	// 启动时间系统
+	forever => {
+		wait 1
+		updateTime()
+	}
+}
+
+onMsg (msg, data) => {
+	if msg == "farm_work_done" {
+		farmWorkNeeded--
+		if farmWorkNeeded < 0 {
+			farmWorkNeeded = 0
+		}
+	} else if msg == "clinic_visit" {
+		clinicBusy = true
+		wait 3 // 看病需要3秒
+		clinicBusy = false
+	} else if msg == "resident_status" {
+		// meta := data.(map[string]string)
+		// println meta["name"], ":", meta["action"], "at", meta["location"]
+	}
+}
+
+onKey KeyLeft, => {
+	timeSpeed = timeSpeed / 2
+}
+
+onKey KeyRight, => {
+	timeSpeed = timeSpeed * 2
+}
+
+onKey Key1, => {
+	follow Smith
+}
+
+onStart => {
+	cloneSprites()
+}
