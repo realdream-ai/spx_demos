@@ -305,7 +305,7 @@ func moveToLocation(location string) {
 	}
 
 	// 使用寻路算法 TODO
-	path := findPath(xpos, ypos, toX, toY)
+	path := findPath(xpos, ypos, toX, toY,true)
 
 	// 开始移动
 	moveAlongPath(path)
