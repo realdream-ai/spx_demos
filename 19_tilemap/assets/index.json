@@ -17,7 +17,6 @@
     "globalGravity": 1,
     "globalFriction": 1,
     "globalAirDrag": 1,
-    "layerSortMode": "",
     "autoSetCollisionLayer": false,
     "__commnetLayer": "player 1, enemy 2, static 4, item 8, decorator 16 , pbullet 32",
     "__commnetMask": "player 14 (enemy+static+item), enemy 5 (player+static), static 3 (player+enemy), item 1(player), decorator 0, pbullet 6(enemy + static)",
@@ -80,9 +79,7 @@
         "width": 480,
         "height": 360
     },
-    "camera": {
-        "on": "书凳"
-    },
+    "layerSortMode":"vertical",
     "tilemapPath": "tilemaps/scene1.json",
     "zorder": [
         "Player",
